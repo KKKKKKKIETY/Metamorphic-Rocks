@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metamorphic Petrology · Study Outline</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e0dbd0;
+      --accent1: #2c5f8a;   /* Blue — Title */
+      --accent2: #5a8a4a;   /* Green — Regional Metamorphism */
+      --accent3: #8a5a2c;   /* Brown — Contact Metamorphism */
+      --accent4: #6a4a8a;   /* Purple — Dynamic Metamorphism */
+      --accent5: #8a2c4a;   /* Maroon — Metasomatic */
+      --accent6: #2c7a7a;   /* Teal — Migmatite */
+      --text: #1e1e1e;
+      --muted: #666;
+      --tag-bg: #eef3f9;
+      --highlight: #fff9e0;
+      --compare-bg: #f0f4ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Serif SC', 'Source Han Serif CN', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2c5f8a 60%, #3a7aaa 100%);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.2);
+      transition: padding .3s;
+    }
+    header.expanded { padding: 40px 5vw 32px; }
+    header.collapsed-hdr { padding: 0; }
+    .header-toggle-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 5vw;
+      cursor: pointer;
+      user-select: none;
+    }
+    .header-toggle-bar:hover { background: rgba(255,255,255,.08); }
+    .header-content { overflow: hidden; transition: max-height .35s ease, opacity .3s; }
+    header.expanded .header-content { max-height: 200px; opacity: 1; padding: 0 5vw 28px; }
+    header.collapsed-hdr .header-content { max-height: 0; opacity: 0; padding: 0 5vw; }
+    .hdr-arrow { font-size: .9rem; transition: transform .3s; }
+    header.collapsed-hdr .hdr-arrow { transform: rotate(-90deg); }
+    .hdr-mini-title { font-size: .88rem; font-weight: 700; letter-spacing: .04em; opacity: .9; }
+    header h1 { font-size: 1.9rem; letter-spacing: .06em; font-weight: 700; }
+    header p  { font-size: .9rem; opacity: .8; margin-top: 4px; }
+    .source-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: .78rem;
+    }
+
+    /* ── NAV ── */
+    nav.toc {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 5vw;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--accent1);
+      font-size: .82rem;
+      padding: 4px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--accent1);
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    nav.toc a:hover { background: var(--accent1); color: #fff; }
+
+    /* ── LAYOUT ── */
+    .main-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 5vw 64px; }
+
+    /* ── CHAPTER SECTION ── */
+    .chapter {
+      background: var(--surface);
+      border-radius: 10px;
+      border-left: 6px solid var(--accent1);
+      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .chapter-header {
+      padding: 18px 24px 14px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .chapter-header:hover { background: #fafafa; }
+    .chapter-num {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .6;
+      margin-bottom: 2px;
+    }
+    .chapter-title { font-size: 1.25rem; font-weight: 700; }
+    .chapter-subtitle { font-size: .85rem; color: var(--muted); margin-top: 3px; }
+    .toggle-icon { font-size: 1.1rem; color: var(--muted); transition: transform .3s; }
+    .chapter.collapsed .toggle-icon { transform: rotate(-90deg); }
+    .chapter-body { padding: 0 24px 24px; }
+    .chapter.collapsed .chapter-body { display: none; }
+
+    /* ── CARD COLORS per chapter ── */
+    .ch1 { border-left-color: #2c5f8a; }
+    .ch2 { border-left-color: #3a7a5a; }
+    .ch3 { border-left-color: #7a5a3a; }
+    .ch4 { border-left-color: #8a4a2a; }
+    .ch5 { border-left-color: #5a2a8a; }
+    .ch6 { border-left-color: #2a7a7a; }
+    .ch7 { border-left-color: #7a2a5a; }
+    .ch8 { border-left-color: #2a5a8a; }
+    .ch9 { border-left-color: #5a7a2a; }
+
+    .ch1 .chapter-title { color: #2c5f8a; }
+    .ch2 .chapter-title { color: #3a7a5a; }
+    .ch3 .chapter-title { color: #7a5a3a; }
+    .ch4 .chapter-title { color: #8a4a2a; }
+    .ch5 .chapter-title { color: #5a2a8a; }
+    .ch6 .chapter-title { color: #2a7a7a; }
+    .ch7 .chapter-title { color: #7a2a5a; }
+    .ch8 .chapter-title { color: #2a5a8a; }
+    .ch9 .chapter-title { color: #5a7a2a; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 20px; }
+    .section-title {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* ── DEFINITION BOX ── */
+    .def-box {
+      background: var(--highlight);
+      border-left: 4px solid #e6b800;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 10px 0;
+    }
+    .def-box strong { color: #7a5a00; }
+
+    /* ── KEY POINT ── */
+    .key-point {
+      background: var(--tag-bg);
+      border-radius: 6px;
+      padding: 10px 16px;
+      margin: 8px 0;
+      border-left: 3px solid var(--accent1);
+    }
+
+    /* ── COMPARE TABLE ── */
+    .compare-wrap { overflow-x: auto; margin: 14px 0; }
+    table.compare {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      min-width: 560px;
+    }
+    table.compare th {
+      background: var(--compare-bg);
+      color: var(--accent1);
+      font-weight: 700;
+      padding: 9px 12px;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    table.compare td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    table.compare tr:nth-child(even) td { background: #fafaf8; }
+    table.compare tr:hover td { background: #f0f4f8; }
+
+    /* ── TAG LIST ── */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin: 8px 0; }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid #c0d0e0;
+      border-radius: 14px;
+      padding: 3px 12px;
+      font-size: .8rem;
+      color: var(--accent1);
+    }
+
+    /* ── BULLET LIST ── */
+    ul.content-list { padding-left: 1.4em; }
+    ul.content-list li { margin: 5px 0; }
+    ul.content-list li::marker { color: var(--accent1); }
+    ol.content-list { padding-left: 1.6em; }
+    ol.content-list li { margin: 5px 0; }
+
+    /* ── FLOW / LINK SECTION ── */
+    .flow-box {
+      background: #f0f7f0;
+      border: 1px solid #b0d0b0;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 12px 0;
+    }
+    .flow-box .flow-title { font-weight: 700; color: #3a6a3a; margin-bottom: 8px; }
+
+    /* ── SUMMARY SECTION ── */
+    .summary-section {
+      background: linear-gradient(135deg, #1a3a5c, #2c5f8a);
+      color: #fff;
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 36px;
+    }
+    .summary-section h2 { font-size: 1.2rem; margin-bottom: 14px; }
+    .summary-section table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .summary-section th { padding: 8px 12px; background: rgba(255,255,255,.15); text-align: left; border: 1px solid rgba(255,255,255,.2); }
+    .summary-section td { padding: 7px 12px; border: 1px solid rgba(255,255,255,.15); vertical-align: top; }
+    .summary-section tr:hover td { background: rgba(255,255,255,.08); }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-size: .75rem;
+      font-weight: 700;
+      margin-right: 5px;
+    }
+    .badge-T { background: #ffeaea; color: #c00; }
+    .badge-P { background: #eafff0; color: #060; }
+    .badge-F { background: #e8f0ff; color: #03c; }
+    .badge-X { background: #fff0e8; color: #c63; }
+
+    /* scroll-margin for anchor */
+    .chapter { scroll-margin-top: 130px; }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.4rem; }
+      .chapter-title { font-size: 1.05rem; }
+      .main-wrap { padding: 18px 4vw 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header id="mainHeader" class="expanded">
+  <div class="header-toggle-bar" onclick="toggleHeader()">
+    <span class="hdr-arrow">▾</span>
+    <span class="hdr-mini-title">Metamorphic Petrology · Systematic Outline</span>
+  </div>
+  <div class="header-content">
+    <h1>Metamorphic Petrology · Systematic Outline</h1>
+    <p>9 Chapters · Covering metamorphic types, rock characteristics, genetic mechanisms & tectonic settings</p>
+    <span class="source-badge">📖 Reference: Petrology (3rd ed.) edited by Ma Changqian · Lecture PPTs (Chapters 1–9)</span>
+  </div>
+</header>
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav class="toc">
+  <a href="#ch1">Ch.1 Introduction</a>
+  <a href="#ch2">Ch.2 Characteristics & Classification</a>
+  <a href="#ch3">Ch.3 Metamorphic Reactions</a>
+  <a href="#ch4">Ch.4 Contact Metamorphic Rocks</a>
+  <a href="#ch5">Ch.5 Metasomatic Rocks</a>
+  <a href="#ch6">Ch.6 Migmatites</a>
+  <a href="#ch7">Ch.7 Dynamic Metamorphic Rocks</a>
+  <a href="#ch8">Ch.8 Regional Metamorphic Rocks</a>
+  <a href="#ch9">Ch.9 Tectonic Settings</a>
+</nav>
+
+<div class="main-wrap">
+
+<!-- ════════════════ OVERVIEW TABLE ════════════════ -->
+<div class="summary-section">
+  <h2>📊 Chapter Overview & Cross-Links</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <tr>
+      <th>Chapter</th>
+      <th>Core Topic</th>
+      <th>Dominant Factor</th>
+      <th>Typical Rock</th>
+      <th>Tectonic Setting</th>
+    </tr>
+    <tr>
+      <td>Ch.1</td>
+      <td>Basic concepts & classification of metamorphism</td>
+      <td>Temperature · Pressure · Fluids (overview)</td>
+      <td>——</td>
+      <td>All Types</td>
+    </tr>
+    <tr>
+      <td>Ch.2</td>
+      <td>Textures · Fabrics · Minerals · Classification</td>
+      <td>Metamorphic grade</td>
+      <td>Slate·Phyllite·Schist·Gneiss·Marble·Quartzite</td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Ch.3</td>
+      <td>Thermodynamics & phase equilibrium</td>
+      <td>T · P · Fluid activity</td>
+      <td>Various mineral assemblages</td>
+      <td>All</td>
+    </tr>
+    <tr>
+      <td>Ch.4</td>
+      <td>Contact Metamorphic</td>
+      <td>T-dominant (heat source), low P</td>
+      <td>Hornfels · Skarn · Marble</td>
+      <td>Intrusive contact zone</td>
+    </tr>
+    <tr>
+      <td>Ch.5</td>
+      <td>Metasomatic Rocks</td>
+      <td>Fluid-dominant (chemical potential)</td>
+      <td>Skarn · Greisen · Propylite · Chloritized rock</td>
+      <td>Hydrothermal system</td>
+    </tr>
+    <tr>
+      <td>Ch.6</td>
+      <td>Migmatite</td>
+      <td>Ultra-high T + fluid melting</td>
+      <td>Augen · Stromatic · Ptygmatic · Migmatitic granite</td>
+      <td>Deep metamorphic core complex</td>
+    </tr>
+    <tr>
+      <td>Ch.7</td>
+      <td>Dynamic Metamorphic Rocks</td>
+      <td>Stress-strain dominant, low T</td>
+      <td>Tectonic breccia · Cataclasite · Mylonite · Pseudotachylyte</td>
+      <td>Fault zone · Ductile shear zone</td>
+    </tr>
+    <tr>
+      <td>Ch.8</td>
+      <td>Regional Metamorphic Rocks</td>
+      <td>T + P rising together</td>
+      <td>Low Greenschist → Blueschist → Eclogite → Amphibolite → Granulite</td>
+      <td>Orogenic belt · Collision zone</td>
+    </tr>
+    <tr>
+      <td>Ch.9</td>
+      <td>Metamorphic Rocks & Plate Tectonics</td>
+      <td>Tectonic Settingcontrols T/Ppaths</td>
+      <td>Facies belt assemblages</td>
+      <td>All plate boundary types</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<!-- ════════════════ CHAPTER 1 ════════════════ -->
+<div class="chapter ch1" id="ch1">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 01</div>
+      <div class="chapter-title">Introduction</div>
+      <div class="chapter-subtitle">Definition · Types · Controls · Significance</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Core Definitions</div>
+      <div class="def-box">
+        <strong>Metamorphism:</strong>
+        Under subsurface conditions (temperature, pressure, chemically active fluids), pre-existing rocks (protoliths) undergo changes in mineral composition, chemical composition, texture and structure while remaining solid. Excludes weathering and diagenesis; melting marks the end of metamorphism.
+      </div>
+      <div class="def-box">
+        <strong>Metamorphic Rock:</strong>
+        Rock transformed by metamorphism; one of the three major rock types, constituting ~27.4% (by volume) of continental crust.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Controls on Metamorphism (Five Major Factors)</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Factor</th>
+            <th>Type / Range</th>
+            <th>Primary Effect</th>
+            <th>Associated Metamorphic Type</th>
+          </tr>
+          <tr>
+            <td><strong>Temperature T</strong></td>
+            <td>150–900°C (up to 1000+°C in UHP)</td>
+            <td>Promotes recrystallization, polymorphic transitions, dehydration & decarbonation</td>
+            <td>Contact, Regional</td>
+          </tr>
+          <tr>
+            <td><strong>Pressure P</strong></td>
+            <td>Lithostatic: 0.1–3.5 GPa<br>Fluid pressure<br>Directed stress</td>
+            <td>Lithostatic P controls mineral density phases; stress produces foliation & crystalloblastic textures</td>
+            <td>High-P/UHP; Dynamic</td>
+          </tr>
+          <tr>
+            <td><strong>Chemically Active Fluids</strong></td>
+            <td>Mainly H₂O, CO₂; Cl, F, B subordinate</td>
+            <td>Catalyze reactions, add/remove components (metasomatism), lower solidus</td>
+            <td>Metasomatic, Migmatization</td>
+          </tr>
+          <tr>
+            <td><strong>Time</strong></td>
+            <td>10⁶–10⁸ yr</td>
+            <td>Allows sufficient time for equilibrium crystallization</td>
+            <td>All types</td>
+          </tr>
+          <tr>
+            <td><strong>Protolith Composition</strong></td>
+            <td>Bulk chemistry, mineral assemblage, texture</td>
+            <td>Determines final mineral assemblage (same T-P, different protolith → different rock)</td>
+            <td>All types</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Classification of Metamorphism (by Dominant Factor)</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Type</th>
+            <th>Dominant Factor</th>
+            <th>Scale</th>
+            <th>Typical Rock</th>
+          </tr>
+          <tr>
+            <td><strong>Contact Thermal Metamorphism</strong></td>
+            <td>T↑ (magmatic heat)</td>
+            <td>Local (near intrusions)</td>
+            <td>Hornfels, Marble</td>
+          </tr>
+          <tr>
+            <td><strong>Metasomatism</strong></td>
+            <td>Fluid chemistry</td>
+            <td>Local to moderate</td>
+            <td>Skarn, Greisen</td>
+          </tr>
+          <tr>
+            <td><strong>Regional Metamorphism</strong></td>
+            <td>T+P (rising together)</td>
+            <td>Regional (orogenic belts)</td>
+            <td>Schist, Gneiss, Eclogite</td>
+          </tr>
+          <tr>
+            <td><strong>Dynamic Metamorphism</strong></td>
+            <td>Directed stress</td>
+            <td>Linear (fault zones)</td>
+            <td>Cataclasite, Mylonite</td>
+          </tr>
+          <tr>
+            <td><strong>Migmatization</strong></td>
+            <td>Ultra-high T + fluid → partial melting</td>
+            <td>Deep metamorphic core</td>
+            <td>Migmatite, Migmatitic granite</td>
+          </tr>
+          <tr>
+            <td><strong>Shock Metamorphism</strong></td>
+            <td>Instantaneous ultra-high P</td>
+            <td>Impact craters</td>
+            <td>Coesite, Stishovite, Tektite</td>
+          </tr>
+          <tr>
+            <td><strong>Burial Metamorphism</strong></td>
+            <td>T+P (low grade)</td>
+            <td>Deep sedimentary basins</td>
+            <td>Zeolite-facies rocks</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">The P-T-t Path Concept</div>
+      <div class="key-point">
+        Metamorphic rocks record the T-P-time history (P-T-t path) of rocks within the crust. Clockwise paths indicate continental collision orogenesis; counterclockwise paths indicate extension or mantle upwelling. This is the key "thermobarometer".
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter1 -->
+
+<!-- ════════════════ CHAPTER 2 ════════════════ -->
+<div class="chapter ch2" id="ch2">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 02</div>
+      <div class="chapter-title">Characteristics & Classification of Metamorphic Rocks</div>
+      <div class="chapter-subtitle">Minerals · Textures · Structures · Classification Schemes</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Minerals of Metamorphic Rocks</div>
+      <div class="key-point">
+        <strong>Metamorphic Minerals (Characteristic Minerals)</strong>are the hallmarks of metamorphic rocks, stable only under metamorphic conditions, e.g.: kyanite, andalusite, sillimanite (Al₂SiO₅ polymorphs), garnet, glaucophane, omphacite, coesite, etc.
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Mineral Group</th>
+            <th>Representative Minerals</th>
+            <th>Indicator Significance</th>
+          </tr>
+          <tr>
+            <td>Al₂SiO₅ Polymorphs</td>
+            <td>Andalusite (low-P), Kyanite (high-P), Sillimanite (high-T)</td>
+            <td>P-T indicators</td>
+          </tr>
+          <tr>
+            <td>Garnet Group</td>
+            <td>Almandine, Pyrope, Grossular, Uvarovite</td>
+            <td>Thermobarometer; RI varies with composition</td>
+          </tr>
+          <tr>
+            <td>Amphibole Group</td>
+            <td>Glaucophane (high-P, low-T), Hornblende (medium), Tremolite (low)</td>
+            <td>Facies indicator</td>
+          </tr>
+          <tr>
+            <td>Pyroxene Group</td>
+            <td>Omphacite, Jadeite (high-P), Enstatite (high-T granulite)</td>
+            <td>High-P/UHP indicator</td>
+          </tr>
+          <tr>
+            <td>UHP Indicator Minerals</td>
+            <td>Coesite (SiO₂ high-P phase), Microdiamond</td>
+            <td>>2.5 GPa, deep continental subduction</td>
+          </tr>
+          <tr>
+            <td>Low-grade Minerals</td>
+            <td>Zeolite, Smectite → Illite → Chlorite, Sericite</td>
+            <td>Burial Metamorphism, low Greenschist facies</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Textures of Metamorphic Rocks</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Texture Name</th>
+            <th>Characteristics</th>
+            <th>Origin</th>
+          </tr>
+          <tr>
+            <td><strong>Crystalloblastic Texture</strong></td>
+            <td>Recrystallized mineral grains; crystal form may surpass igneous rocks</td>
+            <td>Solid-state recrystallization</td>
+          </tr>
+          <tr>
+            <td>Granoblastic Texture</td>
+            <td>Equigranular minerals, random orientation</td>
+            <td>Isostatic uniform heating</td>
+          </tr>
+          <tr>
+            <td>Lepidoblastic Texture</td>
+            <td>Platy minerals (micas) aligned parallel</td>
+            <td>Recrystallization under directed stress</td>
+          </tr>
+          <tr>
+            <td>Nematoblastic Texture</td>
+            <td>Minerals appear fibrous</td>
+            <td>Pressure solution or infilling</td>
+          </tr>
+          <tr>
+            <td>Porphyroblastic Texture</td>
+            <td>Large crystals (porphyroblasts) in fine-grained matrix</td>
+            <td>Uneven growth; garnet is typical</td>
+          </tr>
+          <tr>
+            <td><strong>Palimpsest (Relict) Texture</strong>(Relict Texture)</td>
+            <td>Relict protolith textures: blastopsammitic, blastoporphyritic</td>
+            <td>Low metamorphic grade</td>
+          </tr>
+          <tr>
+            <td><strong>Cataclastic Texture</strong></td>
+            <td>Shattered minerals, brecciated</td>
+            <td>Brittle dynamic metamorphism</td>
+          </tr>
+          <tr>
+            <td><strong>Mylonitic Texture</strong></td>
+            <td>Very fine-grained matrix + rotated porphyroclasts</td>
+            <td>Ductile shear</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Fabrics of Metamorphic Rocks</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>FabricType</th>
+            <th>Characteristics</th>
+            <th>Typical Rock</th>
+          </tr>
+          <tr>
+            <td><strong>Slaty Cleavage</strong></td>
+            <td>Very fine cleavage; minerals invisible to naked eye</td>
+            <td>Slate</td>
+          </tr>
+          <tr>
+            <td><strong>Phyllitic Structure</strong></td>
+            <td>Silky sheen; sericite/chlorite microcrystals</td>
+            <td>Phyllite</td>
+          </tr>
+          <tr>
+            <td><strong>Schistosity</strong></td>
+            <td>Coarse platy minerals (mica, chlorite) visible & oriented</td>
+            <td>Schist</td>
+          </tr>
+          <tr>
+            <td><strong>Gneissosity</strong></td>
+            <td>Light (feldspar, quartz) & dark (amphibole, pyroxene) bands alternating</td>
+            <td>Gneiss</td>
+          </tr>
+          <tr>
+            <td><strong>Massive Structure</strong></td>
+            <td>Random orientation, even mineral distribution</td>
+            <td>Marble, Quartzite, Hornfels</td>
+          </tr>
+          <tr>
+            <td><strong>Banded Structure</strong></td>
+            <td>Alternating compositional or grain-size bands</td>
+            <td>Migmatite</td>
+          </tr>
+          <tr>
+            <td><strong>Augen Structure</strong></td>
+            <td>Elliptical porphyroblasts (e.g. feldspar) in foliated matrix</td>
+            <td>Augen migmatite / mylonite</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Classification Scheme of Metamorphic Rocks</div>
+      <div class="key-point">
+        The Ma Changqian edition adopts a<strong>dual genetic-petrologic classification</strong>:first byOrigindivided intoContact Metamorphic, Regional Metamorphic Rocks, Dynamic Metamorphic Rocksetc.;then byRocklogicCharacteristics(textural, Fabric, Mineral)naming.
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Rock</th>
+            <th>Metamorphic Grade</th>
+            <th>Fabric</th>
+            <th>Index Minerals</th>
+            <th>Protolith</th>
+          </tr>
+          <tr>
+            <td><strong>Slate</strong></td>
+            <td>Very low</td>
+            <td>Slaty</td>
+            <td>Sericite · Chlorite · Clay minerals (fine)</td>
+            <td>Pelite, Siltstone</td>
+          </tr>
+          <tr>
+            <td><strong>Phyllite</strong></td>
+            <td>Low</td>
+            <td>Phyllitic</td>
+            <td>Sericite · Chlorite · minor Quartz</td>
+            <td>Pelite</td>
+          </tr>
+          <tr>
+            <td><strong>Schist</strong></td>
+            <td>Low–Medium</td>
+            <td>Schistose</td>
+            <td>Mica, Amphibole, Chlorite (platy minerals)</td>
+            <td>Pelite, Basic volcanic rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Gneiss</strong></td>
+            <td>Medium–High</td>
+            <td>Gneissose</td>
+            <td>Feldspar + Quartz (>50%) + mafic minerals</td>
+            <td>Pelite, Felsic igneous rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Granulite</strong></td>
+            <td>High (Granulite facies)</td>
+            <td>Massive–Gneissose</td>
+            <td>Enstatite · Hypersthene · Garnet (NO amphibole)</td>
+            <td>Basic/Felsic</td>
+          </tr>
+          <tr>
+            <td><strong>Eclogite</strong></td>
+            <td>High-P to UHP</td>
+            <td>Massive</td>
+            <td>Pyrope + Omphacite (only 2 major minerals!)</td>
+            <td>Basic igneous (Basalt/Gabbro)</td>
+          </tr>
+          <tr>
+            <td><strong>Blueschist</strong></td>
+            <td>High-P, Low-T</td>
+            <td>Schistose</td>
+            <td>Glaucophane + Lawsonite ± Albite</td>
+            <td>Basic igneous rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Marble</strong></td>
+            <td>Low–High</td>
+            <td>Massive</td>
+            <td>Calcite/Dolomite (recrystallized)</td>
+            <td>Limestone/Dolostone</td>
+          </tr>
+          <tr>
+            <td><strong>Quartzite</strong></td>
+            <td>Low–High</td>
+            <td>Massive</td>
+            <td>Quartz (>75%, recrystallized)</td>
+            <td>Pure sandstone/Chert</td>
+          </tr>
+          <tr>
+            <td><strong>Hornfels</strong></td>
+            <td>Contact thermal</td>
+            <td>Massive, dense, hard</td>
+            <td>Varies with protolith (commonly cordierite, andalusite)</td>
+            <td>Pelite (contact zone)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter2 -->
+
+<!-- ════════════════ CHAPTER 3 ════════════════ -->
+<div class="chapter ch3" id="ch3">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 03</div>
+      <div class="chapter-title">Metamorphic Reactions & Processes</div>
+      <div class="chapter-subtitle">Reaction Types · Thermodynamics · Facies · P-T-t Paths</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Major Metamorphic Reaction Types</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Reaction Type</th>
+            <th>Definition</th>
+            <th>Typical Example</th>
+          </tr>
+          <tr>
+            <td><strong>Dehydration Reaction</strong></td>
+            <td>Hydrous minerals break down, releasing H₂O</td>
+            <td>Muscovite → K-feldspar + Sillimanite + H₂O</td>
+          </tr>
+          <tr>
+            <td><strong>Decarbonation Reaction</strong></td>
+            <td>Carbonate minerals break down, releasing CO₂</td>
+            <td>Calcite + Quartz → Wollastonite + CO₂</td>
+          </tr>
+          <tr>
+            <td><strong>Solid-Solid Reaction</strong></td>
+            <td>Direct reaction between minerals without fluid</td>
+            <td>Albite → Jadeite + Quartz</td>
+          </tr>
+          <tr>
+            <td><strong>Polymorphic Transition</strong></td>
+            <td>Same composition, different crystal structure</td>
+            <td>And⇌Ky⇌Sil; α-Quartz→Coesite→Stishovite</td>
+          </tr>
+          <tr>
+            <td><strong>Metasomatic Reaction</strong></td>
+            <td>External components introduced by fluids replace original minerals</td>
+            <td>Ca²⁺ metasomatism → calc-silicate skarn</td>
+          </tr>
+          <tr>
+            <td><strong>Melting Reaction</strong></td>
+            <td>Exceeding solidus, producing melt</td>
+            <td>Muscovite breakdown → incipient melting; muscovite granite</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Metamorphic Facies</div>
+      <div class="def-box">
+        <strong>Metamorphic Facies (Eskola, 1915):</strong> A set of metamorphic rocks formed under specific T-P conditions, characterized by consistent mineral paragenesis. Different protoliths in the same facies have distinct mineral assemblages, yet share the same P-T conditions.
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Metamorphic Facies</th>
+            <th>Temp. (°C)</th>
+            <th>Press. (GPa)</th>
+            <th>Index Mineral Assemblage (pelitic protolith)</th>
+            <th>Typical Rock</th>
+          </tr>
+          <tr>
+            <td><strong>Zeolite Facies</strong></td>
+            <td>&lt;250</td>
+            <td>&lt;0.3</td>
+            <td>Laumontite · Analcime</td>
+            <td>Burial metamorphic rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Prehnite-Pumpellyite Facies</strong></td>
+            <td>200–350</td>
+            <td>0.2–0.5</td>
+            <td>Prehnite · Pumpellyite</td>
+            <td>Low-grade basic rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Blueschist facies</strong>(glaucophane facies)</td>
+            <td>200–500</td>
+            <td>0.5–1.5</td>
+            <td>Glaucophane · Lawsonite · Phengite</td>
+            <td>Blueschist</td>
+          </tr>
+          <tr>
+            <td><strong>Greenschist Facies</strong></td>
+            <td>300–500</td>
+            <td>0.2–0.8</td>
+            <td>Chlorite · Sericite · Albite · Epidote</td>
+            <td>Greenschist</td>
+          </tr>
+          <tr>
+            <td><strong>Amphibolite Facies</strong></td>
+            <td>450–700</td>
+            <td>0.3–1.2</td>
+            <td>Almandine · Biotite · Hornblende · Plagioclase</td>
+            <td>Amphibolite, Gneiss</td>
+          </tr>
+          <tr>
+            <td><strong>Granulite Facies</strong></td>
+            <td>700–1000</td>
+            <td>0.5–2.0</td>
+            <td>Hypersthene · Almandine · Plagioclase (NO amphibole)</td>
+            <td>Granulite</td>
+          </tr>
+          <tr>
+            <td><strong>Eclogite Facies</strong></td>
+            <td>500–1000</td>
+            <td>&gt;1.5</td>
+            <td>Pyrope + Omphacite</td>
+            <td>Eclogite</td>
+          </tr>
+          <tr>
+            <td><strong>Hornfels Facies</strong></td>
+            <td>400–800</td>
+            <td>&lt;0.4(LowP)</td>
+            <td>Cordierite · Andalusite (low-P, high-T)</td>
+            <td>Hornfels</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">The Al₂SiO₅ Triple Point — Key to P-T Calibration</div>
+      <div class="key-point">
+        The triple point of Al₂SiO₅ polymorphs (andalusite · kyanite · sillimanite) is at ~500°C and ~0.38 GPa.
+        <ul class="content-list" style="margin-top:8px">
+          <li><strong>Andalusite</strong>: low-P, low-T (shallow intrusion contact zones)</li>
+          <li><strong>Kyanite</strong>:High P, Medium T (prograde regional metamorphism)</li>
+          <li><strong>Sillimanite</strong>: high-T (medium to high P; represents retrograde elevated temperatures)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Barrovian vs. Buchan Zones — Two Classic Metamorphic Zonal Sequences</div>
+
+      <!-- Overall Comparison -->
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Feature</th>
+            <th>🏔 Barrovian Zones</th>
+            <th>🌋 Buchan Zones</th>
+          </tr>
+          <tr>
+            <td><strong>Author / Year</strong></td>
+            <td>George Barrow, 1893, Scottish Highlands</td>
+            <td>W. Q. Kennedy, 1948, NE Scotland (Buchan)</td>
+          </tr>
+          <tr>
+            <td><strong>P-TType</strong></td>
+            <td>Moderate P/T (Barrovian)<br>Geothermal gradient 15–25°C/km</td>
+            <td>Low P/T (high-T, low-P type)<br>High dT/dP &gt;30°C/km</td>
+          </tr>
+          <tr>
+            <td><strong>Tectonic Setting</strong></td>
+            <td>Interior of continental collision orogens (moderate depth)</td>
+            <td>Back-arc rifts, near magmatic arcs, around shallow intrusions</td>
+          </tr>
+          <tr>
+            <td><strong>Index Mineral Sequence</strong><br>(pelitic protolith, low→high grade)</td>
+            <td>
+              ① Chlorite zone<br>
+              ② Biotite zone<br>
+              ③ Garnet zone<br>
+              ④ Staurolite zone<br>
+              ⑤ Kyanite zone<br>
+              ⑥ Sillimanite zone
+            </td>
+            <td>
+              ① Chlorite zone<br>
+              ② Biotite zone<br>
+              ③ Garnet zone<br>
+              ④ <strong>Cordierite zone</strong> ↔ low-P indicator<br>
+              ⑤ <strong>Andalusite zone</strong> ↔ low-P hallmark<br>
+              ⑥ <strong>Sillimanite zone</strong>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Key Distinguishing Minerals</strong></td>
+            <td>Kyanite (high-P), Staurolite (medium-P)</td>
+            <td>Andalusite (low-P), Cordierite (low-P)<br><strong>NO kyanite, NO staurolite</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Al₂SiO₅ Phase</strong></td>
+            <td>Kyanite → Sillimanite (high-P path)</td>
+            <td>Andalusite → Sillimanite (low-P path)</td>
+          </tr>
+          <tr>
+            <td><strong>Representative Facies Series</strong></td>
+            <td>MediumIntermediate facies Series(Greenschist→Amphibolite→Granulite)</td>
+            <td>Low P/T series (Hornfels→Amphibolite→Granulite)</td>
+          </tr>
+          <tr>
+            <td><strong>Type Locality</strong></td>
+            <td>Central Scottish Highlands, Alps, Dabie Mountains</td>
+            <td>NE Scotland (Buchan), Ryoke Belt (Japan), Cooma (Australia)</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- P-TDiagramSVG -->
+      <div style="margin: 18px 0 10px; font-weight:700; color:#555; font-size:.9rem;">📐 P-T Path Diagram: Barrovian vs. Buchan Zones</div>
+      <div style="overflow-x:auto; background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px;">
+        <svg viewBox="0 0 620 400" width="100%" style="max-width:620px; font-family:sans-serif;">
+          <!-- background -->
+          <rect width="620" height="400" fill="#fafaf8"/>
+
+          <!-- Axes -->
+          <!-- Yaxis Pressure -->
+          <line x1="70" y1="20" x2="70" y2="350" stroke="#444" stroke-width="2"/>
+          <line x1="70" y1="350" x2="590" y2="350" stroke="#444" stroke-width="2"/>
+          <!-- Arrow -->
+          <polygon points="70,15 65,28 75,28" fill="#444"/>
+          <polygon points="595,350 582,344 582,356" fill="#444"/>
+
+          <!-- axislabel -->
+          <text x="20" y="195" font-size="13" fill="#333" transform="rotate(-90,20,195)">Pressure P (GPa)</text>
+          <text x="320" y="385" font-size="13" fill="#333" text-anchor="middle">Temperature T (°C)</text>
+
+          <!-- Yaxistick -->
+          <text x="55" y="340" font-size="10" fill="#666" text-anchor="end">0</text>
+          <text x="55" y="270" font-size="10" fill="#666" text-anchor="end">0.3</text>
+          <text x="55" y="200" font-size="10" fill="#666" text-anchor="end">0.6</text>
+          <text x="55" y="130" font-size="10" fill="#666" text-anchor="end">1.0</text>
+          <text x="55" y="60" font-size="10" fill="#666" text-anchor="end">1.5</text>
+          <line x1="67" y1="270" x2="73" y2="270" stroke="#888"/>
+          <line x1="67" y1="200" x2="73" y2="200" stroke="#888"/>
+          <line x1="67" y1="130" x2="73" y2="130" stroke="#888"/>
+          <line x1="67" y1="60" x2="73" y2="60" stroke="#888"/>
+
+          <!-- Xaxistick -->
+          <text x="120" y="365" font-size="10" fill="#666" text-anchor="middle">200</text>
+          <text x="200" y="365" font-size="10" fill="#666" text-anchor="middle">400</text>
+          <text x="300" y="365" font-size="10" fill="#666" text-anchor="middle">600</text>
+          <text x="400" y="365" font-size="10" fill="#666" text-anchor="middle">700</text>
+          <text x="500" y="365" font-size="10" fill="#666" text-anchor="middle">900</text>
+          <line x1="120" y1="347" x2="120" y2="353" stroke="#888"/>
+          <line x1="200" y1="347" x2="200" y2="353" stroke="#888"/>
+          <line x1="300" y1="347" x2="300" y2="353" stroke="#888"/>
+          <line x1="400" y1="347" x2="400" y2="353" stroke="#888"/>
+          <line x1="500" y1="347" x2="500" y2="353" stroke="#888"/>
+
+          <!-- Grid lines(light) -->
+          <line x1="70" y1="270" x2="590" y2="270" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="70" y1="200" x2="590" y2="200" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="70" y1="130" x2="590" y2="130" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="200" y1="20" x2="200" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="300" y1="20" x2="300" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="400" y1="20" x2="400" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="500" y1="20" x2="500" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+
+          <!-- Al2SiO5 Triple- faciesline -->
+          <!-- Andalusite-Kyanite boundary (LowP→HighP,~T=350~600°C) -->
+          <line x1="150" y1="340" x2="290" y2="215" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <!-- Kyanite-Sillimanite boundary -->
+          <line x1="290" y1="215" x2="530" y2="60" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <!-- Andalusite-Sillimanite boundary -->
+          <line x1="290" y1="215" x2="520" y2="295" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+          <!-- Triple Point -->
+          <circle cx="290" cy="215" r="6" fill="#e6b800" stroke="#a07800" stroke-width="1.5"/>
+          <text x="300" y="210" font-size="10" fill="#7a5a00" font-weight="bold">Triple Point</text>
+          <text x="300" y="222" font-size="9" fill="#7a5a00">~500°C, 0.38GPa</text>
+
+          <!-- MineralPhase labels -->
+          <text x="140" y="290" font-size="12" fill="#8B2500" font-weight="bold">Andalusite</text>
+          <text x="140" y="305" font-size="10" fill="#8B2500">Andalusite</text>
+          <text x="200" y="140" font-size="12" fill="#1a4a8a" font-weight="bold">Kyanite</text>
+          <text x="200" y="155" font-size="10" fill="#1a4a8a">Kyanite</text>
+          <text x="420" y="230" font-size="12" fill="#4a7a00" font-weight="bold">Sillimanite</text>
+          <text x="420" y="245" font-size="10" fill="#4a7a00">Sillimanite</text>
+
+          <!-- ===== Barrovian  zonepaths(blue,Moderate P/T)===== -->
+          <!-- Path from LowTLowP → MediumPMediumT(through Kyanite field)-->
+          <polyline points="120,330 160,295 210,245 270,195 330,155 380,120 430,95"
+            fill="none" stroke="#2255aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Arrow -->
+          <polygon points="430,95 415,100 420,112" fill="#2255aa"/>
+
+          <!-- Barrovian zone labels -->
+          <circle cx="130" cy="328" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="90" y="324" font-size="9" fill="#2255aa">Chl zone</text>
+          <circle cx="170" cy="290" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="100" y="287" font-size="9" fill="#2255aa">Bt zone</text>
+          <circle cx="220" cy="240" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="225" y="237" font-size="9" fill="#2255aa">Grt zone</text>
+          <circle cx="265" cy="197" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="270" y="193" font-size="9" fill="#2255aa">St zone</text>
+          <circle cx="325" cy="157" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="330" y="152" font-size="9" fill="#2255aa">Kyanite zone</text>
+          <circle cx="430" cy="95" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="435" y="91" font-size="9" fill="#2255aa">Sillimanite zone</text>
+          <!-- Barrovian  zonelabel -->
+          <rect x="435" y="60" width="120" height="22" rx="4" fill="#2255aa" opacity="0.85"/>
+          <text x="495" y="75" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">🏔 Barrovian</text>
+
+          <!-- ===== Buchan  zonepaths(orange-red,LowPHighT)===== -->
+          <!-- Path: LowPheating(through Andalusite field)-->
+          <polyline points="140,340 175,323 230,310 295,300 360,290 430,278 510,268"
+            fill="none" stroke="#c0392b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Arrow -->
+          <polygon points="510,268 496,262 498,276" fill="#c0392b"/>
+
+          <!-- Buchan  zone each zonelabel -->
+          <circle cx="148" cy="338" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="90" y="343" font-size="9" fill="#c0392b">Chl zone</text>
+          <circle cx="190" cy="320" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="130" y="319" font-size="9" fill="#c0392b">Bt zone</text>
+          <circle cx="245" cy="307" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="248" y="304" font-size="9" fill="#c0392b">Grt zone</text>
+          <circle cx="310" cy="297" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="314" y="294" font-size="9" fill="#c0392b">Crd zone</text>
+          <circle cx="375" cy="287" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="379" y="284" font-size="9" fill="#c0392b">Andalusite zone</text>
+          <circle cx="510" cy="268" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="514" y="265" font-size="9" fill="#c0392b">Sillimanite zone</text>
+          <!-- Buchan  zonelabel -->
+          <rect x="435" y="35" width="120" height="22" rx="4" fill="#c0392b" opacity="0.85"/>
+          <text x="495" y="50" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">🌋 Buchan</text>
+
+          <!-- Geothermal GradientReference lines -->
+          <line x1="70" y1="350" x2="330" y2="30" stroke="#999" stroke-width="1" stroke-dasharray="3,5" opacity="0.5"/>
+          <text x="340" y="28" font-size="9" fill="#888">High dT/dP</text>
+          <line x1="70" y1="350" x2="540" y2="80" stroke="#999" stroke-width="1" stroke-dasharray="3,5" opacity="0.5"/>
+          <text x="545" y="78" font-size="9" fill="#888">Mod. dT/dP</text>
+        </svg>
+      </div>
+      <p style="font-size:.8rem; color:#888; margin:4px 0 14px; padding-left:4px;">▲ Dashed orange: Al₂SiO₅ phase boundaries; Blue: Barrovian P-T path; Red: Buchan P-T path; Yellow: Triple point (~500°C/0.38 GPa)</p>
+
+      <!--  zone Zonal Diagram -->
+      <div style="margin: 10px 0 6px; font-weight:700; color:#555; font-size:.9rem;">🗺 Planar Zonal Distribution Diagram (Scottish model)</div>
+      <div style="overflow-x:auto; background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px;">
+        <svg viewBox="0 0 620 220" width="100%" style="max-width:620px; font-family:sans-serif;">
+          <rect width="620" height="220" fill="#f5f5f0"/>
+
+          <!-- ===== Barrovian  zoneConcentric arcs(left)===== -->
+          <text x="155" y="18" font-size="12" fill="#2255aa" font-weight="bold" text-anchor="middle">Barrovian (moderate P/T)</text>
+          <!-- Core: highest grade -->
+          <ellipse cx="155" cy="115" rx="28" ry="55" fill="#6a5acd" opacity="0.7"/>
+          <text x="155" y="119" font-size="9" fill="#fff" text-anchor="middle">Sillimanite</text>
+          <ellipse cx="155" cy="115" rx="48" ry="78" fill="#3a82d0" opacity="0.55"/>
+          <text x="155" y="58" font-size="9" fill="#fff" text-anchor="middle">Kyanite</text>
+          <ellipse cx="155" cy="115" rx="68" ry="98" fill="#2196a0" opacity="0.45"/>
+          <text x="155" y="30" font-size="9" fill="#fff" text-anchor="middle">Staurolite</text>
+          <ellipse cx="155" cy="115" rx="88" ry="108" fill="#2eaa60" opacity="0.35"/>
+          <ellipse cx="155" cy="115" rx="108" ry="112" fill="#7cc060" opacity="0.28"/>
+          <ellipse cx="155" cy="115" rx="128" ry="115" fill="#c8d860" opacity="0.22"/>
+
+          <!-- Barrovian labels (outer to inner) -->
+          <text x="30" y="120" font-size="9" fill="#333" text-anchor="middle">Chlorite</text>
+          <text x="55" y="120" font-size="9" fill="#333" text-anchor="middle">Biotite</text>
+          <text x="82" y="120" font-size="9" fill="#333" text-anchor="middle">Garnet</text>
+
+          <!-- etc.grade line(dashed) -->
+          <ellipse cx="155" cy="115" rx="28" ry="55" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="48" ry="78" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="68" ry="98" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="88" ry="108" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="108" ry="112" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+
+          <!-- grade gradedirection toArrow -->
+          <line x1="290" y1="115" x2="252" y2="115" stroke="#2255aa" stroke-width="1.5" marker-end="url(#arr1)"/>
+          <defs><marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2255aa"/></marker></defs>
+          <text x="292" y="112" font-size="9" fill="#2255aa">Grade ↑</text>
+
+          <!-- ===== Buchan  zone(right)===== -->
+          <text x="465" y="18" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Buchan (low P/T)</text>
+          <!-- Core: hottest (near intrusion) -->
+          <ellipse cx="465" cy="115" rx="28" ry="55" fill="#d35400" opacity="0.7"/>
+          <text x="465" y="119" font-size="9" fill="#fff" text-anchor="middle">Sillimanite</text>
+          <ellipse cx="465" cy="115" rx="50" ry="80" fill="#e67e22" opacity="0.55"/>
+          <text x="465" y="55" font-size="9" fill="#fff" text-anchor="middle">Andalusite</text>
+          <ellipse cx="465" cy="115" rx="72" ry="100" fill="#f39c12" opacity="0.45"/>
+          <text x="465" y="30" font-size="9" fill="#555" text-anchor="middle">Cordierite</text>
+          <ellipse cx="465" cy="115" rx="92" ry="110" fill="#2eaa60" opacity="0.35"/>
+          <ellipse cx="465" cy="115" rx="112" ry="114" fill="#c8d860" opacity="0.26"/>
+          <text x="365" y="120" font-size="9" fill="#333" text-anchor="middle">Biotite</text>
+          <text x="340" y="120" font-size="9" fill="#333" text-anchor="middle">Chlorite</text>
+
+          <ellipse cx="465" cy="115" rx="50" ry="80" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="465" cy="115" rx="72" ry="100" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="465" cy="115" rx="92" ry="110" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+
+          <!-- Note::NoneKyanite+Staurolite -->
+          <text x="465" y="195" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">⚠ ⚠ NO Kyanite · NO Staurolite</text>
+
+          <!-- intrusion label -->
+          <text x="465" y="125" font-size="8" fill="#fff" text-anchor="middle">((Intrusive heat source))</text>
+
+          <!-- separator -->
+          <line x1="310" y1="20" x2="310" y2="200" stroke="#ccc" stroke-width="1.5" stroke-dasharray="6,4"/>
+        </svg>
+      </div>
+      <p style="font-size:.8rem; color:#888; margin:4px 0 8px; padding-left:4px;">▲ Plan view:etc.grade lineOuter toinnerMetamorphic gradeincreasing.Buchan  zoneabsent; Kyanite and St zone,is vs. Barrovian  zonemost obviousof field distinction.</p>
+
+      <!-- Key Mnemonic -->
+      <div class="def-box" style="margin-top:12px;">
+        <strong>Key Exam Mnemonic:</strong><br>
+        Barrovian (high-P path): <span style="color:#2255aa">Chl—Bt—Grt—<b>St—Ky</b>—Sil</span> (moderate geotherm, collision orogen)<br>
+        Buchan  zonegoLowP路:<span style="color:#c0392b">绿泥—黑云—石榴—<b>Cordierite—Andalusite</b>—Sillimanite</span>(HighgeoT,弧后/浅intrusion )<br>
+        <strong>两 zoneCommon features:</strong>①起点 and 终点 faciessame(都从Chlorite开始,以Sillimanite结束);②IndexMineral法由Barrow创立,etc.grade line划分 each zone.<br>
+        <strong>most Key field distinction:</strong>PresentNone<b>Kyanite + Staurolite</b>;LowP zone出现<b>Andalusite + Cordierite</b>.
+      </div>
+
+      <!-- Index Mineral Explanation -->
+      <div class="key-point" style="margin-top:12px;">
+        <strong>Index Mineral</strong>is the mineral that <b>first becomes stable</b> in a given metamorphic zone, marking its minimum T-P conditions.<br>
+        <b>Isograd</b>: a line on a map connecting the first occurrence of an index mineral, equivalent to the surface outcrop of an isothermal-isobaric plane.<br>
+        Note: Index minerals are specific to pelitic protoliths (Al-rich sediments) because the Al₂SiO₅ system is most P-T sensitive; carbonates or basic rocks have different zonal minerals.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Comparison of P-T-t Path Types</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Path Type</th>
+            <th>geo质background</th>
+            <th>Characteristics</th>
+          </tr>
+          <tr>
+            <td><strong>Clockwise (CW)</strong></td>
+            <td>Continental collision</td>
+            <td>Pressurization+heating (subduction) then decompression+cooling (exhumation)</td>
+          </tr>
+          <tr>
+            <td><strong>Counterclockwise (CCW)</strong></td>
+            <td>Continental arc, magmatic arc base</td>
+            <td>Heating first (magmatic) then pressurization, or sustained high-T low-P</td>
+          </tr>
+          <tr>
+            <td><strong>Isothermal Decompression (ITD)</strong></td>
+            <td>Rapid exhumation & erosion</td>
+            <td>Decompression rate >> cooling rate</td>
+          </tr>
+          <tr>
+            <td><strong>Isobaric Heating (IBC)</strong></td>
+            <td>Magmatic intrusion heating</td>
+            <td>Characteristic of contact metamorphism</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter3 -->
+
+<!-- ════════════════ CHAPTER 4 ════════════════ -->
+<div class="chapter ch4" id="ch4">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 04</div>
+      <div class="chapter-title">Contact Metamorphic</div>
+      <div class="chapter-subtitle">Thermal Contact · Contact Metasomatism · Zonation</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Core Definitions</div>
+      <div class="def-box">
+        <strong>Contact Metamorphism:</strong> Magma intrusions bake wall rocks; thermal conduction is the main driving force at low pressure (shallow conditions), forming a contact aureole. Key features: T↑, low P (<0.3 GPa), nearly closed chemical system, limited scale (meters to kilometers).
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Contact Aureole Zonation (Pelitic Wall Rock)</div>
+      <div class="key-point">
+        Temperature decreases outward from the intrusive contact, forming concentric metamorphic zones:
+        <br><strong>Inner zone (high T)</strong>:CordieriteHornfels zone → AndalusiteHornfels zone → Spotted Slate zone → <strong>Outer zone (low T)</strong>: Unmetamorphosed wall rock
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Comparison of Contact Metamorphic Rock Types</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Rock</th>
+            <th>Protolith</th>
+            <th>Main Minerals</th>
+            <th>Texture / Fabric</th>
+            <th>Diagnostic Feature</th>
+          </tr>
+          <tr>
+            <td><strong>Hornfels(Hornfels)</strong></td>
+            <td>Pelitic, silty</td>
+            <td>Cordierite, Andalusite, Feldspar, Quartz(依THighLow)</td>
+            <td>Massive; granoblastic or porphyroblastic</td>
+            <td>Dense, hard, conchoidal fracture; hallmark of thermal metamorphism</td>
+          </tr>
+          <tr>
+            <td><strong>Marble(Marble)</strong></td>
+            <td>Limestone, Dolostone</td>
+            <td>Calcite ± Dolomite; may contain diopside, grossular</td>
+            <td>Massive; granoblastic</td>
+            <td>White crystalline grains; recrystallized texture</td>
+          </tr>
+          <tr>
+            <td><strong>Quartzite(Quartzite)</strong></td>
+            <td>Pure quartz sandstone</td>
+            <td>Quartz (>75%)</td>
+            <td>Massive; granoblastic</td>
+            <td>Hard; distinguished from sandstone by recrystallization</td>
+          </tr>
+          <tr>
+            <td><strong>Spotted Slate</strong></td>
+            <td>Pelite</td>
+            <td>Sericite · Chlorite + early porphyroblasts (cordierite, biotite)</td>
+            <td>Slaty; spotted (porphyroblastic)</td>
+            <td>Far from intrusion; low-T zone product</td>
+          </tr>
+          <tr>
+            <td><strong>Skarn</strong></td>
+            <td>Carbonate (calcic)</td>
+            <td>Grossular, Diopside, Wollastonite, Scapolite (calc-silicates)</td>
+            <td>Massive; granoblastic</td>
+            <td>Contact metasomatic; common mineralization (Cu, Fe, W)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Contact Metamorphic vs Regional Metamorphic Rocks Key field distinction</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Characteristics</th>
+            <th>Contact Metamorphic</th>
+            <th>Regional Metamorphic Rocks</th>
+          </tr>
+          <tr>
+            <td>Pressure</td>
+            <td>Low(&lt;0.3 GPa)</td>
+            <td>Medium–High (0.3–3.5 GPa)</td>
+          </tr>
+          <tr>
+            <td>Temperature</td>
+            <td>Low to high; but P remains low even at high T</td>
+            <td>T rises together with P</td>
+          </tr>
+          <tr>
+            <td>Foliation</td>
+            <td>Generally <strong>absent</strong> (mainly isostatic)</td>
+            <td>Schistosity, gneissosity well developed</td>
+          </tr>
+          <tr>
+            <td>Scale</td>
+            <td>Tens of m to km (local)</td>
+            <td>Hundreds to thousands of km</td>
+          </tr>
+          <tr>
+            <td>Typical Minerals</td>
+            <td>Andalusite, Cordierite(LowP指标)</td>
+            <td>Kyanite, Sillimanite, Garnet(MediumHighP)</td>
+          </tr>
+          <tr>
+            <td>Typical Rock</td>
+            <td>Hornfels, Skarn</td>
+            <td>Schist, Gneiss, Eclogite</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter4 -->
+
+<!-- ════════════════ CHAPTER 5 ════════════════ -->
+<div class="chapter ch5" id="ch5">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 05</div>
+      <div class="chapter-title">Metasomatic Rocks</div>
+      <div class="chapter-subtitle">Metasomatism · Rock Types · Alteration Zoning</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Core Definitions</div>
+      <div class="def-box">
+        <strong>Metasomatism:</strong>Chemically active fluids (hydrothermal, gaseous) exchange matter with country rock, introducing external components while removing original ones, altering the bulk chemical composition. Key distinction from thermal metamorphism: <strong>volume nearly constant (isovolumetric), chemistry is an open system</strong>.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Metasomatic Types & Representative Rocks</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Metasomatic Type</th>
+            <th>Fluid Character</th>
+            <th>Typical Rock</th>
+            <th>Main Minerals</th>
+            <th>Economic Significance</th>
+          </tr>
+          <tr>
+            <td><strong>Skarnization</strong></td>
+            <td>Ca-Si enriched, high-T hydrothermal</td>
+            <td>Skarn</td>
+            <td>Grandite garnet, Diopside, Wollastonite, Scapolite</td>
+            <td>Fe, Cu, W, Mo, Pb-Zn deposits</td>
+          </tr>
+          <tr>
+            <td><strong>Greisenization</strong></td>
+            <td>F-B-bearing acidic hydrothermal</td>
+            <td>Greisen</td>
+            <td>Quartz + Muscovite (± Topaz, Fluorite, Cassiterite)</td>
+            <td>Sn, W, Mo, Be deposits</td>
+          </tr>
+          <tr>
+            <td><strong>Propylitization</strong></td>
+            <td>CO₂-H₂O low-T hydrothermal</td>
+            <td>Propylite</td>
+            <td>Chlorite + Epidote + Calcite + Pyrite ± Albite</td>
+            <td>Outer alteration of porphyry Cu deposits</td>
+          </tr>
+          <tr>
+            <td><strong>Potassic Alteration</strong></td>
+            <td>K⁺-rich, high-T hydrothermal</td>
+            <td>Potassic-altered rock</td>
+            <td>K-feldspar + Biotite</td>
+            <td>Core alteration of porphyry Cu deposits</td>
+          </tr>
+          <tr>
+            <td><strong>Phyllic / Sericitic Alteration</strong></td>
+            <td>Medium-low T K-SiO₂ hydrothermal</td>
+            <td>Phyllonite</td>
+            <td>Sericite + Quartz ± Pyrite</td>
+            <td>Epithermal gold deposits</td>
+          </tr>
+          <tr>
+            <td><strong>Serpentinization</strong></td>
+            <td>Low-T H₂O reacting with ultramafic rocks</td>
+            <td>Serpentinite</td>
+            <td>Serpentine (platy/fibrous) ± Talc ± Magnetite</td>
+            <td>Asbestos deposits; mantle rock indicator</td>
+          </tr>
+          <tr>
+            <td><strong>Carbonatization</strong></td>
+            <td>CO₂ hydrothermal</td>
+            <td>Carbonate veins</td>
+            <td>Calcite · Dolomite · Ankerite</td>
+            <td>Hydrothermal alteration halo indicator</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Skarn Zonation (Contact Zone Example)</div>
+      <div class="key-point">
+        Typical zonation from intrusion → carbonate wall rock (decreasing T, evolving fluid):
+        <br>[innerskarn zone(硅酸盐Mineraldeveloped,钙铝榴石 zone)]→[Medium zone(透辉石 zone)]→[外skarn zone(硅灰石·direction 柱石 zone)]→[Marble化 zone]
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Porphyry Copper Alteration Zonation (Classic Lowell-Guilbert Model)</div>
+      <div class="key-point">
+        由Medium心to外:钾化 zone(K-feldspar + Biotite)→ Phyllic / Sericitic Alteration zone(Sericitemica+Quartz+黄铁矿)→ 泥化 zone(High岭石+蒙脱石)→ Propylitization zone(Chlorite+epidote)
+        <br>Mineralization concentrates between the potassic and phyllic zones.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Principles of Metasomatism</div>
+      <div class="def-box">
+        <strong>Korzhinskii Component Theory:</strong>Components are divided into inert (volume-conserving reference) and mobile (transported by fluids). The metasomatic front advances outward from fluid conduits, producing zonation.
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter5 -->
+
+<!-- ════════════════ CHAPTER 6 ════════════════ -->
+<div class="chapter ch6" id="ch6">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 06</div>
+      <div class="chapter-title">Migmatite</div>
+      <div class="chapter-subtitle">Migmatization · Types · Genesis · Granite Relationship</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Core Definitions</div>
+      <div class="def-box">
+        <strong>Migmatization:</strong> Under ultra-metamorphic conditions (T ≥ 650°C + fluid), deep metamorphic rocks undergo partial melting (anatexis) or injection by felsic melts/fluids. Mechanical or chemical mixing of protolith and new veins produces migmatite — a transitional product between metamorphic and igneous rocks.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Two Components of Migmatite</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Component</th>
+            <th>Term</th>
+            <th>Nature</th>
+            <th>Composition</th>
+          </tr>
+          <tr>
+            <td>Dark Refractory Part</td>
+            <td><strong>Paleosome</strong></td>
+            <td>Relict high-grade metamorphic matrix</td>
+            <td>Fe-Mg rich; biotite · amphibole</td>
+          </tr>
+          <tr>
+            <td>Light Neosome</td>
+            <td><strong>Neosome</strong></td>
+            <td>Melt-derived or injected felsic veins</td>
+            <td>Si-Al-K rich; feldspar · quartz</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:.82rem;color:var(--muted)">
+              Note: Neosome can be subdivided into <strong>Leucosome</strong> (felsic melt fraction) and <strong>Melanosome</strong> (Fe-Mg-rich residual selvage).
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Migmatite Types & Distinctions</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Type</th>
+            <th>FabricCharacteristics</th>
+            <th>Neosome Morphology</th>
+            <th>Degree of Mixing</th>
+          </tr>
+          <tr>
+            <td><strong>Stromatic Migmatite</strong></td>
+            <td>Light veins alternating with dark matrix bands</td>
+            <td>Parallel bands, relatively uniform width</td>
+            <td>Low–Medium</td>
+          </tr>
+          <tr>
+            <td><strong>Augen Migmatite</strong></td>
+            <td>Elliptical feldspar megacrysts in foliated matrix</td>
+            <td>Rotated, stretched feldspar augen</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><strong>Ptygmatic Migmatite</strong></td>
+            <td>Light veins folded into convolute shapes</td>
+            <td>Highly contorted, strongly deformed</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><strong>Diktyonitic Migmatite</strong></td>
+            <td>Light veins cross-cutting matrix in a network</td>
+            <td>Irregular stockwork</td>
+            <td>Medium—High</td>
+          </tr>
+          <tr>
+            <td><strong>Agmatitic Migmatite</strong></td>
+            <td>Paleosome fragments floating in neosome</td>
+            <td>Neosome as matrix</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td><strong>Migmatitic Granite</strong></td>
+            <td>Homogeneous; igneous features dominant</td>
+            <td>Paleosome nearly vanished</td>
+            <td>Very high (ultra-metamorphic granite)</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">MigmatizationOriginMechanism</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Mechanism</th>
+            <th>Explanation</th>
+          </tr>
+          <tr>
+            <td><strong>Injection Theory</strong></td>
+            <td>External magma/hydrothermal fluids injected into metamorphic rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Anatexis (Partial Melting)</strong></td>
+            <td>In-situ melting of protolith producing melt + refractory residue; now the mainstream view</td>
+          </tr>
+          <tr>
+            <td><strong>Metasomatic Theory</strong></td>
+            <td>Fluid metasomatism causing local felsification; chemical mixing</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Migmatite vs. Gneiss — Key Differences</div>
+      <div class="key-point">
+        Gneiss: homogeneous mineral bands; both light (felsic) and dark minerals are metamorphic recrystallization products; no distinct melt veins.<br>
+        Migmatite: has distinct neosome (melt-derived felsic veins) cutting through or irregularly distributed in paleosome; heterogeneous mixing.
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter6 -->
+
+<!-- ════════════════ CHAPTER 7 ════════════════ -->
+<div class="chapter ch7" id="ch7">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 07</div>
+      <div class="chapter-title">Dynamic Metamorphic Rocks</div>
+      <div class="chapter-subtitle">Cataclasite Series · Mylonite Series · Pseudotachylyte</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Core Definitions</div>
+      <div class="def-box">
+        <strong>Dynamic Metamorphism:</strong>在StrongFabric应力processsub,Rock发生机械破碎, 变形 and recrystallizationofgrade process.maindeveloped于断层 zone and Ductile shear zone.Temperature faciespair较Low(不需要HighT),Directed stressisDominant Factor.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Brittle vs. Ductile Deformation Mechanisms</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Deformation Mechanism</th>
+            <th>Conditions</th>
+            <th>Products</th>
+            <th>Typical Rock</th>
+          </tr>
+          <tr>
+            <td><strong>Brittle Fracture</strong></td>
+            <td>Low T, high strain rate, shallow</td>
+            <td>Fragments, breccia</td>
+            <td>Tectonic breccia · Cataclasite</td>
+          </tr>
+          <tr>
+            <td><strong>Ductile Flow</strong></td>
+            <td>Higher T (Qtz >300°C; Fsp >450°C), low strain rate, deeper</td>
+            <td>Stretching lineation, S-C fabric, rotated porphyroclasts</td>
+            <td>Mylonite · Ultramylonite</td>
+          </tr>
+          <tr>
+            <td><strong>Frictional Melting</strong></td>
+            <td>Very rapid strain rate (seismic rupture)</td>
+            <td>Glassy melt</td>
+            <td>Pseudotachylyte</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Dynamic Metamorphic Rocks Series列详细pair比</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Rock Name</th>
+            <th>Matrix Fraction</th>
+            <th>Dominant Texture</th>
+            <th>MineralCharacteristics</th>
+            <th>Tectonic Setting</th>
+          </tr>
+          <tr>
+            <td><strong>Fault Gouge</strong></td>
+            <td>&gt;90% fine-grained</td>
+            <td>Clayey, unconsolidated</td>
+            <td>Clay minerals dominant</td>
+            <td>Shallow fault</td>
+          </tr>
+          <tr>
+            <td><strong>Tectonic Breccia</strong></td>
+            <td>角砾&gt;30%,angular</td>
+            <td>Cataclastic Texture,角砾状</td>
+            <td>Clasts retain protolith minerals; matrix: fine rock powder</td>
+            <td>Brittle fault zone</td>
+          </tr>
+          <tr>
+            <td><strong>Cataclasite</strong></td>
+            <td>Matrix 10–50%</td>
+            <td>Cataclastic; angular clasts</td>
+            <td>Shattered minerals, undulose extinction</td>
+            <td>Brittle-ductile transition</td>
+          </tr>
+          <tr>
+            <td><strong>Mylonite</strong></td>
+            <td>Fine matrix 50–90%; rotated porphyroclasts</td>
+            <td>Mylonitic Texture,S-Cfabric</td>
+            <td>Quartz ribbons, rotated feldspar porphyroclasts</td>
+            <td>Ductile shear zone</td>
+          </tr>
+          <tr>
+            <td><strong>Ultramylonite</strong></td>
+            <td>matrix&gt;90%,very fine-grained</td>
+            <td>Dense, very fine granular</td>
+            <td>Nearly complete recrystallization; porphyroclasts gone</td>
+            <td>强Ductile shear zone深部</td>
+          </tr>
+          <tr>
+            <td><strong>Pseudotachylyte(Pseudotachylyte)</strong></td>
+            <td>Glassy matrix with fragments</td>
+            <td>Vitreous, flow structure</td>
+            <td>Glass + microlites; resembles volcanic rock</td>
+            <td>Seismic fault surface (seismic melt)</td>
+          </tr>
+          <tr>
+            <td><strong>Kyanite rock / Mylonitic Gneiss</strong></td>
+            <td>Ductile deformation + metamorphism</td>
+            <td>Foliated or banded</td>
+            <td>Quartz lenses, kyanite</td>
+            <td>深层Ductile shear zone+grade </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Kinematic Indicators in Mylonites</div>
+      <div class="key-point">
+        <strong>Sfoliation</strong>(叶理面):Mineralstableto排列面.<br>
+        <strong>Cfoliation</strong>(剪切 zone面):实际剪切位移面, vs. SPlagioclase交(10°~40°).<br>
+        S-C fabric angular relationships determine shear sense — critical for identifying fault kinematics.<br>
+        <strong>σ-type, δ-typeporphyroclasts</strong>:绕旋转Feldsparporphyroclastsof不pair称尾翼,可指示剪切direction to.
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter7 -->
+
+<!-- ════════════════ CHAPTER 8 ════════════════ -->
+<div class="chapter ch8" id="ch8">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 08</div>
+      <div class="chapter-title">Regional Metamorphic Rocks</div>
+      <div class="chapter-subtitle">Facies Series · Major Rock Types · Protolith Reconstruction</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">Core Definitions</div>
+      <div class="def-box">
+        <strong>Regional Metamorphism:</strong>During orogenesis, rocks across vast areas undergo metamorphism under simultaneously rising T and P. Large scale (hundreds to thousands of km²), zonal, forming metamorphic belts. The most widespread metamorphic type on Earth.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Metamorphic Facies Series — Classification by P/T Ratio</div>
+      <div class="def-box">
+        <strong>Metamorphic Facies Series (Miyashiro, 1961):</strong>A sequence of metamorphic facies in a given region, representing a specific P/T ratio type (geothermal gradient type).
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Facies Series Type</th>
+            <th>P/T Characteristics</th>
+            <th>Facies Sequence</th>
+            <th>Geothermal Gradient</th>
+            <th>Tectonic Setting</th>
+          </tr>
+          <tr>
+            <td><strong>LowP/T facies Series</strong>(HighTLowPtype)</td>
+            <td>Low P/T, high T gradient</td>
+            <td>Hornfels Facies→Amphibolite Facies→Granulite Facies</td>
+            <td>&gt;30°C/km</td>
+            <td>Back-arc, rift, magmatic arc</td>
+          </tr>
+          <tr>
+            <td><strong>MediumIntermediate facies Series</strong>(Barroviantype)</td>
+            <td>Moderate P/T</td>
+            <td>Greenschist Facies→Amphibolite Facies→Granulite Facies</td>
+            <td>15–30°C/km</td>
+            <td>Classic orogen (Scottish type)</td>
+          </tr>
+          <tr>
+            <td><strong>HighP/T facies Series</strong>(Blueschisttype)</td>
+            <td>High P/T, low T gradient</td>
+            <td>Prehnite-Pumpellyite Facies→Blueschist facies→Eclogite Facies</td>
+            <td>&lt;10°C/km</td>
+            <td>Subduction zone</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">mainRegional Metamorphic Rocks详细Characteristics</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Rock</th>
+            <th>Metamorphic Facies</th>
+            <th>Main Minerals</th>
+            <th>Texture / Fabric</th>
+            <th>Protolith</th>
+          </tr>
+          <tr>
+            <td><strong>Greenschist</strong></td>
+            <td>Greenschist Facies</td>
+            <td>Chlorite · Epidote · Albite · Sericite · Calcite</td>
+            <td>Schistose, green</td>
+            <td>Basic volcanic (Basalt)</td>
+          </tr>
+          <tr>
+            <td><strong>Blueschist</strong></td>
+            <td>Blueschist facies(HighPLowT)</td>
+            <td>Glaucophane · Lawsonite · Phengite±Garnet</td>
+            <td>Schistose, blue</td>
+            <td>Basic igneous rocks(玄武rock)</td>
+          </tr>
+          <tr>
+            <td><strong>Mica Schist</strong></td>
+            <td>Greenschist—Amphibolite Facies</td>
+            <td>Muscovite + Quartz ± Chlorite, Staurolite, Garnet</td>
+            <td>Schistose, well-foliated</td>
+            <td>Pelite</td>
+          </tr>
+          <tr>
+            <td><strong>Amphibolite</strong></td>
+            <td>Amphibolite Facies</td>
+            <td>Hornblende + Plagioclase (± Garnet)</td>
+            <td>Schistose或Massive</td>
+            <td>Basic igneous rocks</td>
+          </tr>
+          <tr>
+            <td><strong>Orthogneiss</strong></td>
+            <td>Amphibolite—Granulite Facies</td>
+            <td>Feldspar + Quartz + Amphibole / Pyroxene</td>
+            <td>Gneissose</td>
+            <td>Felsic-intermediate igneous (ortho-)</td>
+          </tr>
+          <tr>
+            <td><strong>Paragneiss</strong></td>
+            <td>Amphibolite—Granulite Facies</td>
+            <td>Feldspar + Quartz + Biotite + Almandine</td>
+            <td>Gneissose</td>
+            <td>Sandy-pelitic sedimentary (para-)</td>
+          </tr>
+          <tr>
+            <td><strong>Granulite</strong></td>
+            <td>Granulite Facies(HighT)</td>
+            <td>Hypersthene + Plagioclase ± Garnet (basic); K-feldspar + Quartz + Hypersthene (felsic)</td>
+            <td>Massive–Gneissose;None水Mineralas主</td>
+            <td>Basic to felsic igneous or metamorphic</td>
+          </tr>
+          <tr>
+            <td><strong>Eclogite</strong></td>
+            <td>Eclogite Facies(HighP—UHP HighP)</td>
+            <td><strong>Pyrope + Omphacite</strong>(仅2种主Mineral)</td>
+            <td>Massive,致密,Highdensity</td>
+            <td>Basalt/Gabbro (oceanic crust)</td>
+          </tr>
+          <tr>
+            <td><strong>UHP Metamorphic Rocks</strong></td>
+            <td>UHP HighP facies(&gt;2.5 GPa)</td>
+            <td>Coesite (pseudomorph), Diamond + Garnet + Omphacite</td>
+            <td>Massive</td>
+            <td>Deep continental subduction</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Ortho- vs. Para-Metamorphic Rocks</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Type</th>
+            <th>Protolith</th>
+            <th>Criteria</th>
+            <th>Typical Rock</th>
+          </tr>
+          <tr>
+            <td><strong>Ortho-Metamorphic</strong></td>
+            <td>Derived from igneous protolith</td>
+            <td>Relict igneous textures; low Rb/Sr; high Zr</td>
+            <td>Orthogneiss, Amphibolite</td>
+          </tr>
+          <tr>
+            <td><strong>Para-Metamorphic</strong></td>
+            <td>Derived from sedimentary protolith</td>
+            <td>Graphite-bearing; marble interlayers; relict bedding; high Rb/Sr</td>
+            <td>Paragneiss, Marble, Quartzite</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Regional Metamorphic RocksofMineralthermobarometer</div>
+      <div class="key-point">
+        <strong>Thermobarometry</strong>utilizes mineral-melt/mineral-mineral element partitioning to constrain P-T:
+        <ul class="content-list" style="margin-top:8px">
+          <li>Garnet-Biotite(Gt-Bi)Temperaturemeter:Fe-Mg交换分配</li>
+          <li>Garnet-铝硅酸盐-Quartz-PlagioclaseFeldspar(GASP)Pressuremeter</li>
+          <li>ChloriteTemperaturemeter</li>
+          <li>Quartz-钛铁矿-金红石(Zr-in-rutile)Temperaturemeter</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter8 -->
+
+<!-- ════════════════ CHAPTER 9 ════════════════ -->
+<div class="chapter ch9" id="ch9">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 09</div>
+      <div class="chapter-title">Metamorphic Rocks & Plate Tectonics</div>
+      <div class="chapter-subtitle">plate Tectonic Setting·Metamorphic Facies Series分布·造山 zonegrade 演化</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">plate Tectonic Setting vs. Metamorphic Typeofpair应关 Series</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Tectonic Setting</th>
+            <th>Geothermal Gradient</th>
+            <th>主导Metamorphic Type</th>
+            <th>TypicalMetamorphic Facies</th>
+            <th>Typical Rock</th>
+          </tr>
+          <tr>
+            <td><strong>Subduction Zone (cold)</strong></td>
+            <td>very Low(&lt;10°C/km)</td>
+            <td>HighPLowTgrade </td>
+            <td>Blueschist facies→Eclogite Facies</td>
+            <td>Blueschist, Eclogite</td>
+          </tr>
+          <tr>
+            <td><strong>Continental Collision Orogen</strong></td>
+            <td>Mediumetc.(15~25°C/km)</td>
+            <td>Regional Metamorphism(Barroviantype)</td>
+            <td>Greenschist Facies→Amphibolite Facies→Granulite Facies</td>
+            <td>Schist, Gneiss, Granulite</td>
+          </tr>
+          <tr>
+            <td><strong>Back-arc Basin / Rift</strong></td>
+            <td>High(&gt;30°C/km)</td>
+            <td>LowPHighTgrade (Buchantype)</td>
+            <td>Hornfels Facies→Amphibolite Facies→Granulite Facies</td>
+            <td>Hornfels, Granulite</td>
+          </tr>
+          <tr>
+            <td><strong>Large洋Medium脊(洋底)</strong></td>
+            <td>very High(热液)</td>
+            <td>Seafloor metamorphism</td>
+            <td>Zeolite Facies→Greenschist Facies</td>
+            <td>Serpentinite, 绿色Schist</td>
+          </tr>
+          <tr>
+            <td><strong>Lower Continental Crust</strong></td>
+            <td>High(长期stablestable)</td>
+            <td>Granulite Faciesgrade </td>
+            <td>Granulite Facies</td>
+            <td>subgeo壳Granulite</td>
+          </tr>
+          <tr>
+            <td><strong>Meteorite Impact</strong></td>
+            <td>瞬时UHP HighP</td>
+            <td>Shock Metamorphism</td>
+            <td>Shock facies</td>
+            <td>Coesite, Stishovite, Tektite</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Paired Metamorphic Belts</div>
+      <div class="def-box">
+        <strong>Paired Metamorphic Belts (Miyashiro, 1961):</strong>Two parallel metamorphic belts developed simultaneously on opposite sides of an oceanic subduction zone —
+        <ul class="content-list" style="margin-top:8px">
+          <li><strong>HighP/T zone(外 zone)</strong>:靠海沟一侧,Blueschist facies/Eclogite Facies,LowTHighP,代表俯冲洋壳</li>
+          <li><strong>Low P/T Belt (inner, arc side)</strong>:靠Large陆弧一侧,HighTLowP(Hornfels Facies/Granulite Facies),代表rock浆弧subdirection </li>
+        </ul>
+        A key indicator of plate subduction. Classic example: SW Japan (Sanbagawa + Ryoke belts).
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">UHP metamorphic belt vs. Large陆深俯冲</div>
+      <div class="key-point">
+        发现含柯Quartz或金刚石ofgrade rock(如Large distinction山—苏鲁UHP HighPgrade  zone)证明Large陆geo壳曾深俯冲至&gt;100 kmdepth.P-Tpaths呈Large幅顺时针type(先Large幅升P,后快速折返减P).折返Mechanism:浮力驱动+通道流(Channel flow).
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">P-T-t Paths & Orogenic Cycles</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Stage</th>
+            <th>Geological Process</th>
+            <th>P-T Change</th>
+            <th>Characteristicsgrade Products</th>
+          </tr>
+          <tr>
+            <td>Prograde</td>
+            <td>Subduction & burial; T, P increase</td>
+            <td>Heating & pressurization along geotherm</td>
+            <td>Glaucophane, Omphacite, Albite→Jadeite</td>
+          </tr>
+          <tr>
+            <td>Peak Metamorphism</td>
+            <td>most Largedepth,most HighT P</td>
+            <td>T·Pmost High点</td>
+            <td>Coesite, Pyrope, Omphacite</td>
+          </tr>
+          <tr>
+            <td>Retrograde</td>
+            <td>Exhumation; T, P decrease</td>
+            <td>Cooling & decompression (ITD path)</td>
+            <td>Coesite→quartz pseudomorph; Omphacite→Amphibole+Plagioclase</td>
+          </tr>
+          <tr>
+            <td>Final Exhumation</td>
+            <td>Erosion to surface</td>
+            <td>Ambient conditions</td>
+            <td>Present-day field exposures</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"> eachMetamorphic TypeTectonic SettingCross-Chapter Comparison</div>
+      <div class="flow-box">
+        <div class="flow-title">🌍 Distribution of Metamorphic Types in Plate Tectonic Framework</div>
+        <ul class="content-list">
+          <li>Oceanic plate subducting to trench: →  <strong>Blueschist facies·Eclogite Facies</strong>(HighP/T facies Series)</li>
+          <li>Continental arc magmatism: →  <strong>contactgrade (Hornfels Facies)+ Metasomatic(skarn·云英rock)</strong></li>
+          <li>Back-arc sustained heating: →  <strong>Low P/T granulite facies</strong></li>
+          <li>Continental collision核部:→ <strong>BarroviantypeRegional Metamorphism(Greenschist→Amphibolite→Granulite)</strong></li>
+          <li>Ultra-deep subducted continental crust exhumation: →  <strong>UHP metamorphic belt</strong></li>
+          <li>Fault zone: →  <strong>Dynamic Metamorphic Rocks(mylonite·Cataclasite)</strong></li>
+          <li>Deep high-T metamorphic core: →  <strong>Migmatization → Migmatitic granite</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter9 -->
+
+<!-- ════════════════ CROSS-CHAPTER COMPARISON ════════════════ -->
+<div class="chapter" id="cross" style="border-left-color: #555;">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Cross-Chapter Comparison</div>
+      <div class="chapter-title">Summary of Key Cross-Chapter Distinctions</div>
+      <div class="chapter-subtitle">Confusing Concepts · Rock Distinctions · Factor Comparisons</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">① 五Largegrade processType核心 field distinction</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Type</th>
+            <th>主控Factor</th>
+            <th>Pressure</th>
+            <th>Temperature</th>
+            <th>Foliation</th>
+            <th>Scale</th>
+            <th>Chemical System</th>
+          </tr>
+          <tr>
+            <td>Contact Thermal Metamorphism</td>
+            <td>T(rock浆热)</td>
+            <td>Low</td>
+            <td>Low—High</td>
+            <td>None</td>
+            <td>小</td>
+            <td>Closed</td>
+          </tr>
+          <tr>
+            <td>Metasomatic</td>
+            <td>流体化logic</td>
+            <td>MediumLow</td>
+            <td>MediumLow—High</td>
+            <td>None</td>
+            <td>Medium</td>
+            <td><strong>Open</strong></td>
+          </tr>
+          <tr>
+            <td>Regional Metamorphism</td>
+            <td>T+P</td>
+            <td>Medium—High</td>
+            <td>Medium—High</td>
+            <td><strong>Strong</strong></td>
+            <td>Large</td>
+            <td>NearlyClosed</td>
+          </tr>
+          <tr>
+            <td>Dynamic Metamorphism</td>
+            <td>Directed stress</td>
+            <td>Mediumetc.</td>
+            <td>Low–Medium</td>
+            <td><strong>Strongest</strong></td>
+            <td>Linear</td>
+            <td>NearlyClosed</td>
+          </tr>
+          <tr>
+            <td>Migmatization</td>
+            <td>UHP HighT+熔融</td>
+            <td>MediumHigh</td>
+            <td>most High</td>
+            <td>Present</td>
+            <td>Medium</td>
+            <td>半Open</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">② Distinctions Between Similar Rocks</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Rock Pair</th>
+            <th>Key Distinction</th>
+          </tr>
+          <tr>
+            <td><strong>Slate vs Phyllite</strong></td>
+            <td>Slate:Mineral肉眼不可辨,None光泽;Phyllite:Sericitemica微晶,丝Sericite光泽,可见细纹理(更Highgrade 级)</td>
+          </tr>
+          <tr>
+            <td><strong>Phyllite vs Schist</strong></td>
+            <td>Schist:platy Mineral(mica)肉眼可见(>0.1mm),片理更粗;Phyllite:platy very 细,丝Sericite光泽</td>
+          </tr>
+          <tr>
+            <td><strong>Schist vs Gneiss</strong></td>
+            <td>Gneiss:Feldspar+Quartz>50%,深色Mineral分布均匀条 zone;Schist:platy Mineral(micaetc.)>50%,None长英质条 zone</td>
+          </tr>
+          <tr>
+            <td><strong>mylonite vs Cataclasite</strong></td>
+            <td>mylonite:韧性变形,S-Cfabric,porphyroclasts旋转,Mineralrecrystallization;Cataclasite:脆性破碎,angular,Nonerecrystallization</td>
+          </tr>
+          <tr>
+            <td><strong>Hornfels vs Schist</strong></td>
+            <td>Hornfels:MassiveNonestableto,contact zone产出,致密坚硬;Schist:强片理,Regional Metamorphism,PresentstabletoMineral</td>
+          </tr>
+          <tr>
+            <td><strong>Granulite vs Amphibolite</strong></td>
+            <td>Granulite:Noneamphibole(amphibole已转化as辉石),含紫苏辉石,HighT脱水Products;Amphibolite:Main Mineralsasamphibole+PlagioclaseFeldspar</td>
+          </tr>
+          <tr>
+            <td><strong>Eclogite vs Amphibolite</strong></td>
+            <td>Eclogite:仅含Pyrope + Omphacite,Highdensity,NonePlagioclaseFeldspar;Amphibolite:含普通amphibole+PlagioclaseFeldspar,Mediumetc.Pressure</td>
+          </tr>
+          <tr>
+            <td><strong>Blueschist vs Greenschist</strong></td>
+            <td>Blueschist:glaucophane(HighPLowT),颜色blue,俯冲 zone;Greenschist:Chlorite+epidote(MediumPMediumLowT),颜色绿色</td>
+          </tr>
+          <tr>
+            <td><strong>Skarn (contact) vs. Skarn (metasomatic)</strong></td>
+            <td>本质 faciessame,前者强调Intrusive contact zoneOrigin;后者强调流体交代成分改变;均以钙硅酸盐MineralasCharacteristics</td>
+          </tr>
+          <tr>
+            <td><strong>Migmatite vs granite</strong></td>
+            <td>Migmatite:Present古成体残留(暗色grade rockmatrix),不均一;granite:均质,Nonegrade rock残留</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">③ Distinction of Three Al₂SiO₅ Polymorphs (Key Exam Topic)</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Mineral</th>
+            <th>Crystal System</th>
+            <th>TemperatureConditions</th>
+            <th>PressureConditions</th>
+            <th>TypicalMetamorphic Facies</th>
+            <th>Appearance</th>
+          </tr>
+          <tr>
+            <td><strong>Andalusite</strong></td>
+            <td>Plagioclasedirection Crystal System</td>
+            <td>Low–MediumT</td>
+            <td>LowP(&lt;0.38 GPa)</td>
+            <td>Hornfels Facies, LowPgrade  zone</td>
+            <td>柱状,横切面四边形,Present"空心十字"(空晶石变体)</td>
+          </tr>
+          <tr>
+            <td><strong>Kyanite</strong></td>
+            <td>Triple-PlagioclaseCrystal System</td>
+            <td>MediumT</td>
+            <td>HighP(&gt;0.38 GPa)</td>
+            <td>Blueschist facies, Amphibolite Facies进grade </td>
+            <td>Bladed, blue; hardness varies along vs. across elongation</td>
+          </tr>
+          <tr>
+            <td><strong>Sillimanite</strong></td>
+            <td>Plagioclasedirection Crystal System</td>
+            <td>HighT</td>
+            <td>Medium—HighP均可</td>
+            <td>HighTAmphibolite Facies, Granulite Facies</td>
+            <td>Fibrous or acicular; silky luster</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">④  eachgrade Factorpairgrade Productsof具体影响</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>Factor</th>
+            <th>升High/grade</th>
+            <th>pairMineralEffects </th>
+            <th>pairTexture / FabricEffects </th>
+          </tr>
+          <tr>
+            <td>Temperature T ↑</td>
+            <td>Promotes dehydration, decarbonation, recrystallization</td>
+            <td>Mineral粒度增Large;LowMineral(Chlorite→amphibole→辉石)转化</td>
+            <td>粒径增Large,Crystalloblastic Texturedeveloped</td>
+          </tr>
+          <tr>
+            <td>静rockPressure P ↑</td>
+            <td>促进HighdensityMineralstablestable</td>
+            <td>Qtz→Coesite; Jadeite stable; Pl→Grt</td>
+            <td>Mineral体积缩小,致密化</td>
+          </tr>
+          <tr>
+            <td>Directed stress ↑</td>
+            <td>Mechanical fracturing or foliation development</td>
+            <td>Mineralstableto排列,dissolutionPressure法则(垂直应力direction todissolution)</td>
+            <td>片理·片麻理·S-Cfabric;Cataclastic Texture</td>
+          </tr>
+          <tr>
+            <td>H₂O Fluid ↑</td>
+            <td>Catalyzes reactions; lowers solidus</td>
+            <td>含水Mineral(amphibole, mica)更stablestable;协助元素迁移</td>
+            <td>促进recrystallization,Present利于Migmatization</td>
+          </tr>
+          <tr>
+            <td>CO₂ Fluid ↑</td>
+            <td>抑制含水Mineral,stablestable碳酸盐</td>
+            <td>Inhibits amphibole; stabilizes calcite</td>
+            <td>Carbonatization蚀变</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">⑤ Inter-Chapter Connections</div>
+      <div class="flow-box">
+        <div class="flow-title">🔗 Chapter Logic Chain</div>
+        <ul class="content-list">
+          <li><strong>Ch.1(Introduction)</strong>建立概念框架 and 分类体 Series,is后续所PresentChapterof基础</li>
+          <li><strong>Ch.2(Characteristics分类)</strong>提供Rockof宏观识 distinction手段(textural·Fabric·Mineral),is野外工作 and 室inner鉴stableof工具章</li>
+          <li><strong>Ch. 3 (Metamorphic Reactions)</strong>提供热力logic理论支撑,解释as什么不sameT/PConditionssub会出现不sameMineral Group合(Metamorphic Facies理论)</li>
+          <li><strong>Ch.4(Contact Metamorphic)</strong>→ 第一个具体Type:浅成, LowP, HighT, vs. Ch.5Metasomatic共samedeveloped于rock浆侵入环境</li>
+          <li><strong>Ch. 5 (Metasomatic)</strong>→ 从热grade of物质守恒过渡到物质Open体 Series,强调流体迁移组分ofprocess</li>
+          <li><strong>Ch.6(Migmatite)</strong>→ Regional Metamorphism达到most HighT时ofvery 端Products,连接grade rock vs. rock浆rock(graniteOrigin争议)</li>
+          <li><strong>Ch.7(Dynamic Metamorphic Rocks)</strong>→ 强调应力process,is vs. TP路径完全不sameof机械变形Products, vs. Ch.3热力logicpair照</li>
+          <li><strong>Ch.8(Regional Metamorphic Rocks)</strong>→ grade rockof主体,综合运用第二, Triple-章知识,并按Metamorphic Facies Series(Ch.3) Series统化</li>
+          <li><strong>Ch.9(LargegeoFabric)</strong>→ 将前八章All types放入plate Fabric框架,揭示空间分布规律 and 演化历史</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /cross -->
+
+</div><!-- /main-wrap -->
+
+<footer style="text-align:center;padding:20px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border)">
+  参考:马昌前主编《Rocklogic》第Triple-版 · 讲义PPT(第一—九章)· 整理日期 2026-06
+</footer>
+
+<script>
+  function toggleChapter(header) {
+    const chapter = header.parentElement;
+    chapter.classList.toggle('collapsed');
+  }
+  function toggleHeader() {
+    const hdr = document.getElementById('mainHeader');
+    if (hdr.classList.contains('expanded')) {
+      hdr.classList.remove('expanded');
+      hdr.classList.add('collapsed-hdr');
+    } else {
+      hdr.classList.remove('collapsed-hdr');
+      hdr.classList.add('expanded');
+    }
+  }
+  // 初始All展开
+  document.querySelectorAll('.chapter').forEach(c => c.classList.remove('collapsed'));
+</script>
+</body>
+</html>

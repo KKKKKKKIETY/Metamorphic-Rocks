@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>变质岩学 · 知识提纲</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e0dbd0;
+      --accent1: #2c5f8a;   /* 蓝 — 标题 */
+      --accent2: #5a8a4a;   /* 绿 — 区域变质 */
+      --accent3: #8a5a2c;   /* 棕 — 接触变质 */
+      --accent4: #6a4a8a;   /* 紫 — 动力变质 */
+      --accent5: #8a2c4a;   /* 酒红 — 气液交代 */
+      --accent6: #2c7a7a;   /* 青 — 混合岩 */
+      --text: #1e1e1e;
+      --muted: #666;
+      --tag-bg: #eef3f9;
+      --highlight: #fff9e0;
+      --compare-bg: #f0f4ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Serif SC', 'Source Han Serif CN', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2c5f8a 60%, #3a7aaa 100%);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.2);
+      transition: padding .3s;
+    }
+    header.expanded { padding: 40px 5vw 32px; }
+    header.collapsed-hdr { padding: 0; }
+    .header-toggle-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 5vw;
+      cursor: pointer;
+      user-select: none;
+    }
+    .header-toggle-bar:hover { background: rgba(255,255,255,.08); }
+    .header-content { overflow: hidden; transition: max-height .35s ease, opacity .3s; }
+    header.expanded .header-content { max-height: 200px; opacity: 1; padding: 0 5vw 28px; }
+    header.collapsed-hdr .header-content { max-height: 0; opacity: 0; padding: 0 5vw; }
+    .hdr-arrow { font-size: .9rem; transition: transform .3s; }
+    header.collapsed-hdr .hdr-arrow { transform: rotate(-90deg); }
+    .hdr-mini-title { font-size: .88rem; font-weight: 700; letter-spacing: .04em; opacity: .9; }
+    header h1 { font-size: 1.9rem; letter-spacing: .06em; font-weight: 700; }
+    header p  { font-size: .9rem; opacity: .8; margin-top: 4px; }
+    .source-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: .78rem;
+    }
+
+    /* ── NAV ── */
+    nav.toc {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 5vw;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--accent1);
+      font-size: .82rem;
+      padding: 4px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--accent1);
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    nav.toc a:hover { background: var(--accent1); color: #fff; }
+
+    /* ── LAYOUT ── */
+    .main-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 5vw 64px; }
+
+    /* ── CHAPTER SECTION ── */
+    .chapter {
+      background: var(--surface);
+      border-radius: 10px;
+      border-left: 6px solid var(--accent1);
+      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .chapter-header {
+      padding: 18px 24px 14px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .chapter-header:hover { background: #fafafa; }
+    .chapter-num {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .6;
+      margin-bottom: 2px;
+    }
+    .chapter-title { font-size: 1.25rem; font-weight: 700; }
+    .chapter-subtitle { font-size: .85rem; color: var(--muted); margin-top: 3px; }
+    .toggle-icon { font-size: 1.1rem; color: var(--muted); transition: transform .3s; }
+    .chapter.collapsed .toggle-icon { transform: rotate(-90deg); }
+    .chapter-body { padding: 0 24px 24px; }
+    .chapter.collapsed .chapter-body { display: none; }
+
+    /* ── CARD COLORS per chapter ── */
+    .ch1 { border-left-color: #2c5f8a; }
+    .ch2 { border-left-color: #3a7a5a; }
+    .ch3 { border-left-color: #7a5a3a; }
+    .ch4 { border-left-color: #8a4a2a; }
+    .ch5 { border-left-color: #5a2a8a; }
+    .ch6 { border-left-color: #2a7a7a; }
+    .ch7 { border-left-color: #7a2a5a; }
+    .ch8 { border-left-color: #2a5a8a; }
+    .ch9 { border-left-color: #5a7a2a; }
+
+    .ch1 .chapter-title { color: #2c5f8a; }
+    .ch2 .chapter-title { color: #3a7a5a; }
+    .ch3 .chapter-title { color: #7a5a3a; }
+    .ch4 .chapter-title { color: #8a4a2a; }
+    .ch5 .chapter-title { color: #5a2a8a; }
+    .ch6 .chapter-title { color: #2a7a7a; }
+    .ch7 .chapter-title { color: #7a2a5a; }
+    .ch8 .chapter-title { color: #2a5a8a; }
+    .ch9 .chapter-title { color: #5a7a2a; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 20px; }
+    .section-title {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* ── DEFINITION BOX ── */
+    .def-box {
+      background: var(--highlight);
+      border-left: 4px solid #e6b800;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 10px 0;
+    }
+    .def-box strong { color: #7a5a00; }
+
+    /* ── KEY POINT ── */
+    .key-point {
+      background: var(--tag-bg);
+      border-radius: 6px;
+      padding: 10px 16px;
+      margin: 8px 0;
+      border-left: 3px solid var(--accent1);
+    }
+
+    /* ── COMPARE TABLE ── */
+    .compare-wrap { overflow-x: auto; margin: 14px 0; }
+    table.compare {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      min-width: 560px;
+    }
+    table.compare th {
+      background: var(--compare-bg);
+      color: var(--accent1);
+      font-weight: 700;
+      padding: 9px 12px;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    table.compare td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    table.compare tr:nth-child(even) td { background: #fafaf8; }
+    table.compare tr:hover td { background: #f0f4f8; }
+
+    /* ── TAG LIST ── */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin: 8px 0; }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid #c0d0e0;
+      border-radius: 14px;
+      padding: 3px 12px;
+      font-size: .8rem;
+      color: var(--accent1);
+    }
+
+    /* ── BULLET LIST ── */
+    ul.content-list { padding-left: 1.4em; }
+    ul.content-list li { margin: 5px 0; }
+    ul.content-list li::marker { color: var(--accent1); }
+    ol.content-list { padding-left: 1.6em; }
+    ol.content-list li { margin: 5px 0; }
+
+    /* ── FLOW / LINK SECTION ── */
+    .flow-box {
+      background: #f0f7f0;
+      border: 1px solid #b0d0b0;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 12px 0;
+    }
+    .flow-box .flow-title { font-weight: 700; color: #3a6a3a; margin-bottom: 8px; }
+
+    /* ── SUMMARY SECTION ── */
+    .summary-section {
+      background: linear-gradient(135deg, #1a3a5c, #2c5f8a);
+      color: #fff;
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 36px;
+    }
+    .summary-section h2 { font-size: 1.2rem; margin-bottom: 14px; }
+    .summary-section table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .summary-section th { padding: 8px 12px; background: rgba(255,255,255,.15); text-align: left; border: 1px solid rgba(255,255,255,.2); }
+    .summary-section td { padding: 7px 12px; border: 1px solid rgba(255,255,255,.15); vertical-align: top; }
+    .summary-section tr:hover td { background: rgba(255,255,255,.08); }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-size: .75rem;
+      font-weight: 700;
+      margin-right: 5px;
+    }
+    .badge-T { background: #ffeaea; color: #c00; }
+    .badge-P { background: #eafff0; color: #060; }
+    .badge-F { background: #e8f0ff; color: #03c; }
+    .badge-X { background: #fff0e8; color: #c63; }
+
+    /* scroll-margin for anchor */
+    .chapter { scroll-margin-top: 130px; }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.4rem; }
+      .chapter-title { font-size: 1.05rem; }
+      .main-wrap { padding: 18px 4vw 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header id="mainHeader" class="expanded">
+  <div class="header-toggle-bar" onclick="toggleHeader()">
+    <span class="hdr-arrow">▾</span>
+    <span class="hdr-mini-title">变质岩学 · 系统知识提纲</span>
+  </div>
+  <div class="header-content">
+    <h1>变质岩学 · 系统知识提纲</h1>
+    <p>共九章 · 覆盖变质作用类型、岩石特征、成因机制与大地构造背景</p>
+    <span class="source-badge">📖 参考：马昌前主编《岩石学》第三版 · PPT各章讲义</span>
+  </div>
+</header>
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav class="toc">
+  <a href="#ch1">第一章·绪论</a>
+  <a href="#ch2">第二章·特征与分类</a>
+  <a href="#ch3">第三章·变质反应</a>
+  <a href="#ch4">第四章·接触变质岩</a>
+  <a href="#ch5">第五章·气液交代</a>
+  <a href="#ch6">第六章·混合岩</a>
+  <a href="#ch7">第七章·动力变质岩</a>
+  <a href="#ch8">第八章·区域变质岩</a>
+  <a href="#ch9">第九章·大地构造</a>
+</nav>
+
+<div class="main-wrap">
+
+<!-- ════════════════ OVERVIEW TABLE ════════════════ -->
+<div class="summary-section">
+  <h2>📊 各章总览与横向联系</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <tr>
+      <th>章节</th>
+      <th>核心主题</th>
+      <th>主导变质因素</th>
+      <th>代表性岩石</th>
+      <th>构造背景</th>
+    </tr>
+    <tr>
+      <td>第一章</td>
+      <td>变质作用基本概念与分类体系</td>
+      <td>温度·压力·流体（总论）</td>
+      <td>——</td>
+      <td>全部类型</td>
+    </tr>
+    <tr>
+      <td>第二章</td>
+      <td>变质岩结构·构造·矿物·分类</td>
+      <td>变质程度</td>
+      <td>板岩·千枚岩·片岩·片麻岩·大理岩·石英岩</td>
+      <td>全部</td>
+    </tr>
+    <tr>
+      <td>第三章</td>
+      <td>变质反应热力学与相平衡</td>
+      <td>T·P·流体活度</td>
+      <td>各类矿物组合</td>
+      <td>全部</td>
+    </tr>
+    <tr>
+      <td>第四章</td>
+      <td>接触变质岩</td>
+      <td>T（热源）主导，P低</td>
+      <td>角岩·矽卡岩·大理岩</td>
+      <td>侵入体接触带</td>
+    </tr>
+    <tr>
+      <td>第五章</td>
+      <td>气液交代变质岩</td>
+      <td>流体（化学位梯度）主导</td>
+      <td>矽卡岩·云英岩·青磐岩·绿泥石化蚀变岩</td>
+      <td>热液系统</td>
+    </tr>
+    <tr>
+      <td>第六章</td>
+      <td>混合岩</td>
+      <td>超高T + 流体熔融</td>
+      <td>眼球状混合岩·条带状·肠状·混合花岗岩</td>
+      <td>深变质核杂岩</td>
+    </tr>
+    <tr>
+      <td>第七章</td>
+      <td>动力变质岩</td>
+      <td>应力·应变主导，低T</td>
+      <td>构造角砾岩·碎裂岩·糜棱岩·假玄武玻璃</td>
+      <td>断层带·韧性剪切带</td>
+    </tr>
+    <tr>
+      <td>第八章</td>
+      <td>区域变质岩</td>
+      <td>T + P 协同升高</td>
+      <td>低绿片岩→蓝片岩→榴辉岩→角闪岩→麻粒岩</td>
+      <td>造山带·碰撞带</td>
+    </tr>
+    <tr>
+      <td>第九章</td>
+      <td>变质岩与大地构造</td>
+      <td>构造背景决定T/P轨迹</td>
+      <td>各变质相带组合</td>
+      <td>板块边界全类型</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<!-- ════════════════ CHAPTER 1 ════════════════ -->
+<div class="chapter ch1" id="ch1">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 01</div>
+      <div class="chapter-title">绪论</div>
+      <div class="chapter-subtitle">变质作用的定义·类型·影响因素·研究意义</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">核心定义</div>
+      <div class="def-box">
+        <strong>变质作用（Metamorphism）：</strong>
+        在地球内部条件下（温度、压力、化学活动性流体），原有岩石（原岩）在固态条件下发生矿物成分、化学成分、结构构造改变的地质作用。不包括风化作用和沉积成岩作用；熔融则标志变质作用结束。
+      </div>
+      <div class="def-box">
+        <strong>变质岩（Metamorphic Rock）：</strong>
+        经变质作用改造后的岩石，是地壳中三大类岩石之一，约占大陆地壳的27.4%（体积）。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质作用的影响因素（五大因素对比）</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>因素</th>
+            <th>类型/范围</th>
+            <th>主要作用</th>
+            <th>对应变质类型</th>
+          </tr>
+          <tr>
+            <td><strong>温度 T</strong></td>
+            <td>150～900°C（超高压可达1000+°C）</td>
+            <td>促进矿物重结晶、多形转变、脱水脱碳反应</td>
+            <td>接触变质、区域变质</td>
+          </tr>
+          <tr>
+            <td><strong>压力 P</strong></td>
+            <td>静岩压力：0.1～3.5 GPa<br>流体压力<br>定向压力（应力）</td>
+            <td>静岩压决定矿物密度相；定向压力产生变晶结构与面理</td>
+            <td>高压/超高压变质；动力变质</td>
+          </tr>
+          <tr>
+            <td><strong>化学活动性流体</strong></td>
+            <td>H₂O、CO₂为主；Cl、F、B等次之</td>
+            <td>催化反应、带入带出组分（交代）、降低熔点</td>
+            <td>气液交代变质、混合岩化</td>
+          </tr>
+          <tr>
+            <td><strong>时间</strong></td>
+            <td>10⁶～10⁸ a</td>
+            <td>保证矿物充分平衡结晶</td>
+            <td>所有类型</td>
+          </tr>
+          <tr>
+            <td><strong>原岩性质</strong></td>
+            <td>化学成分、矿物组合、结构</td>
+            <td>决定变质岩最终矿物组合（同样T·P，原岩不同→岩性不同）</td>
+            <td>所有类型</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质作用分类（按主导因素）</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>类型</th>
+            <th>主导因素</th>
+            <th>规模</th>
+            <th>典型岩石</th>
+          </tr>
+          <tr>
+            <td><strong>接触热变质</strong></td>
+            <td>T↑（岩浆热）</td>
+            <td>局部（侵入体旁）</td>
+            <td>角岩、大理岩</td>
+          </tr>
+          <tr>
+            <td><strong>气液交代变质</strong></td>
+            <td>流体化学组分</td>
+            <td>局部—中等</td>
+            <td>矽卡岩、云英岩</td>
+          </tr>
+          <tr>
+            <td><strong>区域变质</strong></td>
+            <td>T+P（升温升压）</td>
+            <td>区域性（造山带）</td>
+            <td>片岩、片麻岩、榴辉岩</td>
+          </tr>
+          <tr>
+            <td><strong>动力变质</strong></td>
+            <td>定向应力</td>
+            <td>线状（断裂带）</td>
+            <td>碎裂岩、糜棱岩</td>
+          </tr>
+          <tr>
+            <td><strong>混合岩化</strong></td>
+            <td>超高T+流体→局部熔融</td>
+            <td>深变质核</td>
+            <td>混合岩、混合花岗岩</td>
+          </tr>
+          <tr>
+            <td><strong>冲击变质</strong></td>
+            <td>极短暂超高P</td>
+            <td>陨石坑</td>
+            <td>柯石英、斯石英、玻陨石</td>
+          </tr>
+          <tr>
+            <td><strong>埋藏变质</strong></td>
+            <td>T+P（低级）</td>
+            <td>沉积盆地深部</td>
+            <td>沸石相岩石</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质作用 P-T 轨迹概念</div>
+      <div class="key-point">
+        变质岩记录了岩石在地壳内随时间变化的温压历史（P-T-t 轨迹）。顺时针轨迹对应大陆碰撞造山；逆时针轨迹对应拉伸环境或地幔上涌。是了解大地构造演化的关键"温压计"。
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter1 -->
+
+<!-- ════════════════ CHAPTER 2 ════════════════ -->
+<div class="chapter ch2" id="ch2">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 02</div>
+      <div class="chapter-title">变质岩的特征与分类</div>
+      <div class="chapter-subtitle">矿物·结构·构造·分类方案</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">变质岩的矿物特征</div>
+      <div class="key-point">
+        <strong>变质矿物（特征矿物）</strong>是变质岩的标志，仅在变质环境下稳定，如：蓝晶石、红柱石、夕线石（Al₂SiO₅三种多形体）、石榴子石、蓝闪石、绿辉石、柯石英等。
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>矿物组</th>
+            <th>代表矿物</th>
+            <th>指示意义</th>
+          </tr>
+          <tr>
+            <td>铝硅酸盐多形体</td>
+            <td>红柱石（低P）、蓝晶石（高P）、夕线石（高T）</td>
+            <td>判断变质压力与温度</td>
+          </tr>
+          <tr>
+            <td>石榴子石族</td>
+            <td>铁铝榴石、镁铝榴石、钙铝榴石、钙铬榴石</td>
+            <td>温压计、折射率随成分变化</td>
+          </tr>
+          <tr>
+            <td>闪石族</td>
+            <td>蓝闪石（高P低T）、角闪石（中级）、透闪石（低级）</td>
+            <td>判断变质相</td>
+          </tr>
+          <tr>
+            <td>辉石族</td>
+            <td>绿辉石、硬玉（高压）、顽辉石（高温麻粒岩）</td>
+            <td>判断高压-超高压变质</td>
+          </tr>
+          <tr>
+            <td>超高压指示矿物</td>
+            <td>柯石英（SiO₂高压相）、微粒金刚石</td>
+            <td>>2.5 GPa，大陆碰撞深俯冲</td>
+          </tr>
+          <tr>
+            <td>低级变质矿物</td>
+            <td>沸石、蒙脱石→伊利石→绿泥石、绢云母</td>
+            <td>埋藏变质、低绿片岩相</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质岩的结构（Structure）</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>结构名称</th>
+            <th>特征</th>
+            <th>成因</th>
+          </tr>
+          <tr>
+            <td><strong>变晶结构</strong></td>
+            <td>重结晶生长的矿物颗粒，晶形可优于岩浆岩</td>
+            <td>固态重结晶</td>
+          </tr>
+          <tr>
+            <td>粒变晶结构</td>
+            <td>矿物以粒状产出，无定向</td>
+            <td>等压均匀加热</td>
+          </tr>
+          <tr>
+            <td>鳞片变晶结构</td>
+            <td>云母类鳞片状矿物平行排列</td>
+            <td>定向压力下重结晶</td>
+          </tr>
+          <tr>
+            <td>纤维变晶结构</td>
+            <td>矿物呈纤维状</td>
+            <td>压溶或填充</td>
+          </tr>
+          <tr>
+            <td>斑变晶结构</td>
+            <td>粗晶（斑晶）嵌于细粒基质中</td>
+            <td>不均匀生长；石榴子石典型</td>
+          </tr>
+          <tr>
+            <td><strong>变余结构</strong>（残留结构）</td>
+            <td>残留原岩结构：变余砂状、变余斑状</td>
+            <td>变质程度较低时</td>
+          </tr>
+          <tr>
+            <td><strong>碎裂结构</strong></td>
+            <td>矿物破碎、角砾状</td>
+            <td>脆性动力变质</td>
+          </tr>
+          <tr>
+            <td><strong>糜棱结构</strong></td>
+            <td>极细碎屑基质+旋转碎斑</td>
+            <td>韧性剪切</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质岩的构造（Texture/Fabric）</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>构造类型</th>
+            <th>特征</th>
+            <th>代表岩石</th>
+          </tr>
+          <tr>
+            <td><strong>板状构造</strong></td>
+            <td>极薄劈裂面，矿物肉眼不可辨</td>
+            <td>板岩</td>
+          </tr>
+          <tr>
+            <td><strong>千枚状构造</strong></td>
+            <td>丝绢光泽面，绢云母/绿泥石微晶</td>
+            <td>千枚岩</td>
+          </tr>
+          <tr>
+            <td><strong>片状构造</strong></td>
+            <td>大鳞片矿物（云母、绿泥石）肉眼可见定向排列</td>
+            <td>片岩</td>
+          </tr>
+          <tr>
+            <td><strong>片麻状构造</strong></td>
+            <td>浅色矿物（长石、石英）与暗色矿物（角闪石、辉石）条带相间</td>
+            <td>片麻岩</td>
+          </tr>
+          <tr>
+            <td><strong>块状构造</strong></td>
+            <td>无定向，矿物均匀分布</td>
+            <td>大理岩、石英岩、角岩</td>
+          </tr>
+          <tr>
+            <td><strong>条带状构造</strong></td>
+            <td>成分/粒度条带交替</td>
+            <td>混合岩</td>
+          </tr>
+          <tr>
+            <td><strong>眼球状构造</strong></td>
+            <td>椭圆状斑晶（如长石）嵌在片状基质</td>
+            <td>眼球状混合岩/糜棱岩</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质岩的分类方案</div>
+      <div class="key-point">
+        马昌前版采用<strong>成因+岩石学双重分类</strong>：先按成因分为接触变质岩、区域变质岩、动力变质岩等；再按岩石学特征（结构、构造、矿物）命名。
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>岩石</th>
+            <th>变质级别</th>
+            <th>构造</th>
+            <th>标志矿物</th>
+            <th>原岩</th>
+          </tr>
+          <tr>
+            <td><strong>板岩</strong></td>
+            <td>极低级</td>
+            <td>板状</td>
+            <td>绢云母·绿泥石·黏土矿物（细粒）</td>
+            <td>泥质岩、粉砂岩</td>
+          </tr>
+          <tr>
+            <td><strong>千枚岩</strong></td>
+            <td>低级</td>
+            <td>千枚状</td>
+            <td>绢云母·绿泥石·少量石英</td>
+            <td>泥质岩</td>
+          </tr>
+          <tr>
+            <td><strong>片岩</strong></td>
+            <td>低—中级</td>
+            <td>片状</td>
+            <td>云母、角闪石、绿泥石等鳞片矿物</td>
+            <td>泥质岩、基性火山岩</td>
+          </tr>
+          <tr>
+            <td><strong>片麻岩</strong></td>
+            <td>中—高级</td>
+            <td>片麻状</td>
+            <td>长石+石英（>50%）+暗色矿物</td>
+            <td>泥质岩、酸性火成岩</td>
+          </tr>
+          <tr>
+            <td><strong>麻粒岩</strong></td>
+            <td>高级（麻粒岩相）</td>
+            <td>块状—片麻状</td>
+            <td>顽辉石·紫苏辉石·石榴子石（无角闪石）</td>
+            <td>基性/长英质岩</td>
+          </tr>
+          <tr>
+            <td><strong>榴辉岩</strong></td>
+            <td>高压—超高压</td>
+            <td>块状</td>
+            <td>镁铝榴石+绿辉石（主要2种矿物！）</td>
+            <td>基性火成岩（玄武岩/辉长岩）</td>
+          </tr>
+          <tr>
+            <td><strong>蓝片岩</strong></td>
+            <td>高压低温</td>
+            <td>片状</td>
+            <td>蓝闪石+绿纤石±钠长石</td>
+            <td>基性火成岩</td>
+          </tr>
+          <tr>
+            <td><strong>大理岩</strong></td>
+            <td>低—高级</td>
+            <td>块状</td>
+            <td>方解石/白云石（重结晶）</td>
+            <td>石灰岩/白云岩</td>
+          </tr>
+          <tr>
+            <td><strong>石英岩</strong></td>
+            <td>低—高级</td>
+            <td>块状</td>
+            <td>石英（>75%，重结晶）</td>
+            <td>纯净砂岩/硅质岩</td>
+          </tr>
+          <tr>
+            <td><strong>角岩</strong></td>
+            <td>热接触变质</td>
+            <td>块状，致密坚硬</td>
+            <td>随原岩而定（常见堇青石、红柱石）</td>
+            <td>泥质岩（接触带）</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter2 -->
+
+<!-- ════════════════ CHAPTER 3 ════════════════ -->
+<div class="chapter ch3" id="ch3">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 03</div>
+      <div class="chapter-title">变质反应及变质过程</div>
+      <div class="chapter-subtitle">变质反应类型·热力学基础·变质相·P-T轨迹</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">变质反应的主要类型</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>反应类型</th>
+            <th>定义</th>
+            <th>典型示例</th>
+          </tr>
+          <tr>
+            <td><strong>脱水反应</strong></td>
+            <td>含水矿物分解放出H₂O</td>
+            <td>白云母 → 钾长石 + 夕线石 + H₂O</td>
+          </tr>
+          <tr>
+            <td><strong>脱碳酸盐反应</strong></td>
+            <td>碳酸盐矿物分解放出CO₂</td>
+            <td>方解石 + 石英 → 硅灰石 + CO₂</td>
+          </tr>
+          <tr>
+            <td><strong>固相反应</strong></td>
+            <td>矿物之间无流体参与的直接反应</td>
+            <td>钠长石 → 硬玉 + 石英</td>
+          </tr>
+          <tr>
+            <td><strong>多形转变</strong></td>
+            <td>成分不变，晶体结构改变</td>
+            <td>红柱石⇌蓝晶石⇌夕线石；α-石英→柯石英→斯石英</td>
+          </tr>
+          <tr>
+            <td><strong>交代反应</strong></td>
+            <td>流体带入外来组分替换原矿物</td>
+            <td>Ca²⁺交代→生成钙硅酸盐矽卡岩</td>
+          </tr>
+          <tr>
+            <td><strong>熔融反应</strong></td>
+            <td>超过固相线，产生熔体</td>
+            <td>白云母分解→白云母花岗岩（白花岗）初熔</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质相（Metamorphic Facies）</div>
+      <div class="def-box">
+        <strong>变质相（Eskola, 1915）：</strong>在某一特定T-P条件范围内，具有固定矿物共生组合规律的一组变质岩。不同原岩在相同变质相中有各自的特征矿物组合，但T-P条件相同。
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>变质相</th>
+            <th>温度(°C)</th>
+            <th>压力(GPa)</th>
+            <th>指示矿物组合（泥质原岩）</th>
+            <th>典型岩石</th>
+          </tr>
+          <tr>
+            <td><strong>沸石相</strong></td>
+            <td>&lt;250</td>
+            <td>&lt;0.3</td>
+            <td>浊沸石·方沸石</td>
+            <td>埋藏变质岩</td>
+          </tr>
+          <tr>
+            <td><strong>葡萄石-绿纤石相</strong></td>
+            <td>200~350</td>
+            <td>0.2~0.5</td>
+            <td>葡萄石·绿纤石</td>
+            <td>低级变质基性岩</td>
+          </tr>
+          <tr>
+            <td><strong>蓝片岩相</strong>（蓝闪石相）</td>
+            <td>200~500</td>
+            <td>0.5~1.5</td>
+            <td>蓝闪石·绿纤石·多硅白云母</td>
+            <td>蓝片岩</td>
+          </tr>
+          <tr>
+            <td><strong>绿片岩相</strong></td>
+            <td>300~500</td>
+            <td>0.2~0.8</td>
+            <td>绿泥石·绢云母·钠长石·绿帘石</td>
+            <td>绿片岩</td>
+          </tr>
+          <tr>
+            <td><strong>角闪岩相</strong></td>
+            <td>450~700</td>
+            <td>0.3~1.2</td>
+            <td>铁铝榴石·黑云母·角闪石·斜长石</td>
+            <td>角闪岩、片麻岩</td>
+          </tr>
+          <tr>
+            <td><strong>麻粒岩相</strong></td>
+            <td>700~1000</td>
+            <td>0.5~2.0</td>
+            <td>紫苏辉石·铁铝榴石·斜长石（无角闪石）</td>
+            <td>麻粒岩</td>
+          </tr>
+          <tr>
+            <td><strong>榴辉岩相</strong></td>
+            <td>500~1000</td>
+            <td>&gt;1.5</td>
+            <td>镁铝榴石+绿辉石</td>
+            <td>榴辉岩</td>
+          </tr>
+          <tr>
+            <td><strong>角岩相</strong></td>
+            <td>400~800</td>
+            <td>&lt;0.4（低P）</td>
+            <td>堇青石·红柱石（低P高T）</td>
+            <td>角岩</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">铝硅酸盐三相点——P-T标定的核心</div>
+      <div class="key-point">
+        Al₂SiO₅ 三种多形体（红柱石·蓝晶石·夕线石）的三相点约在 T≈500°C, P≈0.38 GPa。
+        <ul class="content-list" style="margin-top:8px">
+          <li><strong>红柱石</strong>：低P低T（浅成侵入体接触带）</li>
+          <li><strong>蓝晶石</strong>：高P中T（区域变质进变质期）</li>
+          <li><strong>夕线石</strong>：高T（中—高压均可，代表退变质高温）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">巴罗带 vs 巴肯带——两种经典变质分带详解</div>
+
+      <!-- 总体对比 -->
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>对比项</th>
+            <th>🏔 巴罗带（Barrovian zones）</th>
+            <th>🌋 巴肯带（Buchan zones）</th>
+          </tr>
+          <tr>
+            <td><strong>命名者/时间</strong></td>
+            <td>George Barrow，1893年，苏格兰高地</td>
+            <td>W. Q. Kennedy，1948年，苏格兰东北Buchan地区</td>
+          </tr>
+          <tr>
+            <td><strong>P-T类型</strong></td>
+            <td>中等P/T（Barrovian型）<br>中等地温梯度 15~25°C/km</td>
+            <td>低P/T（低压高温型）<br>高地温梯度 &gt;30°C/km</td>
+          </tr>
+          <tr>
+            <td><strong>构造背景</strong></td>
+            <td>大陆碰撞造山带内部（中等深度）</td>
+            <td>弧后裂谷、岩浆弧旁侧、浅成侵入体周围</td>
+          </tr>
+          <tr>
+            <td><strong>指数矿物序列</strong><br>（泥质原岩，低→高级）</td>
+            <td>
+              ① 绿泥石带（Chlorite zone）<br>
+              ② 黑云母带（Biotite zone）<br>
+              ③ 铁铝榴石带（Garnet zone）<br>
+              ④ 十字石带（Staurolite zone）<br>
+              ⑤ 蓝晶石带（Kyanite zone）<br>
+              ⑥ 夕线石带（Sillimanite zone）
+            </td>
+            <td>
+              ① 绿泥石带（Chlorite zone）<br>
+              ② 黑云母带（Biotite zone）<br>
+              ③ 铁铝榴石带（Garnet zone）<br>
+              ④ <strong>堇青石带（Cordierite zone）</strong>↔ 低P特征<br>
+              ⑤ <strong>红柱石带（Andalusite zone）</strong>↔ 低P标志<br>
+              ⑥ <strong>夕线石带（Sillimanite zone）</strong>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>关键区别矿物</strong></td>
+            <td>蓝晶石（高P）、十字石（中P）</td>
+            <td>红柱石（低P）、堇青石（低P）<br><strong>无蓝晶石，无十字石</strong></td>
+          </tr>
+          <tr>
+            <td><strong>铝硅酸盐相</strong></td>
+            <td>蓝晶石 → 夕线石（高P路径）</td>
+            <td>红柱石 → 夕线石（低P路径）</td>
+          </tr>
+          <tr>
+            <td><strong>代表变质相系</strong></td>
+            <td>中间型相系（绿片岩→角闪岩→麻粒岩）</td>
+            <td>低P/T相系（角岩→角闪岩→麻粒岩）</td>
+          </tr>
+          <tr>
+            <td><strong>典型地区</strong></td>
+            <td>苏格兰高地中部、阿尔卑斯山、大别山</td>
+            <td>苏格兰东北Buchan、日本领家带、澳大利亚Cooma</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- P-T图解SVG -->
+      <div style="margin: 18px 0 10px; font-weight:700; color:#555; font-size:.9rem;">📐 P-T空间中的巴罗带与巴肯带路径示意图</div>
+      <div style="overflow-x:auto; background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px;">
+        <svg viewBox="0 0 620 400" width="100%" style="max-width:620px; font-family:sans-serif;">
+          <!-- 背景 -->
+          <rect width="620" height="400" fill="#fafaf8"/>
+
+          <!-- 坐标轴 -->
+          <!-- Y轴 压力 -->
+          <line x1="70" y1="20" x2="70" y2="350" stroke="#444" stroke-width="2"/>
+          <line x1="70" y1="350" x2="590" y2="350" stroke="#444" stroke-width="2"/>
+          <!-- 箭头 -->
+          <polygon points="70,15 65,28 75,28" fill="#444"/>
+          <polygon points="595,350 582,344 582,356" fill="#444"/>
+
+          <!-- 轴标签 -->
+          <text x="20" y="195" font-size="13" fill="#333" transform="rotate(-90,20,195)">压力 P (GPa)</text>
+          <text x="320" y="385" font-size="13" fill="#333" text-anchor="middle">温度 T (°C)</text>
+
+          <!-- Y轴刻度 -->
+          <text x="55" y="340" font-size="10" fill="#666" text-anchor="end">0</text>
+          <text x="55" y="270" font-size="10" fill="#666" text-anchor="end">0.3</text>
+          <text x="55" y="200" font-size="10" fill="#666" text-anchor="end">0.6</text>
+          <text x="55" y="130" font-size="10" fill="#666" text-anchor="end">1.0</text>
+          <text x="55" y="60" font-size="10" fill="#666" text-anchor="end">1.5</text>
+          <line x1="67" y1="270" x2="73" y2="270" stroke="#888"/>
+          <line x1="67" y1="200" x2="73" y2="200" stroke="#888"/>
+          <line x1="67" y1="130" x2="73" y2="130" stroke="#888"/>
+          <line x1="67" y1="60" x2="73" y2="60" stroke="#888"/>
+
+          <!-- X轴刻度 -->
+          <text x="120" y="365" font-size="10" fill="#666" text-anchor="middle">200</text>
+          <text x="200" y="365" font-size="10" fill="#666" text-anchor="middle">400</text>
+          <text x="300" y="365" font-size="10" fill="#666" text-anchor="middle">600</text>
+          <text x="400" y="365" font-size="10" fill="#666" text-anchor="middle">700</text>
+          <text x="500" y="365" font-size="10" fill="#666" text-anchor="middle">900</text>
+          <line x1="120" y1="347" x2="120" y2="353" stroke="#888"/>
+          <line x1="200" y1="347" x2="200" y2="353" stroke="#888"/>
+          <line x1="300" y1="347" x2="300" y2="353" stroke="#888"/>
+          <line x1="400" y1="347" x2="400" y2="353" stroke="#888"/>
+          <line x1="500" y1="347" x2="500" y2="353" stroke="#888"/>
+
+          <!-- 格子线（浅色） -->
+          <line x1="70" y1="270" x2="590" y2="270" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="70" y1="200" x2="590" y2="200" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="70" y1="130" x2="590" y2="130" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="200" y1="20" x2="200" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="300" y1="20" x2="300" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="400" y1="20" x2="400" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+          <line x1="500" y1="20" x2="500" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
+
+          <!-- Al2SiO5 三相线 -->
+          <!-- 红柱石-蓝晶石分界 (低压→高压，约T=350~600°C) -->
+          <line x1="150" y1="340" x2="290" y2="215" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <!-- 蓝晶石-夕线石分界 -->
+          <line x1="290" y1="215" x2="530" y2="60" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <!-- 红柱石-夕线石分界 -->
+          <line x1="290" y1="215" x2="520" y2="295" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+          <!-- 三相点 -->
+          <circle cx="290" cy="215" r="6" fill="#e6b800" stroke="#a07800" stroke-width="1.5"/>
+          <text x="300" y="210" font-size="10" fill="#7a5a00" font-weight="bold">三相点</text>
+          <text x="300" y="222" font-size="9" fill="#7a5a00">~500°C, 0.38GPa</text>
+
+          <!-- 矿物区域标签 -->
+          <text x="140" y="290" font-size="12" fill="#8B2500" font-weight="bold">红柱石</text>
+          <text x="140" y="305" font-size="10" fill="#8B2500">Andalusite</text>
+          <text x="200" y="140" font-size="12" fill="#1a4a8a" font-weight="bold">蓝晶石</text>
+          <text x="200" y="155" font-size="10" fill="#1a4a8a">Kyanite</text>
+          <text x="420" y="230" font-size="12" fill="#4a7a00" font-weight="bold">夕线石</text>
+          <text x="420" y="245" font-size="10" fill="#4a7a00">Sillimanite</text>
+
+          <!-- ===== 巴罗带轨迹（蓝色，中等P/T）===== -->
+          <!-- 路径从低T低P → 中P中T（穿过蓝晶石区）-->
+          <polyline points="120,330 160,295 210,245 270,195 330,155 380,120 430,95"
+            fill="none" stroke="#2255aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- 箭头 -->
+          <polygon points="430,95 415,100 420,112" fill="#2255aa"/>
+
+          <!-- 巴罗带各带标注 -->
+          <circle cx="130" cy="328" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="90" y="324" font-size="9" fill="#2255aa">绿泥石带</text>
+          <circle cx="170" cy="290" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="100" y="287" font-size="9" fill="#2255aa">黑云母带</text>
+          <circle cx="220" cy="240" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="225" y="237" font-size="9" fill="#2255aa">铁铝榴石带</text>
+          <circle cx="265" cy="197" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="270" y="193" font-size="9" fill="#2255aa">十字石带</text>
+          <circle cx="325" cy="157" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="330" y="152" font-size="9" fill="#2255aa">蓝晶石带</text>
+          <circle cx="430" cy="95" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
+          <text x="435" y="91" font-size="9" fill="#2255aa">夕线石带</text>
+          <!-- 巴罗带标签 -->
+          <rect x="435" y="60" width="120" height="22" rx="4" fill="#2255aa" opacity="0.85"/>
+          <text x="495" y="75" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">🏔 巴罗带（Barrovian）</text>
+
+          <!-- ===== 巴肯带轨迹（橙红色，低P高T）===== -->
+          <!-- 路径沿低压升温（穿过红柱石区）-->
+          <polyline points="140,340 175,323 230,310 295,300 360,290 430,278 510,268"
+            fill="none" stroke="#c0392b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- 箭头 -->
+          <polygon points="510,268 496,262 498,276" fill="#c0392b"/>
+
+          <!-- 巴肯带各带标注 -->
+          <circle cx="148" cy="338" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="90" y="343" font-size="9" fill="#c0392b">绿泥石带</text>
+          <circle cx="190" cy="320" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="130" y="319" font-size="9" fill="#c0392b">黑云母带</text>
+          <circle cx="245" cy="307" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="248" y="304" font-size="9" fill="#c0392b">铁铝榴石带</text>
+          <circle cx="310" cy="297" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="314" y="294" font-size="9" fill="#c0392b">堇青石带</text>
+          <circle cx="375" cy="287" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="379" y="284" font-size="9" fill="#c0392b">红柱石带</text>
+          <circle cx="510" cy="268" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="514" y="265" font-size="9" fill="#c0392b">夕线石带</text>
+          <!-- 巴肯带标签 -->
+          <rect x="435" y="35" width="120" height="22" rx="4" fill="#c0392b" opacity="0.85"/>
+          <text x="495" y="50" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">🌋 巴肯带（Buchan）</text>
+
+          <!-- 地温梯度参考线 -->
+          <line x1="70" y1="350" x2="330" y2="30" stroke="#999" stroke-width="1" stroke-dasharray="3,5" opacity="0.5"/>
+          <text x="340" y="28" font-size="9" fill="#888">高地温梯度</text>
+          <line x1="70" y1="350" x2="540" y2="80" stroke="#999" stroke-width="1" stroke-dasharray="3,5" opacity="0.5"/>
+          <text x="545" y="78" font-size="9" fill="#888">中等地温梯度</text>
+        </svg>
+      </div>
+      <p style="font-size:.8rem; color:#888; margin:4px 0 14px; padding-left:4px;">▲ 橙红虚线：Al₂SiO₅三相分界线；蓝线：巴罗带P-T路径；红线：巴肯带P-T路径；黄点：三相点（~500°C/0.38 GPa）</p>
+
+      <!-- 带状分布平面示意图 -->
+      <div style="margin: 10px 0 6px; font-weight:700; color:#555; font-size:.9rem;">🗺 变质带平面分布示意（以苏格兰为模型）</div>
+      <div style="overflow-x:auto; background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px;">
+        <svg viewBox="0 0 620 220" width="100%" style="max-width:620px; font-family:sans-serif;">
+          <rect width="620" height="220" fill="#f5f5f0"/>
+
+          <!-- ===== 巴罗带同心弧（左侧）===== -->
+          <text x="155" y="18" font-size="12" fill="#2255aa" font-weight="bold" text-anchor="middle">巴罗带（中等P/T）</text>
+          <!-- 核部变质最强 -->
+          <ellipse cx="155" cy="115" rx="28" ry="55" fill="#6a5acd" opacity="0.7"/>
+          <text x="155" y="119" font-size="9" fill="#fff" text-anchor="middle">夕线石</text>
+          <ellipse cx="155" cy="115" rx="48" ry="78" fill="#3a82d0" opacity="0.55"/>
+          <text x="155" y="58" font-size="9" fill="#fff" text-anchor="middle">蓝晶石</text>
+          <ellipse cx="155" cy="115" rx="68" ry="98" fill="#2196a0" opacity="0.45"/>
+          <text x="155" y="30" font-size="9" fill="#fff" text-anchor="middle">十字石</text>
+          <ellipse cx="155" cy="115" rx="88" ry="108" fill="#2eaa60" opacity="0.35"/>
+          <ellipse cx="155" cy="115" rx="108" ry="112" fill="#7cc060" opacity="0.28"/>
+          <ellipse cx="155" cy="115" rx="128" ry="115" fill="#c8d860" opacity="0.22"/>
+
+          <!-- 巴罗带标注从外到内 -->
+          <text x="30" y="120" font-size="9" fill="#333" text-anchor="middle">绿泥石</text>
+          <text x="55" y="120" font-size="9" fill="#333" text-anchor="middle">黑云母</text>
+          <text x="82" y="120" font-size="9" fill="#333" text-anchor="middle">石榴子石</text>
+
+          <!-- 等变质线（虚线） -->
+          <ellipse cx="155" cy="115" rx="28" ry="55" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="48" ry="78" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="68" ry="98" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="88" ry="108" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="155" cy="115" rx="108" ry="112" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+
+          <!-- 变质增强方向箭头 -->
+          <line x1="290" y1="115" x2="252" y2="115" stroke="#2255aa" stroke-width="1.5" marker-end="url(#arr1)"/>
+          <defs><marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2255aa"/></marker></defs>
+          <text x="292" y="112" font-size="9" fill="#2255aa">变质增强→</text>
+
+          <!-- ===== 巴肯带（右侧）===== -->
+          <text x="465" y="18" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">巴肯带（低P/T）</text>
+          <!-- 核部最热（侵入体旁） -->
+          <ellipse cx="465" cy="115" rx="28" ry="55" fill="#d35400" opacity="0.7"/>
+          <text x="465" y="119" font-size="9" fill="#fff" text-anchor="middle">夕线石</text>
+          <ellipse cx="465" cy="115" rx="50" ry="80" fill="#e67e22" opacity="0.55"/>
+          <text x="465" y="55" font-size="9" fill="#fff" text-anchor="middle">红柱石</text>
+          <ellipse cx="465" cy="115" rx="72" ry="100" fill="#f39c12" opacity="0.45"/>
+          <text x="465" y="30" font-size="9" fill="#555" text-anchor="middle">堇青石</text>
+          <ellipse cx="465" cy="115" rx="92" ry="110" fill="#2eaa60" opacity="0.35"/>
+          <ellipse cx="465" cy="115" rx="112" ry="114" fill="#c8d860" opacity="0.26"/>
+          <text x="365" y="120" font-size="9" fill="#333" text-anchor="middle">黑云母</text>
+          <text x="340" y="120" font-size="9" fill="#333" text-anchor="middle">绿泥石</text>
+
+          <ellipse cx="465" cy="115" rx="50" ry="80" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="465" cy="115" rx="72" ry="100" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+          <ellipse cx="465" cy="115" rx="92" ry="110" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
+
+          <!-- 注意：无蓝晶石+十字石 -->
+          <text x="465" y="195" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">⚠ 无蓝晶石·无十字石</text>
+
+          <!-- 侵入体标注 -->
+          <text x="465" y="125" font-size="8" fill="#fff" text-anchor="middle">（侵入体热源）</text>
+
+          <!-- 分隔线 -->
+          <line x1="310" y1="20" x2="310" y2="200" stroke="#ccc" stroke-width="1.5" stroke-dasharray="6,4"/>
+        </svg>
+      </div>
+      <p style="font-size:.8rem; color:#888; margin:4px 0 8px; padding-left:4px;">▲ 平面示意：等变质线由外向内变质程度递增。巴肯带缺失蓝晶石和十字石带，是与巴罗带最直观的区别。</p>
+
+      <!-- 核心要记 -->
+      <div class="def-box" style="margin-top:12px;">
+        <strong>考试核心记忆口诀：</strong><br>
+        巴罗带走高压路：<span style="color:#2255aa">绿泥—黑云—石榴—<b>十字石—蓝晶石</b>—夕线石</span>（中等地温，碰撞造山）<br>
+        巴肯带走低压路：<span style="color:#c0392b">绿泥—黑云—石榴—<b>堇青石—红柱石</b>—夕线石</span>（高地温，弧后/浅侵入体）<br>
+        <strong>两带共同点：</strong>①起点和终点相同（都从绿泥石开始，以夕线石结束）；②指数矿物法由Barrow创立，等变质线划分各带。<br>
+        <strong>最关键区别：</strong>有无<b>蓝晶石 + 十字石</b>；低压带出现<b>红柱石 + 堇青石</b>。
+      </div>
+
+      <!-- 指数矿物说明 -->
+      <div class="key-point" style="margin-top:12px;">
+        <strong>指数矿物（Index Mineral）</strong>是指在某一变质带中<b>首次稳定出现</b>的矿物，代表该带的最低T-P条件。<br>
+        <b>等变质线（Isograd）</b>：地图上连接指数矿物首次出现位置的线，等同于等温等压面的地表出露线。<br>
+        注意：指数矿物仅指泥质原岩（富铝沉积岩）中的矿物，因为铝硅酸盐体系对P-T最敏感；碳酸盐岩或基性岩中有不同的分带矿物。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">P-T-t 轨迹类型对比</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>轨迹类型</th>
+            <th>地质背景</th>
+            <th>特征</th>
+          </tr>
+          <tr>
+            <td><strong>顺时针（CW）</strong></td>
+            <td>大陆碰撞造山</td>
+            <td>先增压升温（俯冲），后减压降温（隆升）；多数变质岩</td>
+          </tr>
+          <tr>
+            <td><strong>逆时针（CCW）</strong></td>
+            <td>大陆弧、岩浆弧底部</td>
+            <td>先升温（岩浆热）再加压，或持续高温低压</td>
+          </tr>
+          <tr>
+            <td><strong>近等温降压（ITD）</strong></td>
+            <td>快速隆升剥蚀</td>
+            <td>压力下降速率远大于降温速率</td>
+          </tr>
+          <tr>
+            <td><strong>近等压升温（IBC）</strong></td>
+            <td>岩浆侵入加热</td>
+            <td>接触变质特征</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter3 -->
+
+<!-- ════════════════ CHAPTER 4 ════════════════ -->
+<div class="chapter ch4" id="ch4">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 04</div>
+      <div class="chapter-title">接触变质岩</div>
+      <div class="chapter-subtitle">热接触变质·气液接触交代·变质带分带</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">核心定义</div>
+      <div class="def-box">
+        <strong>接触变质作用：</strong>岩浆侵入体烘烤围岩，以热能传导为主要动力，在较低压力（浅成条件）下发生的变质作用，形成接触变质晕（aureole）。特点：T↑，P低（&lt;0.3 GPa），化学成分总体封闭，规模有限（数米至数公里）。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">接触变质带的分带（以泥质围岩为例）</div>
+      <div class="key-point">
+        由岩体接触面向外，温度递减，形成同心环状变质带：
+        <br><strong>内带（高T）</strong>：堇青石角岩带 → 红柱石角岩带 → 斑点板岩带 → <strong>外带（低T）</strong>：未变质围岩
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">接触变质岩类型对比</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>岩石</th>
+            <th>原岩</th>
+            <th>主要矿物</th>
+            <th>结构构造</th>
+            <th>典型特征</th>
+          </tr>
+          <tr>
+            <td><strong>角岩（Hornfels）</strong></td>
+            <td>泥质、粉砂质岩</td>
+            <td>堇青石、红柱石、长石、石英（依T高低）</td>
+            <td>块状；粒变晶或斑变晶</td>
+            <td>致密坚硬，贝壳状断口，热变质代表</td>
+          </tr>
+          <tr>
+            <td><strong>大理岩（Marble）</strong></td>
+            <td>石灰岩、白云岩</td>
+            <td>方解石±白云石，可含透辉石、钙铝榴石</td>
+            <td>块状；粒变晶</td>
+            <td>晶粒洁白，显重结晶粒状</td>
+          </tr>
+          <tr>
+            <td><strong>石英岩（Quartzite）</strong></td>
+            <td>纯净石英砂岩</td>
+            <td>石英（>75%）</td>
+            <td>块状；粒变晶</td>
+            <td>坚硬，与原砂岩区别在重结晶</td>
+          </tr>
+          <tr>
+            <td><strong>斑点板岩</strong></td>
+            <td>泥质岩</td>
+            <td>绢云母·绿泥石+变斑晶（初期堇青石、黑云母）</td>
+            <td>板状；斑点（斑变晶）</td>
+            <td>距侵入体较远，低温带产物</td>
+          </tr>
+          <tr>
+            <td><strong>矽卡岩（Skarn）</strong></td>
+            <td>碳酸盐岩（钙质）</td>
+            <td>钙铝榴石、透辉石、硅灰石、方柱石等钙硅酸盐矿物</td>
+            <td>块状；粒变晶</td>
+            <td>属接触交代产物；常见矿化（Cu、Fe、W）</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">接触变质岩 vs 区域变质岩 关键区别</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>特征</th>
+            <th>接触变质岩</th>
+            <th>区域变质岩</th>
+          </tr>
+          <tr>
+            <td>压力</td>
+            <td>低（&lt;0.3 GPa）</td>
+            <td>中—高（0.3~3.5 GPa）</td>
+          </tr>
+          <tr>
+            <td>温度</td>
+            <td>低—高均有，但高T时P仍低</td>
+            <td>T随P协同升高</td>
+          </tr>
+          <tr>
+            <td>定向构造</td>
+            <td>一般<strong>无</strong>（静压为主）</td>
+            <td>发育片理、片麻理</td>
+          </tr>
+          <tr>
+            <td>规模</td>
+            <td>数十米—数公里（局部）</td>
+            <td>数百—数千公里</td>
+          </tr>
+          <tr>
+            <td>典型矿物</td>
+            <td>红柱石、堇青石（低P指标）</td>
+            <td>蓝晶石、夕线石、石榴子石（中高P）</td>
+          </tr>
+          <tr>
+            <td>典型岩石</td>
+            <td>角岩、矽卡岩</td>
+            <td>片岩、片麻岩、榴辉岩</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter4 -->
+
+<!-- ════════════════ CHAPTER 5 ════════════════ -->
+<div class="chapter ch5" id="ch5">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 05</div>
+      <div class="chapter-title">气液交代变质岩</div>
+      <div class="chapter-subtitle">交代作用·交代岩类型·蚀变分带</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">核心定义</div>
+      <div class="def-box">
+        <strong>气液交代变质（Metasomatism）：</strong>化学活动性流体（热液、气体）与岩石发生物质交换，在带入外来组分的同时带出原有组分，导致岩石化学成分发生改变。与热变质最大区别：<strong>体积基本不变（等体积交代），化学成分开放体系</strong>。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">交代作用类型及代表岩石</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>交代类型</th>
+            <th>流体性质</th>
+            <th>代表岩石</th>
+            <th>主要矿物</th>
+            <th>经济意义</th>
+          </tr>
+          <tr>
+            <td><strong>矽卡岩化</strong></td>
+            <td>Ca-Si富集热液，高T</td>
+            <td>矽卡岩（Skarn）</td>
+            <td>钙铝/钙铁榴石、透辉石、硅灰石、方柱石</td>
+            <td>Fe、Cu、W、Mo、Pb-Zn矿床</td>
+          </tr>
+          <tr>
+            <td><strong>云英岩化</strong></td>
+            <td>含F、B的酸性热液</td>
+            <td>云英岩（Greisen）</td>
+            <td>石英+白云母（±黄玉、萤石、锡石）</td>
+            <td>Sn、W、Mo、Be矿床</td>
+          </tr>
+          <tr>
+            <td><strong>青磐岩化</strong></td>
+            <td>CO₂-H₂O低温热液</td>
+            <td>青磐岩（Propylite）</td>
+            <td>绿泥石+绿帘石+方解石+黄铁矿±钠长石</td>
+            <td>斑岩型铜矿外带蚀变</td>
+          </tr>
+          <tr>
+            <td><strong>钾化（钾长石化）</strong></td>
+            <td>K⁺富集热液，高T</td>
+            <td>钾化蚀变岩</td>
+            <td>钾长石+黑云母</td>
+            <td>斑岩铜矿核部蚀变</td>
+          </tr>
+          <tr>
+            <td><strong>绢英岩化</strong></td>
+            <td>中低温K-SiO₂热液</td>
+            <td>绢英岩（Phyllonite）</td>
+            <td>绢云母+石英±黄铁矿</td>
+            <td>浅成低温热液型金矿</td>
+          </tr>
+          <tr>
+            <td><strong>蛇纹石化</strong></td>
+            <td>低T H₂O与超基性岩反应</td>
+            <td>蛇纹岩</td>
+            <td>蛇纹石（叶/纤维状）±滑石±磁铁矿</td>
+            <td>石棉矿床；地幔岩标志</td>
+          </tr>
+          <tr>
+            <td><strong>碳酸盐化</strong></td>
+            <td>CO₂热液</td>
+            <td>碳酸岩脉</td>
+            <td>方解石·白云石·铁白云石</td>
+            <td>热液蚀变晕标志</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">矽卡岩的分带（以接触带为例）</div>
+      <div class="key-point">
+        从侵入体→碳酸盐岩典型分带（T递减，流体成分变化）：
+        <br>【内矽卡岩带（硅酸盐矿物发育，钙铝榴石带）】→【中带（透辉石带）】→【外矽卡岩带（硅灰石·方柱石带）】→【大理岩化带】
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">斑岩铜矿蚀变分带（经典Lowell-Guilbert模式）</div>
+      <div class="key-point">
+        由中心向外：钾化带（钾长石+黑云母）→ 绢英岩化带（绢云母+石英+黄铁矿）→ 泥化带（高岭石+蒙脱石）→ 青磐岩化带（绿泥石+绿帘石）
+        <br>矿化主要集中在钾化带和绢英岩化带之间。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">交代作用基本原理</div>
+      <div class="def-box">
+        <strong>Korzhinskii组分理论：</strong>交代作用按组分的流动性分为"惰性组分"（体积守恒参考）和"活动性组分"（可被流体迁移）。交代锋面（metasomatic front）从流体通道向外推进，形成分带。
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter5 -->
+
+<!-- ════════════════ CHAPTER 6 ════════════════ -->
+<div class="chapter ch6" id="ch6">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 06</div>
+      <div class="chapter-title">混合岩</div>
+      <div class="chapter-subtitle">混合岩化作用·类型·成因·与花岗岩关系</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">核心定义</div>
+      <div class="def-box">
+        <strong>混合岩化作用（Migmatization）：</strong>在超变质条件下（高T≥650°C + 流体），深变质岩发生部分熔融（anatexis）或受长英质熔体/流体注入，原岩与新生脉体发生机械混合或化学混合，形成混合岩（Migmatite）。兼具变质岩与岩浆岩特点，是两者之间的过渡产物。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">混合岩的两个组成部分</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>组成</th>
+            <th>术语</th>
+            <th>性质</th>
+            <th>成分特点</th>
+          </tr>
+          <tr>
+            <td>暗色难熔部分</td>
+            <td><strong>古成体（Paleosome）</strong></td>
+            <td>残留的高级变质岩基质</td>
+            <td>富Fe-Mg，含黑云母·角闪石</td>
+          </tr>
+          <tr>
+            <td>浅色新生部分</td>
+            <td><strong>新成体（Neosome）</strong></td>
+            <td>熔融或外来注入的长英质脉体</td>
+            <td>富Si-Al-K，含长石·石英</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size:.82rem;color:var(--muted)">
+              注：新成体又可分为<strong>浅色体（Leucosome）</strong>（熔融分异的长英质部分）和<strong>暗色体（Melanosome）</strong>（残余难熔相的富Fe-Mg边缘）。
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">混合岩的类型及区别</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>类型</th>
+            <th>构造特征</th>
+            <th>新成体形态</th>
+            <th>混合程度</th>
+          </tr>
+          <tr>
+            <td><strong>条带状混合岩</strong></td>
+            <td>浅色脉体与暗色基质交替条带</td>
+            <td>平行条带，宽度相对均一</td>
+            <td>低—中</td>
+          </tr>
+          <tr>
+            <td><strong>眼球状混合岩</strong></td>
+            <td>椭圆形长石巨晶嵌于片状基质</td>
+            <td>旋转拉伸变形的长石眼球</td>
+            <td>中</td>
+          </tr>
+          <tr>
+            <td><strong>肠状混合岩</strong></td>
+            <td>浅色脉体折叠弯曲似肠形</td>
+            <td>迂回弯曲，变形显著</td>
+            <td>中</td>
+          </tr>
+          <tr>
+            <td><strong>网状混合岩</strong></td>
+            <td>浅色脉体交叉切割基质成网格</td>
+            <td>不规则网脉</td>
+            <td>中—高</td>
+          </tr>
+          <tr>
+            <td><strong>角砾状混合岩</strong></td>
+            <td>古成体碎块漂浮于新成体中</td>
+            <td>新成体为基质</td>
+            <td>高</td>
+          </tr>
+          <tr>
+            <td><strong>混合花岗岩（Migmatitic granite）</strong></td>
+            <td>均质，岩浆岩特征明显</td>
+            <td>古成体几乎消失</td>
+            <td>极高（超变质成因花岗岩）</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">混合岩化成因机制</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>机制</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td><strong>注入说</strong></td>
+            <td>外来岩浆或热液注入变质岩中，形成脉体混合</td>
+          </tr>
+          <tr>
+            <td><strong>深熔说（部分熔融）</strong></td>
+            <td>原岩就地熔融产生熔体，与难熔残留体共存；现为主流观点</td>
+          </tr>
+          <tr>
+            <td><strong>交代说</strong></td>
+            <td>流体交代使岩石局部长英质化，化学混合</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">混合岩 vs 片麻岩 区别</div>
+      <div class="key-point">
+        片麻岩：均质矿物条带，浅色（长英质）和暗色矿物均为变质重结晶产物，无明显熔体脉体。<br>
+        混合岩：有明显的新成体（熔体来源的长英质脉体）穿切或不规则分布于古成体中，混合程度不均一。
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter6 -->
+
+<!-- ════════════════ CHAPTER 7 ════════════════ -->
+<div class="chapter ch7" id="ch7">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 07</div>
+      <div class="chapter-title">动力变质岩</div>
+      <div class="chapter-subtitle">碎裂岩系列·糜棱岩系列·假玄武玻璃</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">核心定义</div>
+      <div class="def-box">
+        <strong>动力变质作用：</strong>在强烈构造应力作用下，岩石发生机械破碎、变形和重结晶的变质作用。主要发育于断层带和韧性剪切带。温度相对较低（不需要高温），定向应力是主导因素。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">脆性 vs 韧性变形机制</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>变形机制</th>
+            <th>条件</th>
+            <th>产物</th>
+            <th>代表岩石</th>
+          </tr>
+          <tr>
+            <td><strong>脆性破裂</strong></td>
+            <td>低T，高应变速率，浅层</td>
+            <td>碎屑、角砾</td>
+            <td>构造角砾岩·碎裂岩</td>
+          </tr>
+          <tr>
+            <td><strong>韧性流变</strong></td>
+            <td>较高T（石英>300°C；长石>450°C），低应变速率，中深层</td>
+            <td>拉伸线理、S-C组构、旋转碎斑</td>
+            <td>糜棱岩·超糜棱岩</td>
+          </tr>
+          <tr>
+            <td><strong>超高速摩擦熔融</strong></td>
+            <td>极快应变速率（地震破裂）</td>
+            <td>玻璃质熔体</td>
+            <td>假玄武玻璃</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">动力变质岩系列详细对比</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>岩石名称</th>
+            <th>碎基比例</th>
+            <th>主要结构</th>
+            <th>矿物特征</th>
+            <th>构造环境</th>
+          </tr>
+          <tr>
+            <td><strong>断层泥（Fault gouge）</strong></td>
+            <td>&gt;90% 细粒</td>
+            <td>泥状，无固结</td>
+            <td>黏土矿物为主</td>
+            <td>浅层断层</td>
+          </tr>
+          <tr>
+            <td><strong>构造角砾岩</strong></td>
+            <td>角砾&gt;30%，棱角状</td>
+            <td>碎裂结构，角砾状</td>
+            <td>角砾保留原岩矿物，胶结物可为细粒岩石粉</td>
+            <td>脆性断裂带</td>
+          </tr>
+          <tr>
+            <td><strong>碎裂岩</strong></td>
+            <td>碎基10~50%</td>
+            <td>碎裂结构，角砾/碎屑</td>
+            <td>矿物破碎，波状消光</td>
+            <td>脆—韧性过渡带</td>
+          </tr>
+          <tr>
+            <td><strong>糜棱岩（Mylonite）</strong></td>
+            <td>细粒基质50~90%；碎斑旋转</td>
+            <td>糜棱结构，S-C组构</td>
+            <td>石英拉伸条带、长石旋转碎斑</td>
+            <td>韧性剪切带</td>
+          </tr>
+          <tr>
+            <td><strong>超糜棱岩</strong></td>
+            <td>基质&gt;90%，极细粒</td>
+            <td>致密，细晶变晶</td>
+            <td>几乎全部重结晶，碎斑消失</td>
+            <td>强韧性剪切带深部</td>
+          </tr>
+          <tr>
+            <td><strong>假玄武玻璃（Pseudotachylyte）</strong></td>
+            <td>玻璃质基质，含碎块</td>
+            <td>玻璃质，流动构造</td>
+            <td>玻璃+微晶，似火山岩</td>
+            <td>地震断层面（地震熔融）</td>
+          </tr>
+          <tr>
+            <td><strong>蓝晶石岩/糜棱片麻岩</strong></td>
+            <td>韧性变形+变质</td>
+            <td>片状或条带</td>
+            <td>石英透镜体、蓝晶石</td>
+            <td>深层韧性剪切带+变质</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">糜棱岩的运动学指示构造</div>
+      <div class="key-point">
+        <strong>S面理</strong>（叶理面）：矿物定向排列面。<br>
+        <strong>C面理</strong>（剪切带面）：实际剪切位移面，与S斜交（10°~40°）。<br>
+        S-C组构夹角判断剪切方向（上盘运动方向）——是确定断层性质的重要依据。<br>
+        <strong>σ-型、δ-型碎斑</strong>：绕旋转长石碎斑的不对称尾翼，可指示剪切方向。
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter7 -->
+
+<!-- ════════════════ CHAPTER 8 ════════════════ -->
+<div class="chapter ch8" id="ch8">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 08</div>
+      <div class="chapter-title">区域变质岩</div>
+      <div class="chapter-subtitle">变质相系·主要岩石类型·原岩恢复</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">核心定义</div>
+      <div class="def-box">
+        <strong>区域变质作用：</strong>在造山运动过程中，广大地区岩石在T和P协同增高的条件下发生的变质作用。规模巨大（数百至数千km²），具有成带性，形成变质带。是地球上分布最广的变质类型。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质相系（Facies Series）——P/T比值分类</div>
+      <div class="def-box">
+        <strong>变质相系（Miyashiro, 1961）：</strong>某一地区出现的一系列变质相，代表一种特定的T/P比值类型（地温梯度类型）。
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>相系类型</th>
+            <th>P/T 特征</th>
+            <th>变质相序列</th>
+            <th>地温梯度</th>
+            <th>构造背景</th>
+          </tr>
+          <tr>
+            <td><strong>低P/T相系</strong>（高温低压型）</td>
+            <td>低P/T，高地温</td>
+            <td>角岩相→角闪岩相→麻粒岩相</td>
+            <td>&gt;30°C/km</td>
+            <td>弧后盆地、裂谷、岩浆弧</td>
+          </tr>
+          <tr>
+            <td><strong>中间型相系</strong>（Barrovian型）</td>
+            <td>中等P/T</td>
+            <td>绿片岩相→角闪岩相→麻粒岩相</td>
+            <td>15~30°C/km</td>
+            <td>经典造山带（苏格兰型）</td>
+          </tr>
+          <tr>
+            <td><strong>高P/T相系</strong>（蓝片岩型）</td>
+            <td>高P/T，低地温</td>
+            <td>葡萄石-绿纤石相→蓝片岩相→榴辉岩相</td>
+            <td>&lt;10°C/km</td>
+            <td>俯冲带、大洋俯冲</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">主要区域变质岩详细特征</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>岩石</th>
+            <th>变质相</th>
+            <th>主要矿物</th>
+            <th>结构构造</th>
+            <th>原岩</th>
+          </tr>
+          <tr>
+            <td><strong>绿片岩</strong></td>
+            <td>绿片岩相</td>
+            <td>绿泥石·绿帘石·钠长石·绢云母·方解石</td>
+            <td>片状，绿色</td>
+            <td>基性火山岩（玄武岩）</td>
+          </tr>
+          <tr>
+            <td><strong>蓝片岩</strong></td>
+            <td>蓝片岩相（高P低T）</td>
+            <td>蓝闪石·绿纤石·多硅白云母±石榴子石</td>
+            <td>片状，蓝色</td>
+            <td>基性火成岩（玄武岩）</td>
+          </tr>
+          <tr>
+            <td><strong>云母片岩</strong></td>
+            <td>绿片岩—角闪岩相</td>
+            <td>白云母+石英±绿泥石、十字石、石榴子石</td>
+            <td>片状，片理发育</td>
+            <td>泥质岩</td>
+          </tr>
+          <tr>
+            <td><strong>角闪岩</strong></td>
+            <td>角闪岩相</td>
+            <td>普通角闪石+斜长石（±石榴子石）</td>
+            <td>片状或块状</td>
+            <td>基性火成岩</td>
+          </tr>
+          <tr>
+            <td><strong>正片麻岩</strong></td>
+            <td>角闪岩—麻粒岩相</td>
+            <td>长石+石英+角闪石/辉石</td>
+            <td>片麻状</td>
+            <td>酸性—中性火成岩（正变质）</td>
+          </tr>
+          <tr>
+            <td><strong>副片麻岩</strong></td>
+            <td>角闪岩—麻粒岩相</td>
+            <td>长石+石英+黑云母+铁铝榴石</td>
+            <td>片麻状</td>
+            <td>砂质泥质岩（副变质）</td>
+          </tr>
+          <tr>
+            <td><strong>麻粒岩</strong></td>
+            <td>麻粒岩相（高T）</td>
+            <td>紫苏辉石+斜长石±石榴子石（基性）；钾长石+石英+紫苏辉石（长英质）</td>
+            <td>块状—片麻状；无水矿物为主</td>
+            <td>基性—长英质火成岩或变质岩</td>
+          </tr>
+          <tr>
+            <td><strong>榴辉岩</strong></td>
+            <td>榴辉岩相（高P—超高P）</td>
+            <td><strong>镁铝榴石+绿辉石</strong>（仅2种主矿物）</td>
+            <td>块状，致密，高密度</td>
+            <td>玄武岩/辉长岩（大洋地壳）</td>
+          </tr>
+          <tr>
+            <td><strong>超高压变质岩（UHPM）</strong></td>
+            <td>超高压相（&gt;2.5 GPa）</td>
+            <td>柯石英（假晶）、金刚石+石榴子石+绿辉石</td>
+            <td>块状</td>
+            <td>陆壳岩石深俯冲</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">正变质岩 vs 副变质岩</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>类型</th>
+            <th>原岩</th>
+            <th>判别依据</th>
+            <th>典型岩石</th>
+          </tr>
+          <tr>
+            <td><strong>正变质岩（Ortho-）</strong></td>
+            <td>火成岩（岩浆岩）变质而来</td>
+            <td>残留岩浆岩结构（变余斑状、变余辉长结构）；Rb/Sr低；Zr高</td>
+            <td>正片麻岩、角闪岩</td>
+          </tr>
+          <tr>
+            <td><strong>副变质岩（Para-）</strong></td>
+            <td>沉积岩变质而来</td>
+            <td>含石墨（有机碳）、大理岩夹层；韵律层理残余；高Rb/Sr</td>
+            <td>副片麻岩、大理岩、石英岩</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">区域变质岩的矿物温压计</div>
+      <div class="key-point">
+        <strong>地质温压计（Thermobarometry）</strong>利用矿物间元素分配平衡估算变质温压：
+        <ul class="content-list" style="margin-top:8px">
+          <li>石榴子石-黑云母（Gt-Bi）温度计：Fe-Mg交换分配</li>
+          <li>石榴子石-铝硅酸盐-石英-斜长石（GASP）压力计</li>
+          <li>绿泥石温度计</li>
+          <li>石英-钛铁矿-金红石（Zr-in-rutile）温度计</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter8 -->
+
+<!-- ════════════════ CHAPTER 9 ════════════════ -->
+<div class="chapter ch9" id="ch9">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">Chapter 09</div>
+      <div class="chapter-title">变质岩与大地构造</div>
+      <div class="chapter-subtitle">板块构造背景·变质相系分布·造山带变质演化</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">板块构造背景与变质类型的对应关系</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>构造背景</th>
+            <th>地热梯度</th>
+            <th>主导变质类型</th>
+            <th>典型变质相</th>
+            <th>代表岩石</th>
+          </tr>
+          <tr>
+            <td><strong>俯冲带（冷俯冲）</strong></td>
+            <td>极低（&lt;10°C/km）</td>
+            <td>高P低T变质</td>
+            <td>蓝片岩相→榴辉岩相</td>
+            <td>蓝片岩、榴辉岩</td>
+          </tr>
+          <tr>
+            <td><strong>大陆碰撞造山带</strong></td>
+            <td>中等（15~25°C/km）</td>
+            <td>区域变质（Barrovian型）</td>
+            <td>绿片岩相→角闪岩相→麻粒岩相</td>
+            <td>片岩、片麻岩、麻粒岩</td>
+          </tr>
+          <tr>
+            <td><strong>弧后盆地/裂谷</strong></td>
+            <td>高（&gt;30°C/km）</td>
+            <td>低P高T变质（Buchan型）</td>
+            <td>角岩相→角闪岩相→麻粒岩相</td>
+            <td>角岩、麻粒岩</td>
+          </tr>
+          <tr>
+            <td><strong>大洋中脊（洋底）</strong></td>
+            <td>极高（热液）</td>
+            <td>海底变质（海底热液）</td>
+            <td>沸石相→绿片岩相</td>
+            <td>蛇纹岩、绿色片岩</td>
+          </tr>
+          <tr>
+            <td><strong>大陆地壳下部</strong></td>
+            <td>高（长期稳定）</td>
+            <td>麻粒岩相变质</td>
+            <td>麻粒岩相</td>
+            <td>下地壳麻粒岩</td>
+          </tr>
+          <tr>
+            <td><strong>陨石撞击</strong></td>
+            <td>瞬时超高P</td>
+            <td>冲击变质</td>
+            <td>冲击相</td>
+            <td>柯石英、斯石英、玻陨石</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">双变质带（Paired Metamorphic Belts）</div>
+      <div class="def-box">
+        <strong>双变质带（Miyashiro, 1961）：</strong>在大洋俯冲带两侧同时发育两条平行变质带——
+        <ul class="content-list" style="margin-top:8px">
+          <li><strong>高P/T带（外带）</strong>：靠海沟一侧，蓝片岩相/榴辉岩相，低温高压，代表俯冲洋壳</li>
+          <li><strong>低P/T带（内带）</strong>：靠大陆弧一侧，高温低压（角岩相/麻粒岩相），代表岩浆弧下方</li>
+        </ul>
+        是板块俯冲的重要识别标志，最经典案例：日本西南弧（三波川带+领家带）。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">超高压变质带（UHPM）与大陆深俯冲</div>
+      <div class="key-point">
+        发现含柯石英或金刚石的变质岩（如大别山—苏鲁超高压变质带）证明大陆地壳曾深俯冲至&gt;100 km深度。P-T轨迹呈大幅顺时针型（先大幅升压，后快速折返减压）。折返机制：浮力驱动+通道流（Channel flow）。
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质岩 P-T-t 轨迹与造山旋回</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>阶段</th>
+            <th>地质过程</th>
+            <th>P-T变化</th>
+            <th>特征变质产物</th>
+          </tr>
+          <tr>
+            <td>进变质（Prograde）</td>
+            <td>俯冲埋深，T P↑</td>
+            <td>升温升压，沿地温线</td>
+            <td>蓝闪石、绿辉石、钠长石→硬玉</td>
+          </tr>
+          <tr>
+            <td>峰期变质（Peak）</td>
+            <td>最大深度，最高T P</td>
+            <td>T·P最高点</td>
+            <td>柯石英、镁铝榴石、绿辉石</td>
+          </tr>
+          <tr>
+            <td>退变质（Retrograde）</td>
+            <td>折返隆升，T P↓</td>
+            <td>降温降压（ITD路径）</td>
+            <td>柯石英→石英假晶；绿辉石→角闪石+斜长石</td>
+          </tr>
+          <tr>
+            <td>最终出露</td>
+            <td>剥蚀至地表</td>
+            <td>常温常压</td>
+            <td>现今野外观察到的变质岩</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">各变质类型构造背景综合对比</div>
+      <div class="flow-box">
+        <div class="flow-title">🌍 板块构造框架下变质类型分布示意</div>
+        <ul class="content-list">
+          <li>大洋板块俯冲至海沟：→ <strong>蓝片岩相·榴辉岩相</strong>（高P/T相系）</li>
+          <li>大陆弧岩浆侵入：→ <strong>接触变质（角岩相）+ 气液交代（矽卡岩·云英岩）</strong></li>
+          <li>弧后背景持续加热：→ <strong>低P/T麻粒岩相</strong></li>
+          <li>大陆碰撞造山核部：→ <strong>Barrovian型区域变质（绿片岩→角闪岩→麻粒岩）</strong></li>
+          <li>超深俯冲陆壳折返：→ <strong>超高压变质带（UHPM）</strong></li>
+          <li>断裂带：→ <strong>动力变质岩（糜棱岩·碎裂岩）</strong></li>
+          <li>深变质高T核：→ <strong>混合岩化→混合花岗岩</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chapter9 -->
+
+<!-- ════════════════ CROSS-CHAPTER COMPARISON ════════════════ -->
+<div class="chapter" id="cross" style="border-left-color: #555;">
+  <div class="chapter-header" onclick="toggleChapter(this)">
+    <div>
+      <div class="chapter-num">综合对比</div>
+      <div class="chapter-title">跨章核心概念区别汇总</div>
+      <div class="chapter-subtitle">容易混淆的概念·岩石区别·因素对比</div>
+    </div>
+    <span class="toggle-icon">▾</span>
+  </div>
+  <div class="chapter-body">
+
+    <div class="section">
+      <div class="section-title">① 五大变质作用类型核心区别</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>类型</th>
+            <th>主控因素</th>
+            <th>压力</th>
+            <th>温度</th>
+            <th>定向性</th>
+            <th>规模</th>
+            <th>化学体系</th>
+          </tr>
+          <tr>
+            <td>接触热变质</td>
+            <td>T（岩浆热）</td>
+            <td>低</td>
+            <td>低—高</td>
+            <td>无</td>
+            <td>小</td>
+            <td>封闭</td>
+          </tr>
+          <tr>
+            <td>气液交代</td>
+            <td>流体化学</td>
+            <td>中低</td>
+            <td>中低—高</td>
+            <td>无</td>
+            <td>中</td>
+            <td><strong>开放</strong></td>
+          </tr>
+          <tr>
+            <td>区域变质</td>
+            <td>T+P</td>
+            <td>中—高</td>
+            <td>中—高</td>
+            <td><strong>强烈</strong></td>
+            <td>大</td>
+            <td>近封闭</td>
+          </tr>
+          <tr>
+            <td>动力变质</td>
+            <td>定向应力</td>
+            <td>中等</td>
+            <td>低—中</td>
+            <td><strong>最强</strong></td>
+            <td>线状</td>
+            <td>近封闭</td>
+          </tr>
+          <tr>
+            <td>混合岩化</td>
+            <td>超高T+熔融</td>
+            <td>中高</td>
+            <td>最高</td>
+            <td>有</td>
+            <td>中</td>
+            <td>半开放</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">② 相似岩石的区别</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>岩石对</th>
+            <th>区别要点</th>
+          </tr>
+          <tr>
+            <td><strong>板岩 vs 千枚岩</strong></td>
+            <td>板岩：矿物肉眼不可辨，无光泽；千枚岩：绢云母微晶，丝绢光泽，可见细纹理（更高变质级）</td>
+          </tr>
+          <tr>
+            <td><strong>千枚岩 vs 片岩</strong></td>
+            <td>片岩：鳞片矿物（云母）肉眼可见（>0.1mm），片理更粗；千枚岩：鳞片极细，丝绢光泽</td>
+          </tr>
+          <tr>
+            <td><strong>片岩 vs 片麻岩</strong></td>
+            <td>片麻岩：长石+石英>50%，深色矿物分布均匀条带；片岩：鳞片矿物（云母等）>50%，无长英质条带</td>
+          </tr>
+          <tr>
+            <td><strong>糜棱岩 vs 碎裂岩</strong></td>
+            <td>糜棱岩：韧性变形，S-C组构，碎斑旋转，矿物重结晶；碎裂岩：脆性破碎，棱角状，无重结晶</td>
+          </tr>
+          <tr>
+            <td><strong>角岩 vs 片岩</strong></td>
+            <td>角岩：块状无定向，接触带产出，致密坚硬；片岩：强片理，区域变质，有定向矿物</td>
+          </tr>
+          <tr>
+            <td><strong>麻粒岩 vs 角闪岩</strong></td>
+            <td>麻粒岩：无角闪石（角闪石已转化为辉石），含紫苏辉石，高温脱水产物；角闪岩：主要矿物为角闪石+斜长石</td>
+          </tr>
+          <tr>
+            <td><strong>榴辉岩 vs 角闪岩</strong></td>
+            <td>榴辉岩：仅含镁铝榴石+绿辉石，高密度，无斜长石；角闪岩：含普通角闪石+斜长石，中等压力</td>
+          </tr>
+          <tr>
+            <td><strong>蓝片岩 vs 绿片岩</strong></td>
+            <td>蓝片岩：蓝闪石（高P低T），颜色蓝色，俯冲带；绿片岩：绿泥石+绿帘石（中P中低T），颜色绿色</td>
+          </tr>
+          <tr>
+            <td><strong>矽卡岩（接触交代）vs 矽卡岩（气液交代）</strong></td>
+            <td>本质相同，前者强调侵入体接触带成因；后者强调流体交代成分改变；均以钙硅酸盐矿物为特征</td>
+          </tr>
+          <tr>
+            <td><strong>混合岩 vs 花岗岩</strong></td>
+            <td>混合岩：有古成体残留（暗色变质岩基质），不均一；花岗岩：均质，无变质岩残留</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">③ Al₂SiO₅ 三种多形体区别（重点考点）</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>矿物</th>
+            <th>晶系</th>
+            <th>温度条件</th>
+            <th>压力条件</th>
+            <th>典型变质相</th>
+            <th>外观</th>
+          </tr>
+          <tr>
+            <td><strong>红柱石</strong></td>
+            <td>斜方晶系</td>
+            <td>低—中温</td>
+            <td>低P（&lt;0.38 GPa）</td>
+            <td>角岩相、低P变质带</td>
+            <td>柱状，横切面四边形，有"空心十字"（空晶石变体）</td>
+          </tr>
+          <tr>
+            <td><strong>蓝晶石</strong></td>
+            <td>三斜晶系</td>
+            <td>中温</td>
+            <td>高P（&gt;0.38 GPa）</td>
+            <td>蓝片岩相、角闪岩相进变质</td>
+            <td>刀状，蓝色，沿长轴与垂直方向硬度不同（各向异性）</td>
+          </tr>
+          <tr>
+            <td><strong>夕线石</strong></td>
+            <td>斜方晶系</td>
+            <td>高温</td>
+            <td>中—高P均可</td>
+            <td>高温角闪岩相、麻粒岩相</td>
+            <td>纤维状或针状，丝绢光泽</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">④ 各变质因素对变质产物的具体影响</div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>因素</th>
+            <th>升高/增强</th>
+            <th>对矿物的影响</th>
+            <th>对结构构造的影响</th>
+          </tr>
+          <tr>
+            <td>温度 T ↑</td>
+            <td>促进脱水·脱碳·重结晶</td>
+            <td>矿物粒度增大；低级矿物（绿泥石→角闪石→辉石）转化</td>
+            <td>粒径增大，变晶结构发育</td>
+          </tr>
+          <tr>
+            <td>静岩压力 P ↑</td>
+            <td>促进高密度矿物稳定</td>
+            <td>石英→柯石英；硬玉稳定；斜长石→石榴子石</td>
+            <td>矿物体积缩小，致密化</td>
+          </tr>
+          <tr>
+            <td>定向应力 ↑</td>
+            <td>机械破碎或产生面理</td>
+            <td>矿物定向排列，溶解压力法则（垂直应力方向溶解）</td>
+            <td>片理·片麻理·S-C组构；碎裂结构</td>
+          </tr>
+          <tr>
+            <td>流体 H₂O ↑</td>
+            <td>催化反应，降低固相线</td>
+            <td>含水矿物（角闪石、云母）更稳定；协助元素迁移</td>
+            <td>促进重结晶，有利于混合岩化</td>
+          </tr>
+          <tr>
+            <td>流体 CO₂ ↑</td>
+            <td>抑制含水矿物，稳定碳酸盐</td>
+            <td>相对抑制角闪石，稳定方解石</td>
+            <td>碳酸盐化蚀变</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">⑤ 各章相互关联梳理</div>
+      <div class="flow-box">
+        <div class="flow-title">🔗 章节逻辑链</div>
+        <ul class="content-list">
+          <li><strong>第一章（绪论）</strong>建立概念框架和分类体系，是后续所有章节的基础</li>
+          <li><strong>第二章（特征分类）</strong>提供岩石的宏观识别手段（结构·构造·矿物），是野外工作和室内鉴定的工具章</li>
+          <li><strong>第三章（变质反应）</strong>提供热力学理论支撑，解释为什么不同T/P条件下会出现不同矿物组合（变质相理论）</li>
+          <li><strong>第四章（接触变质岩）</strong>→ 第一个具体类型：浅成、低P、高T，与第五章气液交代共同发育于岩浆侵入环境</li>
+          <li><strong>第五章（气液交代）</strong>→ 从热变质的物质守恒过渡到物质开放体系，强调流体迁移组分的作用</li>
+          <li><strong>第六章（混合岩）</strong>→ 区域变质达到最高温时的极端产物，连接变质岩与岩浆岩（花岗岩成因争议）</li>
+          <li><strong>第七章（动力变质岩）</strong>→ 强调应力作用，是与温压路径完全不同的机械变形产物，与第三章热力学对照</li>
+          <li><strong>第八章（区域变质岩）</strong>→ 变质岩的主体，综合运用第二、三章知识，并按变质相系（第三章）系统化</li>
+          <li><strong>第九章（大地构造）</strong>→ 将前八章所有类型放入板块构造框架，揭示空间分布规律和演化历史</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /cross -->
+
+</div><!-- /main-wrap -->
+
+<footer style="text-align:center;padding:20px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border)">
+  参考：马昌前主编《岩石学》第三版 · 讲义PPT（第一—九章）· 整理日期 2026-06
+</footer>
+
+<script>
+  function toggleChapter(header) {
+    const chapter = header.parentElement;
+    chapter.classList.toggle('collapsed');
+  }
+  function toggleHeader() {
+    const hdr = document.getElementById('mainHeader');
+    if (hdr.classList.contains('expanded')) {
+      hdr.classList.remove('expanded');
+      hdr.classList.add('collapsed-hdr');
+    } else {
+      hdr.classList.remove('collapsed-hdr');
+      hdr.classList.add('expanded');
+    }
+  }
+  // 初始全部展开
+  document.querySelectorAll('.chapter').forEach(c => c.classList.remove('collapsed'));
+</script>
+</body>
+</html>
