@@ -1006,13 +1006,6 @@
       </div>
 
       <!-- P-T变质相分区图 -->
-      <div class="section" style="margin-top:18px">
-        <div class="section-title">P-T 图 —— 各变质相空间分布</div>
-        <div style="text-align:center; margin:12px 0;">
-          <img src="pt_facies_diagram.png" alt="P-T变质相分区图" style="max-width:100%; border:1px solid #ccc; border-radius:8px;" />
-          <div style="font-size:.85rem; color:#666; margin-top:6px;">P-T图各区域变质相分布（EA=绿帘石角闪岩相，PA=绿纤石-阳起石相，PP=葡萄石-绿纤石相）</div>
-        </div>
-      </div>
 
       <!-- 变质级三分法 -->
       <div class="compare-wrap">
@@ -1151,195 +1144,14 @@
       <!-- P-T图解SVG -->
       <div style="margin: 18px 0 10px; font-weight:700; color:#555; font-size:.9rem;">📐 P-T空间中的巴罗带与巴肯带路径示意图</div>
       <div style="overflow-x:auto; background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px;">
-        <svg viewBox="0 0 620 400" width="100%" style="max-width:620px; font-family:sans-serif;">
-          <!-- 背景 -->
-          <rect width="620" height="400" fill="#fafaf8"/>
-
-          <!-- 坐标轴 -->
-          <!-- Y轴 压力 -->
-          <line x1="70" y1="20" x2="70" y2="350" stroke="#444" stroke-width="2"/>
-          <line x1="70" y1="350" x2="590" y2="350" stroke="#444" stroke-width="2"/>
-          <!-- 箭头 -->
-          <polygon points="70,15 65,28 75,28" fill="#444"/>
-          <polygon points="595,350 582,344 582,356" fill="#444"/>
-
-          <!-- 轴标签 -->
-          <text x="20" y="195" font-size="13" fill="#333" transform="rotate(-90,20,195)">压力 P (GPa)</text>
-          <text x="320" y="385" font-size="13" fill="#333" text-anchor="middle">温度 T (°C)</text>
-
-          <!-- Y轴刻度 -->
-          <text x="55" y="340" font-size="10" fill="#666" text-anchor="end">0</text>
-          <text x="55" y="270" font-size="10" fill="#666" text-anchor="end">0.3</text>
-          <text x="55" y="200" font-size="10" fill="#666" text-anchor="end">0.6</text>
-          <text x="55" y="130" font-size="10" fill="#666" text-anchor="end">1.0</text>
-          <text x="55" y="60" font-size="10" fill="#666" text-anchor="end">1.5</text>
-          <line x1="67" y1="270" x2="73" y2="270" stroke="#888"/>
-          <line x1="67" y1="200" x2="73" y2="200" stroke="#888"/>
-          <line x1="67" y1="130" x2="73" y2="130" stroke="#888"/>
-          <line x1="67" y1="60" x2="73" y2="60" stroke="#888"/>
-
-          <!-- X轴刻度 -->
-          <text x="120" y="365" font-size="10" fill="#666" text-anchor="middle">200</text>
-          <text x="200" y="365" font-size="10" fill="#666" text-anchor="middle">400</text>
-          <text x="300" y="365" font-size="10" fill="#666" text-anchor="middle">600</text>
-          <text x="400" y="365" font-size="10" fill="#666" text-anchor="middle">700</text>
-          <text x="500" y="365" font-size="10" fill="#666" text-anchor="middle">900</text>
-          <line x1="120" y1="347" x2="120" y2="353" stroke="#888"/>
-          <line x1="200" y1="347" x2="200" y2="353" stroke="#888"/>
-          <line x1="300" y1="347" x2="300" y2="353" stroke="#888"/>
-          <line x1="400" y1="347" x2="400" y2="353" stroke="#888"/>
-          <line x1="500" y1="347" x2="500" y2="353" stroke="#888"/>
-
-          <!-- 格子线（浅色） -->
-          <line x1="70" y1="270" x2="590" y2="270" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-          <line x1="70" y1="200" x2="590" y2="200" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-          <line x1="70" y1="130" x2="590" y2="130" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-          <line x1="200" y1="20" x2="200" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-          <line x1="300" y1="20" x2="300" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-          <line x1="400" y1="20" x2="400" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-          <line x1="500" y1="20" x2="500" y2="350" stroke="#e0e0e0" stroke-dasharray="4,4"/>
-
-          <!-- Al2SiO5 三相线 -->
-          <!-- 红柱石-蓝晶石分界 (低压→高压，约T=350~600°C) -->
-          <line x1="150" y1="340" x2="290" y2="215" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
-          <!-- 蓝晶石-夕线石分界 -->
-          <line x1="290" y1="215" x2="530" y2="60" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
-          <!-- 红柱石-夕线石分界 -->
-          <line x1="290" y1="215" x2="520" y2="295" stroke="#cc6600" stroke-width="1.5" stroke-dasharray="6,3"/>
-
-          <!-- 三相点 -->
-          <circle cx="290" cy="215" r="6" fill="#e6b800" stroke="#a07800" stroke-width="1.5"/>
-          <text x="300" y="210" font-size="10" fill="#7a5a00" font-weight="bold">三相点</text>
-          <text x="300" y="222" font-size="9" fill="#7a5a00">~500°C, 0.38GPa</text>
-
-          <!-- 矿物区域标签 -->
-          <text x="140" y="290" font-size="12" fill="#8B2500" font-weight="bold">红柱石</text>
-          <text x="140" y="305" font-size="10" fill="#8B2500">Andalusite</text>
-          <text x="200" y="140" font-size="12" fill="#1a4a8a" font-weight="bold">蓝晶石</text>
-          <text x="200" y="155" font-size="10" fill="#1a4a8a">Kyanite</text>
-          <text x="420" y="230" font-size="12" fill="#4a7a00" font-weight="bold">夕线石</text>
-          <text x="420" y="245" font-size="10" fill="#4a7a00">Sillimanite</text>
-
-          <!-- ===== 巴罗带轨迹（蓝色，中等P/T）===== -->
-          <!-- 路径从低T低P → 中P中T（穿过蓝晶石区）-->
-          <polyline points="120,330 160,295 210,245 270,195 330,155 380,120 430,95"
-            fill="none" stroke="#2255aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- 箭头 -->
-          <polygon points="430,95 415,100 420,112" fill="#2255aa"/>
-
-          <!-- 巴罗带各带标注 -->
-          <circle cx="130" cy="328" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
-          <text x="90" y="324" font-size="9" fill="#2255aa">绿泥石带</text>
-          <circle cx="170" cy="290" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
-          <text x="100" y="287" font-size="9" fill="#2255aa">黑云母带</text>
-          <circle cx="220" cy="240" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
-          <text x="225" y="237" font-size="9" fill="#2255aa">铁铝榴石带</text>
-          <circle cx="265" cy="197" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
-          <text x="270" y="193" font-size="9" fill="#2255aa">十字石带</text>
-          <circle cx="325" cy="157" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
-          <text x="330" y="152" font-size="9" fill="#2255aa">蓝晶石带</text>
-          <circle cx="430" cy="95" r="4" fill="#aac4ee" stroke="#2255aa" stroke-width="1.5"/>
-          <text x="435" y="91" font-size="9" fill="#2255aa">夕线石带</text>
-          <!-- 巴罗带标签 -->
-          <rect x="435" y="60" width="120" height="22" rx="4" fill="#2255aa" opacity="0.85"/>
-          <text x="495" y="75" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">🏔 巴罗带（Barrovian）</text>
-
-          <!-- ===== 巴肯带轨迹（橙红色，低P高T）===== -->
-          <!-- 路径沿低压升温（穿过红柱石区）-->
-          <polyline points="140,340 175,323 230,310 295,300 360,290 430,278 510,268"
-            fill="none" stroke="#c0392b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- 箭头 -->
-          <polygon points="510,268 496,262 498,276" fill="#c0392b"/>
-
-          <!-- 巴肯带各带标注 -->
-          <circle cx="148" cy="338" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
-          <text x="90" y="343" font-size="9" fill="#c0392b">绿泥石带</text>
-          <circle cx="190" cy="320" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
-          <text x="130" y="319" font-size="9" fill="#c0392b">黑云母带</text>
-          <circle cx="245" cy="307" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
-          <text x="248" y="304" font-size="9" fill="#c0392b">铁铝榴石带</text>
-          <circle cx="310" cy="297" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
-          <text x="314" y="294" font-size="9" fill="#c0392b">堇青石带</text>
-          <circle cx="375" cy="287" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
-          <text x="379" y="284" font-size="9" fill="#c0392b">红柱石带</text>
-          <circle cx="510" cy="268" r="4" fill="#f5b7b1" stroke="#c0392b" stroke-width="1.5"/>
-          <text x="514" y="265" font-size="9" fill="#c0392b">夕线石带</text>
-          <!-- 巴肯带标签 -->
-          <rect x="435" y="35" width="120" height="22" rx="4" fill="#c0392b" opacity="0.85"/>
-          <text x="495" y="50" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">🌋 巴肯带（Buchan）</text>
-
-          <!-- 地温梯度参考线 -->
-          <line x1="70" y1="350" x2="330" y2="30" stroke="#999" stroke-width="1" stroke-dasharray="3,5" opacity="0.5"/>
-          <text x="340" y="28" font-size="9" fill="#888">高地温梯度</text>
-          <line x1="70" y1="350" x2="540" y2="80" stroke="#999" stroke-width="1" stroke-dasharray="3,5" opacity="0.5"/>
-          <text x="545" y="78" font-size="9" fill="#888">中等地温梯度</text>
-        </svg>
+        
       </div>
       <p style="font-size:.8rem; color:#888; margin:4px 0 14px; padding-left:4px;">▲ 橙红虚线：Al₂SiO₅三相分界线；蓝线：巴罗带P-T路径；红线：巴肯带P-T路径；黄点：三相点（~500°C/0.38 GPa）</p>
 
       <!-- 带状分布平面示意图 -->
       <div style="margin: 10px 0 6px; font-weight:700; color:#555; font-size:.9rem;">🗺 变质带平面分布示意（以苏格兰为模型）</div>
       <div style="overflow-x:auto; background:#fff; border:1px solid #ddd; border-radius:10px; padding:12px;">
-        <svg viewBox="0 0 620 220" width="100%" style="max-width:620px; font-family:sans-serif;">
-          <rect width="620" height="220" fill="#f5f5f0"/>
-
-          <!-- ===== 巴罗带同心弧（左侧）===== -->
-          <text x="155" y="18" font-size="12" fill="#2255aa" font-weight="bold" text-anchor="middle">巴罗带（中等P/T）</text>
-          <!-- 核部变质最强 -->
-          <ellipse cx="155" cy="115" rx="28" ry="55" fill="#6a5acd" opacity="0.7"/>
-          <text x="155" y="119" font-size="9" fill="#fff" text-anchor="middle">夕线石</text>
-          <ellipse cx="155" cy="115" rx="48" ry="78" fill="#3a82d0" opacity="0.55"/>
-          <text x="155" y="58" font-size="9" fill="#fff" text-anchor="middle">蓝晶石</text>
-          <ellipse cx="155" cy="115" rx="68" ry="98" fill="#2196a0" opacity="0.45"/>
-          <text x="155" y="30" font-size="9" fill="#fff" text-anchor="middle">十字石</text>
-          <ellipse cx="155" cy="115" rx="88" ry="108" fill="#2eaa60" opacity="0.35"/>
-          <ellipse cx="155" cy="115" rx="108" ry="112" fill="#7cc060" opacity="0.28"/>
-          <ellipse cx="155" cy="115" rx="128" ry="115" fill="#c8d860" opacity="0.22"/>
-
-          <!-- 巴罗带标注从外到内 -->
-          <text x="30" y="120" font-size="9" fill="#333" text-anchor="middle">绿泥石</text>
-          <text x="55" y="120" font-size="9" fill="#333" text-anchor="middle">黑云母</text>
-          <text x="82" y="120" font-size="9" fill="#333" text-anchor="middle">石榴子石</text>
-
-          <!-- 等变质线（虚线） -->
-          <ellipse cx="155" cy="115" rx="28" ry="55" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-          <ellipse cx="155" cy="115" rx="48" ry="78" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-          <ellipse cx="155" cy="115" rx="68" ry="98" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-          <ellipse cx="155" cy="115" rx="88" ry="108" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-          <ellipse cx="155" cy="115" rx="108" ry="112" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-
-          <!-- 变质增强方向箭头 -->
-          <line x1="290" y1="115" x2="252" y2="115" stroke="#2255aa" stroke-width="1.5" marker-end="url(#arr1)"/>
-          <defs><marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2255aa"/></marker></defs>
-          <text x="292" y="112" font-size="9" fill="#2255aa">变质增强→</text>
-
-          <!-- ===== 巴肯带（右侧）===== -->
-          <text x="465" y="18" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">巴肯带（低P/T）</text>
-          <!-- 核部最热（侵入体旁） -->
-          <ellipse cx="465" cy="115" rx="28" ry="55" fill="#d35400" opacity="0.7"/>
-          <text x="465" y="119" font-size="9" fill="#fff" text-anchor="middle">夕线石</text>
-          <ellipse cx="465" cy="115" rx="50" ry="80" fill="#e67e22" opacity="0.55"/>
-          <text x="465" y="55" font-size="9" fill="#fff" text-anchor="middle">红柱石</text>
-          <ellipse cx="465" cy="115" rx="72" ry="100" fill="#f39c12" opacity="0.45"/>
-          <text x="465" y="30" font-size="9" fill="#555" text-anchor="middle">堇青石</text>
-          <ellipse cx="465" cy="115" rx="92" ry="110" fill="#2eaa60" opacity="0.35"/>
-          <ellipse cx="465" cy="115" rx="112" ry="114" fill="#c8d860" opacity="0.26"/>
-          <text x="365" y="120" font-size="9" fill="#333" text-anchor="middle">黑云母</text>
-          <text x="340" y="120" font-size="9" fill="#333" text-anchor="middle">绿泥石</text>
-
-          <ellipse cx="465" cy="115" rx="50" ry="80" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-          <ellipse cx="465" cy="115" rx="72" ry="100" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-          <ellipse cx="465" cy="115" rx="92" ry="110" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="3,3"/>
-
-          <!-- 注意：无蓝晶石+十字石 -->
-          <text x="465" y="195" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">⚠ 无蓝晶石·无十字石</text>
-
-          <!-- 侵入体标注 -->
-          <text x="465" y="125" font-size="8" fill="#fff" text-anchor="middle">（侵入体热源）</text>
-
-          <!-- 分隔线 -->
-          <line x1="310" y1="20" x2="310" y2="200" stroke="#ccc" stroke-width="1.5" stroke-dasharray="6,4"/>
-        </svg>
+        
       </div>
       <p style="font-size:.8rem; color:#888; margin:4px 0 8px; padding-left:4px;">▲ 平面示意：等变质线由外向内变质程度递增。巴肯带缺失蓝晶石和十字石带，是与巴罗带最直观的区别。</p>
 
@@ -1368,10 +1180,6 @@
         <b>峰期矿物</b>（peak）= 最高T/P时共存（共生组合） · <b>退变质矿物</b>（retrograde）= 降温降压时叠加<br>
         只有<b>峰期共生组合</b>才能准确确定变质温压条件；退变质矿物仅反映降温过程，不能用于峰期定压定温。
       </div>
-      <div style="text-align:center; margin:16px 0;">
-        <img src="metamorphic_mineral_classification.jpg" alt="变质矿物在P-T-t路径上的生成时序分类图" style="max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1);" loading="lazy">
-      </div>
-      <p style="font-size:.8rem; color:#888; text-align:center; margin:4px 0 14px;">▲ 图：变质矿物在P-T-t路径上的生成时序。只有峰期共生组合可确定温压条件；退变质矿物仅反映降温过程。</p>
       <div class="key-point">
         <strong>图解读要点：</strong><br>
         ① <b>前变质矿物（方解石/绿泥石/蛇纹石/绿帘石/阳起石等）</b>：原岩转来或早期变质阶段，不宜用于定级<br>
