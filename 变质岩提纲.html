@@ -268,7 +268,73 @@
       .chapter-title { font-size: 1.05rem; }
       .main-wrap { padding: 18px 4vw 48px; }
     }
-  </style>
+  
+    /* ── REVIEW QUESTIONS ── */
+    .review-questions {
+      background: linear-gradient(135deg, #fdf6ec 0%, #fef9f0 100%);
+      border: 1px solid #e6c87a;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 20px;
+    }
+    .review-questions .rq-title {
+      font-size: .95rem;
+      font-weight: 700;
+      color: #8a6d2b;
+      letter-spacing: .04em;
+      border-bottom: 1px dashed #d4b86a;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .review-questions ol.rq-list {
+      padding-left: 1.6em;
+      counter-reset: rq;
+    }
+    .review-questions ol.rq-list li {
+      margin: 8px 0;
+      line-height: 1.7;
+      color: #4a3a1a;
+    }
+    .review-questions ol.rq-list li::marker {
+      color: #8a6d2b;
+      font-weight: 700;
+    }
+
+    .review-questions .rq-answers {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed #d4b86a;
+    }
+    .review-questions .rq-answers summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: #8a6d2b;
+      font-weight: 600;
+      margin-bottom: 8px;
+      user-select: none;
+    }
+    .review-questions .rq-answers summary:hover {
+      color: #6a4d1b;
+    }
+    .review-questions .rq-ans-item {
+      margin: 10px 0;
+      padding: 10px 14px;
+      background: rgba(255,255,255,.55);
+      border-radius: 6px;
+      border-left: 3px solid #d4b86a;
+    }
+    .review-questions .rq-ans-item .q-ref {
+      font-weight: 700;
+      color: #7a5d1b;
+      font-size: .88rem;
+      margin-bottom: 4px;
+    }
+    .review-questions .rq-ans-item .a-text {
+      color: #3a3a2a;
+      line-height: 1.75;
+      font-size: .9rem;
+    }
+</style>
 </head>
 <body>
 
@@ -511,7 +577,25 @@
     </div>
 
   </div>
-</div><!-- /chapter1 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>变质作用与风化作用、成岩作用有何本质区别？变质作用的边界条件是什么？</li>
+        <li>温度、压力、流体和时间四大因素如何共同控制变质作用？请举例说明各因素在不同变质类型中的主导地位。</li>
+        <li>试比较接触热变质、区域变质、动力变质和气液交代变质在主导因素、规模和产物上的异同。</li>
+        <li>什么是P-T-t轨迹？顺时针轨迹与逆时针轨迹分别反映什么构造背景？</li>
+        <li>埋藏变质与区域变质有何区别？冲击变质有何独特特征？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>本质区别：</strong>风化作用和成岩作用发生在地表或近地表，温度低（&lt;200°C），压力低，属于表生作用；变质作用发生在地壳深部，温度200~1000°C，压力0.1~3+ GPa，属于内生作用。<strong>边界条件：</strong>下限约200°C（与成岩作用分界），上限为岩石熔融温度（固相线，约650~1100°C取决于成分和含水量）。埋深变质最低温度约150~200°C，接触变质可达800°C以上。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>温度</strong>是最活跃因素，促进矿物重结晶和脱水/脱碳反应，控制变质级的高低（如绿泥石→角闪石→辉石序列）。<strong>压力</strong>决定高密度矿物的稳定性（如蓝晶石vs红柱石，柯石英vs石英）。<strong>流体</strong>催化反应速率、降低固相线温度、携带组分迁移，是交代作用的直接媒介。<strong>时间</strong>影响反应是否达到平衡（短时间冲击变质不平衡，长时间区域变质趋近平衡）。举例：接触热变质——T主导（岩浆热源）；俯冲带高压变质——P主导（冷俯冲）；气液交代——流体主导（组分迁移）。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>接触热变质：</strong>T主导，低P，无定向应力，规模小（接触晕），产物为角岩、大理岩等块状岩石。<strong>区域变质：</strong>T+P共同控制，定向应力强，规模大（造山带），产物为片岩、片麻岩等定向构造岩石。<strong>动力变质：</strong>定向应力主导，T较低，线状分布（断裂带），产物为糜棱岩、碎裂岩。<strong>气液交代：</strong>流体化学主导，开放体系（成分改变），中等规模，产物为矽卡岩、云英岩等。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>P-T-t轨迹</strong>是岩石在变质过程中温度-压力随时间变化的路径。<strong>顺时针轨迹：</strong>先增温增压（俯冲埋深），峰期后先减压降温（折返抬升），典型于大陆碰撞造山带（如喜马拉雅）。<strong>逆时针轨迹：</strong>先增温后增压（地幔上涌/岩浆底侵加热后再构造加厚），或持续近等温减压，典型于拉伸环境或弧后盆地。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text"><strong>埋藏变质：</strong>仅因埋深导致温压升高，无定向应力，无流体大量参与，近等化学体系，产出沸石相→葡萄石相→绿片岩相岩石，常保留原岩结构（变余结构）。<strong>区域变质：</strong>伴随构造运动，定向应力显著，形成片理/片麻理，矿物定向排列。<strong>冲击变质：</strong>陨石撞击瞬时超高P（&gt;10 GPa）超高速，产生超高压矿物（柯石英、斯石英）、冲击锥、假玄武玻璃，反应不平衡，无定向构造，是唯一与构造运动无关的变质类型。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter1 -->
 
 <!-- ════════════════ CHAPTER 2 ════════════════ -->
 <div class="chapter ch2" id="ch2">
@@ -761,7 +845,25 @@
     </div>
 
   </div>
-</div><!-- /chapter2 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>变质矿物与岩浆矿物有何区别？举出5种特征变质矿物并说明其指示意义。</li>
+        <li>比较变晶结构与变余结构的概念、形成条件和鉴别标志。</li>
+        <li>板状构造、千枚状构造、片状构造和片麻状构造有何递进关系？其形成与哪些变质因素有关？</li>
+        <li>试述板岩→千枚岩→片岩→片麻岩→麻粒岩的变质递增序列，各阶段的主要矿物和构造特征是什么？</li>
+        <li>榴辉岩与蓝片岩的矿物组合和形成条件有何根本区别？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>变质矿物</strong>仅在变质温压条件下稳定形成，如蓝晶石、石榴子石；<strong>岩浆矿物</strong>在岩浆结晶过程中形成，如橄榄石、辉石、斜长石。部分矿物（如石英、云母）可在两种环境中出现，但特征变质矿物（蓝闪石、红柱石、夕线石、绿辉石、柯石英）只存在于变质岩中。<strong>5种特征变质矿物及指示：</strong>①蓝闪石——高压低温（蓝片岩相，俯冲带）；②石榴子石——中-高压（温压计）；③红柱石——低压（角岩相，接触变质）；④夕线石——高温（角闪岩相-麻粒岩相）；⑤柯石英——超高压（&gt;2.5 GPa，深俯冲）。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>变晶结构：</strong>变质过程中矿物在固态下重结晶形成，矿物自形程度低（他形为主），无火山玻璃，颗粒边界常呈齿状镶嵌。<strong>变余结构：</strong>低级变质中原岩结构未被完全改造而保留，如变余斑状结构（保留斑晶轮廓）、变余砂状结构（保留碎屑圆度）。鉴别关键：变余结构可见原岩特征（沉积层理、火成斑晶），变晶结构则是全新生长的矿物组合。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text">递进关系反映了变质程度的升高：<strong>板状构造</strong>→矿物肉眼不可辨，岩石沿平行面劈开，无光泽（低级）；<strong>千枚状构造</strong>→绢云母微晶开始生长，丝绢光泽，细纹理（低-中级）；<strong>片状构造</strong>→鳞片矿物（云母等）肉眼可见（&gt;0.1mm），强定向排列（中级）；<strong>片麻状构造</strong>→长英质与暗色矿物分带，粒度更粗（中-高级）。形成因素：定向应力产生面理，温度升高促进重结晶和矿物粒度增大。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>板岩：</strong>绿泥石+绢云母，板状构造，矿物不可辨（沸石相-绿片岩相低级）。<strong>千枚岩：</strong>绢云母+绿泥石，千枚状构造，丝绢光泽（绿片岩相中级）。<strong>片岩：</strong>云母+石英±石榴子石±蓝晶石，片状构造（绿片岩相-角闪岩相）。<strong>片麻岩：</strong>长石+石英+暗色矿物条带，片麻状构造（角闪岩相-麻粒岩相）。<strong>麻粒岩：</strong>紫苏辉石+斜长石，无含水矿物，块状-弱片麻状（麻粒岩相）。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text"><strong>榴辉岩：</strong>矿物组合仅为镁铝榴石+绿辉石（2种主矿物），无斜长石，高密度（3.3~3.6 g/cm³），形成于高P（&gt;1.0 GPa）高T条件，典型产出于俯冲带深部或大陆碰撞深俯冲。<strong>蓝片岩：</strong>蓝闪石+绿泥石±硬柱石±绿帘石，蓝色，形成于高P低T（&lt;400°C，0.5~1.0 GPa），典型产出于冷俯冲带浅部。根本区别：榴辉岩压力更高且无斜长石，蓝片岩温度更低且含水矿物丰富。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter2 -->
 
 <!-- ════════════════ CHAPTER 3 ════════════════ -->
 <div class="chapter ch3" id="ch3">
@@ -889,6 +991,80 @@
             <td>角岩</td>
           </tr>
         </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">变质级（Metamorphic Grade）—— 变质强度的分级体系</div>
+      <div class="def-box">
+        <strong>变质级：</strong>对变质作用强度（即岩石所经历的最高温压条件）的定性或半定量分级。变质级越高，代表岩石经历的温度和压力越大，重结晶程度越充分，矿物颗粒通常越粗大。
+      </div>
+
+      <div class="key-point">
+        <strong>核心要点：变质级 ≠ 变质相</strong> — 变质级是粗略的强度分级（低/中/高），变质相是基于精确P-T条件的矿物组合分类体系。<br>
+        同一变质级可能涵盖多个变质相邻近的部分；同一变质相在不同地区可能被归入不同变质级。
+      </div>
+
+      <!-- P-T变质相分区图 -->
+      <div class="section" style="margin-top:18px">
+        <div class="section-title">P-T 图 —— 各变质相空间分布</div>
+        <div style="text-align:center; margin:12px 0;">
+          <img src="pt_facies_diagram.png" alt="P-T变质相分区图" style="max-width:100%; border:1px solid #ccc; border-radius:8px;" />
+          <div style="font-size:.85rem; color:#666; margin-top:6px;">P-T图各区域变质相分布（EA=绿帘石角闪岩相，PA=绿纤石-阳起石相，PP=葡萄石-绿纤石相）</div>
+        </div>
+      </div>
+
+      <!-- 变质级三分法 -->
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>变质级</th>
+            <th>温度范围</th>
+            <th>压力范围</th>
+            <th>典型矿物</th>
+            <th>典型岩石</th>
+            <th>结构特征</th>
+          </tr>
+          <tr>
+            <td><strong style="color:#2ecc71">低级变质</strong><br>(Low Grade)</td>
+            <td>&lt;400°C</td>
+            <td>&lt;0.4 GPa</td>
+            <td>沸石、绿泥石、绢云母、蒙脱石、方解石</td>
+            <td>板岩、千枚岩、绿片岩、大理岩</td>
+            <td>细粒-隐晶；变余结构常见</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#f39c12">中级变质</strong><br>(Medium Grade)</td>
+            <td>400~600°C</td>
+            <td>0.3~0.9 GPa</td>
+            <td>黑云母、石榴子石、角闪石、白云母、十字石</td>
+            <td>片岩、角闪岩、云母片麻岩</td>
+            <td>中-粗粒变晶；片理发育</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#e74c3c">高级变质</strong><br>(High Grade)</td>
+            <td>>600°C<br>(可超1000°C)</td>
+            <td>>0.5 GPa</td>
+            <td>紫苏辉石、夕线石、透辉石、镁铝榴石+绿辉石</td>
+            <td>片麻岩、麻粒岩、榴辉岩</td>
+            <td>粗粒变晶；块状或片麻状</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="flow-box">
+        <div class="flow-title">📊 变质级的野外快速判断方法</div>
+        <ul class="content-list">
+          <li><strong>看粒度：</strong>肉眼能否分辨矿物颗粒？不能→低级；勉强可见鳞片→中级；清晰粗粒→高级</li>
+          <li><strong>看构造：</strong>板状(低) → 千枚状(低) → 片状(中) → 片麻状(高) → 块状(高)</li>
+          <li><strong>看特殊矿物：</strong>出现蓝闪石→高压但不一定高温；出现紫苏辉石→高温；出现柯石英→超高<strong>压</strong></li>
+          <li><strong>注意陷阱：</strong>"高级"不等于"最高温"！榴辉岩属"高级"但以超高压为特征而非超高温</li>
+        </ul>
+      </div>
+
+      <div class="def-box">
+        <strong>变质级的扩展方案——四分法（部分教材采用）：</strong><br>
+        在三分法基础上增加<strong>"极低级"</strong>（Very Low Grade, <200°C）：以沸石相和葡萄石-绿纤石相为代表，对应埋藏变质作用阶段。此时原岩的沉积特征大量保留，仅发生轻微矿物转变。
       </div>
     </div>
 
@@ -1185,6 +1361,29 @@
     </div>
 
     <div class="section">
+      <div class="section-title">变质矿物在P-T-t路径中的生成时序</div>
+      <div class="def-box">
+        <strong>矿物生成时序法则：</strong>变质矿物并非同时生成，而是在P-T-t路径的不同阶段依次形成：<br>
+        <b>前变质矿物</b>（pre-metamorphic）= 原岩残留 · <b>进变质矿物</b>（prograde）= 温压上升期生成 · 
+        <b>峰期矿物</b>（peak）= 最高T/P时共存（共生组合） · <b>退变质矿物</b>（retrograde）= 降温降压时叠加<br>
+        只有<b>峰期共生组合</b>才能准确确定变质温压条件；退变质矿物仅反映降温过程，不能用于峰期定压定温。
+      </div>
+      <div style="text-align:center; margin:16px 0;">
+        <img src="metamorphic_mineral_classification.jpg" alt="变质矿物在P-T-t路径上的生成时序分类图" style="max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1);" loading="lazy">
+      </div>
+      <p style="font-size:.8rem; color:#888; text-align:center; margin:4px 0 14px;">▲ 图：变质矿物在P-T-t路径上的生成时序。只有峰期共生组合可确定温压条件；退变质矿物仅反映降温过程。</p>
+      <div class="key-point">
+        <strong>图解读要点：</strong><br>
+        ① <b>前变质矿物（方解石/绿泥石/蛇纹石/绿帘石/阳起石等）</b>：原岩转来或早期变质阶段，不宜用于定级<br>
+        ② <b>进变质矿物</b>：沿P-T升路径依次生成，每带以指数矿物首次出现为标志<br>
+        ③ <b>峰期变质矿物共生组合</b>：最高T/P时共存的矿物集合，<b>唯一可确定变质温压条件</b>的矿物群<br>
+        ④ <b>退变质矿物（绿泥石/蛇纹石/滑石等）</b>：降温过程中水化/分解产物，仅指示降温路径，<b>不可用于峰期定压定温</b><br>
+        ⑤ <b>特征变质矿物</b>：因原岩成分不同而各异——泥质→Al₂SiO₅矿物，基性→角闪石/辉石，碳酸盐质→透闪石/透辉石等<br>
+        ⑥ 部分矿物在退变质阶段<span style="color:#c0392b;">分解（分解石）</span>，不再稳定存在
+      </div>
+    </div>
+
+    <div class="section">
       <div class="section-title">P-T-t 轨迹类型对比</div>
       <div class="compare-wrap">
         <table class="compare">
@@ -1218,7 +1417,27 @@
     </div>
 
   </div>
-</div><!-- /chapter3 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>脱水反应和脱碳酸盐反应在变质过程中分别起什么作用？请各举一例并写出反应方程式。</li>
+        <li>什么是变质相？变质相与变质级有何联系和区别？</li>
+        <li>详细比较巴罗带与巴肯带的指数矿物序列、P-T条件和构造背景。</li>
+        <li>铝硅酸盐三相点在变质岩研究中有何重要意义？红柱石、蓝晶石、夕线石各稳定于什么温压区间？</li>
+        <li>什么是峰期共生组合？为什么只有峰期矿物才能确定变质温压条件？退变质矿物为什么不能用于峰期定压定温？</li>
+        <li>顺时针P-T-t轨迹和逆时针P-T-t轨迹的成因和地质意义是什么？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>脱水反应：</strong>含水矿物在升温时释放结构水，促进高级矿物生成。例：绿泥石+石英→石榴子石+水（Chl+Qtz→Gt+H₂O），使岩石从绿片岩相进入角闪岩相。<strong>脱碳酸盐反应：</strong>碳酸盐矿物在升温时释放CO₂，形成钙硅酸盐矿物。例：方解石+石英→硅灰石+CO₂（Cal+Qtz→Wo+CO₂），标志接触变质带。脱水反应降低岩石含水量、提高变质级；脱碳酸盐反应使碳酸盐岩转化为钙硅酸盐岩。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>变质相：</strong>在特定温压范围内形成的、化学成分不同的所有岩石中，具有相同矿物共生组合的一组岩石。强调矿物组合的等价性（如绿片岩相=绿泥石+绿帘石+阳起石+钠长石组合，无论原岩是什么）。<strong>变质级：</strong>反映变质程度高低的粗略等级划分（低/中/高级），是定性概念。<strong>联系：</strong>低级大致对应沸石相-绿片岩相，中级对应角闪岩相，高级对应麻粒岩相-榴辉岩相。<strong>区别：</strong>变质相是严格的矿物共生组合分类，变质级是粗略的T-P等级划分；一个变质级可包含多个变质相。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>巴罗带（中P/T型）：</strong>指数矿物序列为绿泥石→黑云母→石榴子石→蓝晶石→夕线石，地热梯度20~40°C/km，P约0.4~0.8 GPa，T约300~700°C，发育于大陆碰撞造山带（如苏格兰高地）。<strong>巴肯带（低P/T型）：</strong>指数矿物序列为红柱石→夕线石（跳过蓝晶石），地热梯度40~80°C/km，P较低（&lt;0.4 GPa），T较高，发育于弧后盆地/裂谷环境。核心区别：巴罗带有蓝晶石带（高P指示），巴肯带有红柱石带（低P指示），反映P/T比值差异。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>三相点</strong>约在500°C、0.38 GPa处，是红柱石-蓝晶石-夕线石三相共存的条件。<strong>红柱石：</strong>低P（&lt;0.38 GPa），低-中T，斜方晶系，柱状，空心十字（空晶石变体），标志接触变质/低P区域变质。<strong>蓝晶石：</strong>高P（&gt;0.38 GPa），中T，三斜晶系，刀状，蓝色，各向异性硬度，标志中-高压区域变质（巴罗型）。<strong>夕线石：</strong>高T（&gt;500°C），中-高P均可，斜方晶系，纤维/针状，标志高温变质（角闪岩相-麻粒岩相）。三相点可用来校准变质温压计和判别变质相系类型。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text"><strong>峰期共生组合：</strong>岩石达到最高温压条件时平衡共生的矿物组合，记录了变质事件的P-T极值。<strong>只有峰期矿物能定温压</strong>，因为此时矿物间元素分配达到热力学平衡，温压计方程适用。<strong>退变质矿物</strong>是在降温降压过程中形成的新矿物（如绿辉石→角闪石+斜长石），反映的是退变质条件而非峰期条件。退变质常伴随流体加入和水化反应，使峰期矿物组合被部分或完全改造。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第6题</div><div class="a-text"><strong>顺时针P-T-t轨迹：</strong>增温增压→峰期→近等温减压（ITD）→降温降压。成因：岩石先被俯冲/构造加厚埋深（增压），随后快速折返剥蚀（减压先于充分降温）。地质意义：大陆碰撞造山带典型轨迹，如喜马拉雅、大别山。<strong>逆时针P-T-t轨迹：</strong>先增温后增压→峰期→近等压降温（IBC）。成因：地幔上涌/岩浆底侵先加热岩石（增温），随后构造加厚或沉积覆盖（增压）。地质意义：弧后盆地、裂谷环境，如华北克拉通早前寒武纪。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter3 -->
 
 <!-- ════════════════ CHAPTER 4 ════════════════ -->
 <div class="chapter ch4" id="ch4">
@@ -1341,7 +1560,25 @@
     </div>
 
   </div>
-</div><!-- /chapter4 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>接触变质作用与区域变质作用在温压条件和产物上有何根本区别？</li>
+        <li>描述泥质围岩在接触变质晕中由内到外的分带特征，各带代表矿物是什么？</li>
+        <li>角岩与片岩在结构、构造和成因上有何区别？</li>
+        <li>矽卡岩属于接触热变质还是接触交代变质？为什么？</li>
+        <li>为什么接触变质岩通常呈块状构造而缺乏定向构造？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>接触变质：</strong>T主导（岩浆热源），P低（浅部），无定向应力，规模小（侵入体周围数米至数公里），产物为块状角岩、大理岩。<strong>区域变质：</strong>T+P共同控制，定向应力强，规模大（数百至数千公里造山带），产物为片岩、片麻岩等定向构造岩石。根本区别：接触变质是局部热事件，区域变质是区域构造-热事件。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text">泥质围岩接触变质晕由内到外（高温→低温）：<strong>内带（辉石角岩相）：</strong>红柱石/夕线石+堇青石+黑云母+石英；<strong>中带（角闪石角岩相）：</strong>红柱石+黑云母+白云母+石英；<strong>外带（斑点板岩相）：</strong>斑点状红柱石变晶+绢云母+绿泥石+石英，保留变余层理。各带宽度取决于侵入体规模、温度和围岩导热性。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>角岩：</strong>块状构造，无定向，致密坚硬，矿物随机排列，接触变质成因（低P高T），原岩受热重结晶。<strong>片岩：</strong>片状构造，矿物强定向排列（云母等鳞片矿物），区域变质成因（中P中T+定向应力）。关键区分：有无定向构造是首要判据。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>矽卡岩属于接触交代变质岩。</strong>虽然产出于接触带，但其形成不仅有岩浆热，更需要流体携带活性组分（Si、Fe、Ca等）在碳酸盐围岩与侵入体之间发生交代反应（钙硅酸盐矿物：石榴子石+辉石+符山石+硅灰石等），化学体系开放。纯接触热变质不改变成分（封闭体系），而矽卡岩形成过程成分显著改变，所以归入交代变质。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text">接触变质发生在浅部地壳，围压低且无构造应力，变质动力主要来自岩浆热传导。缺乏定向应力意味着矿物没有优选方位驱动力，因此在各向同性的静岩压力下随机生长，形成块状构造。而区域变质伴随构造挤压，定向应力使片状/柱状矿物沿垂直应力方向排列，形成片理/片麻理。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter4 -->
 
 <!-- ════════════════ CHAPTER 5 ════════════════ -->
 <div class="chapter ch5" id="ch5">
@@ -1450,7 +1687,25 @@
     </div>
 
   </div>
-</div><!-- /chapter5 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>交代作用与热变质作用最本质的区别是什么？什么是等体积交代原则？</li>
+        <li>比较矽卡岩化与云英岩化的流体性质、矿物组合和经济意义。</li>
+        <li>描述斑岩铜矿的Lowell-Guilbert蚀变分带模式，说明各带的主要矿物和矿化关系。</li>
+        <li>蛇纹石化的形成条件和地质意义是什么？</li>
+        <li>Korzhinskii组分理论中，惰性组分与活动性组分如何区分？交代锋面是如何推进的？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>最本质区别：</strong>热变质是近等化学体系（封闭体系，成分基本不变），仅温压驱动矿物重组合；交代变质是开放体系，流体带入带出组分，岩石化学成分发生根本性改变。<strong>"等体积交代"原则：</strong>交代过程中岩石总体积基本不变，旧矿物被溶解的同时新矿物在原位沉淀，孔隙度变化极小。这要求交代反应通过流体薄膜逐步推进，溶解与沉淀近乎同步。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>矽卡岩化：</strong>中高温（400~800°C）钙质流体，交代碳酸盐岩（石灰岩/白云岩），形成石榴子石（钙铝榴石/钙铁榴石）+辉石（透辉石/钙铁辉石）+符山石+硅灰石组合，经济意义大（Fe、Cu、W、Mo、Pb-Zn矿化）。<strong>云英岩化：</strong>高温（300~500°C）酸性流体，交代花岗岩类，形成石英+白云母+黄玉+萤石+电气石组合，经济意义大（Sn、W、Be、Li矿化）。流体性质：矽卡岩化偏碱性-中性，云英岩化偏酸性。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>Lowell-Guilbert模式（由内到外）：</strong>①<strong>钾化带（核心）</strong>：钾长石+黑云母+石英，Cu-Mo矿化；②<strong>绢英岩化带</strong>：石英+绢云母+黄铁矿，Cu矿化主带；③<strong>泥化带</strong>：高岭石+蒙脱石+绢云母，弱矿化；④<strong>青磐岩化带（外缘）</strong>：绿泥石+绿帘石+碳酸盐+黄铁矿，Pb-Zn-Au矿化。各带呈同心环状，反映流体由高温核心向低温外缘演化的温度梯度。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>形成条件：</strong>低温（&lt;500°C）、中低压，富水流体交代超镁铁质岩（橄榄岩、辉石岩）。反应：橄榄石+水→蛇纹石+水镁石。<strong>地质意义：</strong>①蛇纹石化是洋壳蚀变的主要类型，使洋壳密度降低、体积膨胀；②释放H₂和CH₄支持深海化能自养生物；③蛇纹岩在俯冲带脱水可诱发岛弧岩浆作用；④石棉（蛇纹石变种）的经济价值。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text"><strong>Korzhinskii理论：</strong>将岩石组分分为<strong>"惰性组分"（Inert）</strong>——在交代过程中总量不变，由体系内部矿物组合决定其化学位（如Al₂O₃、SiO₂在多数交代中惰性）；<strong>"活动性组分"（Perfectly Mobile）</strong>——由外部流体供给控制其化学位，在岩石中自由迁移（如K₂O、Na₂O、CO₂、H₂O）。<strong>交代锋面推进：</strong>活动性组分从流体源向外扩散/渗滤，当其化学位达到新矿物的稳定域时，在锋面处发生旧矿物溶解和新矿物沉淀的替换反应。锋面以扩散或渗滤速率向前推进，形成交代分带。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter5 -->
 
 <!-- ════════════════ CHAPTER 6 ════════════════ -->
 <div class="chapter ch6" id="ch6">
@@ -1585,7 +1840,25 @@
     </div>
 
   </div>
-</div><!-- /chapter6 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>混合岩化作用与深熔作用的关系是什么？混合岩为什么是变质岩与岩浆岩的过渡产物？</li>
+        <li>古成体（Paleosome）与新成体（Neosome）在成分和成因上有何区别？新成体的浅色体（Leucosome）与暗色体（Melanosome）如何区分？</li>
+        <li>比较条带状混合岩、眼球状混合岩和混合花岗岩的构造特征和混合程度。</li>
+        <li>混合岩的深熔说与注入说各有何依据？目前主流观点是什么？</li>
+        <li>如何在野外区分混合岩与片麻岩？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>深熔作用</strong>是混合岩化的核心机制：当区域变质温度超过固相线（约650~750°C，含水流体的花岗岩体系更低），长英质矿物开始部分熔融，产生花岗质熔体。<strong>混合岩</strong>正是这种部分熔融的产物——原岩（变质岩）未完全熔融，残留的暗色部分（古成体）与新生熔体（浅色体）共存，因此它是变质岩与岩浆岩的过渡类型。熔融程度低→条带状混合岩，熔融程度高→混合花岗岩。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>古成体（Paleosome）：</strong>原变质岩残存部分，矿物组合和结构继承原岩（如片麻岩），暗色矿物含量较高。<strong>新成体（Neosome）：</strong>深熔作用新生成的部分，分为<strong>浅色体（Leucosome）</strong>——长石+石英为主，浅色，代表熔体结晶产物；<strong>暗色体（Melanosome）</strong>——暗色矿物富集（黑云母、角闪石、石榴子石），代表熔体抽取后残留的固体。浅色体与暗色体互补：浅色体带走了长英质组分，暗色体是残余固体。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>条带状混合岩：</strong>浅色体与暗色体呈交替条带，混合程度低-中，原岩结构可辨，浅色体占20~40%。<strong>眼球状混合岩：</strong>长石变斑晶呈眼球状包裹于暗色基质中，混合程度中等，浅色体占30~50%，反映部分熔融+压扁流动。<strong>混合花岗岩：</strong>几乎全为花岗质成分，仅残留少量暗色包体（残影体），混合程度高（&gt;60%熔融），与岩浆花岗岩的区别在于存在不均一性和变质岩残影。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>深熔说：</strong>浅色体由原岩部分熔融产生，暗色体是熔融后的残留固体。依据：①混合岩产出于高级变质带（T达到固相线）；②浅色体成分与实验熔融产物吻合；③暗色体富集暗色矿物符合熔融残余特征。<strong>注入说：</strong>浅色体是外部花岗质熔体沿裂隙注入变质岩。依据：①部分浅色体切穿原岩层理；②浅色体与围岩界线截然。<strong>主流观点：</strong>深熔说为主，绝大多数混合岩的浅色体是原地深熔产物；少数情况下可能有少量熔体迁移注入，但不是主要机制。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text">野外区分要点：①<strong>均一性</strong>——片麻岩矿物分布较均匀，混合岩明显不均一（浅色+暗色体分带）；②<strong>浅色体</strong>——混合岩有真正的浅色长英质脉体（Leucosome），片麻岩的长英质条带是同变质分凝而非熔体产物；③<strong>暗色体</strong>——混合岩暗色体暗色矿物极度富集（黑云母/角闪石集中），片麻岩暗色条带矿物较分散；④<strong>接触关系</strong>——混合岩浅色体与暗色体界线可截然或渐变，片麻岩条带渐变过渡为主；⑤<strong>产状</strong>——混合岩见于麻粒岩相/高级角闪岩相带，片麻岩可在更低级变质中出现。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter6 -->
 
 <!-- ════════════════ CHAPTER 7 ════════════════ -->
 <div class="chapter ch7" id="ch7">
@@ -1713,7 +1986,25 @@
     </div>
 
   </div>
-</div><!-- /chapter7 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>脆性变形与韧性变形的条件、机制和产物有何根本区别？</li>
+        <li>比较碎裂岩与糜棱岩的结构特征、形成深度和变形机制。</li>
+        <li>假玄武玻璃的成因是什么？为什么它是古地震的标志？</li>
+        <li>什么是S-C组构？如何利用S-C组构和σ-型碎斑判断剪切方向？</li>
+        <li>从构造角砾岩→碎裂岩→糜棱岩→超糜棱岩，变形程度如何递进？各阶段碎基比例和矿物特征有何变化？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>脆性变形：</strong>低温（&lt;300°C）、浅部（&lt;10~15 km）、高应变速率，岩石破裂产生碎裂结构，棱角状碎块，无重结晶，产物为构造角砾岩、碎裂岩。<strong>韧性变形：</strong>高温（&gt;300°C）、深部（&gt;10~15 km）、低应变速率，岩石发生塑性流变，矿物被拉长/压扁/旋转，伴随动态重结晶，产物为糜棱岩、超糜棱岩。根本区别：脆性是破裂（断开），韧性是流变（连续变形不断开）。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>碎裂岩：</strong>棱角状碎块+碎基，碎基&lt;50%（碎裂岩）至50~90%（碎粒岩），无重结晶，形成于浅部脆性域（&lt;10 km），粒径不定但碎块边界清晰。<strong>糜棱岩：</strong>碎斑+细粒重结晶基质（碎基&gt;50%），S-C组构发育，碎斑旋转拖尾，动态重结晶显著，形成于深部韧性域（&gt;10~15 km），基质粒度极细（&lt;0.1mm）。核心区别：碎裂岩=脆性破碎+无重结晶，糜棱岩=韧性流变+动态重结晶。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>假玄武玻璃（Pseudotachylyte）：</strong>断裂高速滑动（地震）产生的摩擦热使岩石局部瞬间熔融（&gt;1000°C），熔体快速淬冷形成玻璃质-隐晶质暗色脉体。<strong>古地震标志：</strong>因为形成需要瞬时高应变速率（&gt;0.1/s），只有地震断层的黏滑事件才能满足，缓慢蠕滑不会产生。所以假玄武玻璃的存在证明该断裂曾发生古地震事件。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text"><strong>S-C组构：</strong>S面（剪切面内矿物拉长方向）与C面（剪切滑动面）的交角指示剪切方向。判断方法：S面与C面的锐夹角指向对盘运动方向。<strong>σ-型碎斑：</strong>碎斑两侧有不对称拖尾（stair-stepping），拖尾的"阶梯"方向指向对盘运动方向。具体操作：观察碎斑系的长轴方向与拖尾的不对称性，拖尾从碎斑短翼一侧弯向剪切方向。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text">变形程度递进：<strong>构造角砾岩</strong>→碎基&lt;30%，棱角状角砾可见位移；<strong>碎裂岩</strong>→碎基30~50%，碎块仍可辨认原岩；<strong>碎粒岩</strong>→碎基50~90%，碎块细粒化但未重结晶；<strong>糜棱岩</strong>→碎基50~90%+动态重结晶，S-C组构发育，碎斑旋转；<strong>超糜棱岩</strong>→碎基&gt;90%，几乎全为重结晶细粒基质，碎斑极少，矿物极度拉长呈条带状。核心趋势：碎基比例递增，颗粒粒径递减，重结晶程度递增，原岩结构逐步消失。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter7 -->
 
 <!-- ════════════════ CHAPTER 8 ════════════════ -->
 <div class="chapter ch8" id="ch8">
@@ -1735,10 +2026,85 @@
     </div>
 
     <div class="section">
-      <div class="section-title">变质相系（Facies Series）——P/T比值分类</div>
+      <div class="section-title">变质相系（Facies Series）—— P/T比值分类体系</div>
       <div class="def-box">
-        <strong>变质相系（Miyashiro, 1961）：</strong>某一地区出现的一系列变质相，代表一种特定的T/P比值类型（地温梯度类型）。
+        <strong>变质相系（Miyashiro, 1961）：</strong>某一地区出现的一系列变质相的序列组合，代表一种特定的地温梯度类型（即P/T比值）。不同构造背景产生不同的地温梯度，因而形成不同的变质相系。
       </div>
+
+      <!-- 四种相系详解 -->
+      <div style="margin:14px 0 10px;font-weight:700;color:#c0392b;">🌋 四种基本变质相系的详细对比</div>
+
+      <div class="compare-wrap">
+        <table class="compare">
+          <tr>
+            <th>相系类型</th>
+            <th>P/T特征</th>
+            <th>T/D梯度</th>
+            <th>典型矿物标志</th>
+            <th>相序列</th>
+            <th>构造背景</th>
+            <th>典型地区</th>
+          </tr>
+          <tr>
+            <td><strong style="color:#e74c3c">高P/T型<br>(蓝闪石型)</strong></td>
+            <td>高P低T</td>
+            <td><20°C/km</td>
+            <td><span style="color:#2980b9">蓝闪石</span>为特征</td>
+            <td>浊沸石Z → 硬柱石-钠长石-绿泥石LA → <strong>蓝片岩BS</strong> → <strong>榴辉岩E</strong></td>
+            <td>洋壳俯冲带（海沟侧）；大陆碰撞深俯冲带（超高压）</td>
+            <td>加州Franciscan；日本三波川；大别-苏鲁-秦岭-昆仑-天山</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#f39c12">中P/T型<br>(巴罗型)</strong></td>
+            <td>中P中T</td>
+            <td>20~40°C/km</td>
+            <td>低温出<span style="color:#1a4a8a">蓝晶石</span>、高温出<span style="color:#4a7a00">矽线石</span></td>
+            <td>浊沸石Z → 葡萄石-绿纤石PP → 绿片岩GS → 绿帘角闪岩EA → <strong>角闪岩A</strong> → <strong>麻粒岩G</strong></td>
+            <td>经典大陆碰撞造山带内部（中等深度）</td>
+            <td>苏格兰高地(Barrow)；阿尔卑斯山；我国大别-苏鲁核部</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#27ae60">低P/T型<br>(巴肯型)</strong></td>
+            <td>低P高T</td>
+            <td>40~80°C/km</td>
+            <td>低温出<span style="color:#8B2500">红柱石</span>、高温出<span style="color:#4a7a00">矽线石</span></td>
+            <td>浊沸石Z → 葡萄石-绿纤石PP → 绿片岩GS → <strong>角闪岩A</strong> → <strong>麻粒岩G</strong></td>
+            <td>弧后盆地、裂谷、岩浆弧旁侧、浅成侵入体周围</td>
+            <td>苏格兰Buchan；日本领家(Abukuma)；澳大利亚Cooma</td>
+          </tr>
+          <tr>
+            <td><strong style-color:#8e44ad"><strong style="color:#8e44ad">极低P/T型<br>(接触型)</strong></td>
+            <td>极低P极高T</td>
+            <td>>80°C/km</td>
+            <td><span style="color:#8B2500">红柱石</span>、<span style="color:#d35400">堇青石</span></td>
+            <td>钠长绿帘角岩AEH → 普通角闪石角岩HH → 辉石角岩PH</td>
+            <td>侵入体接触变质带（局部）</td>
+            <td>各类侵入体接触晕圈</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 关键对比要点 -->
+      <div class="def-box" style="margin-top:12px;">
+        <strong>🔑 变质相系核心记忆要点：</strong><br>
+        <table style="width:100%;font-size:.84rem;margin-top:6px;">
+          <tr><td style="padding:3px;width:22%;font-weight:700;background:#fde8e8;border-radius:4px;text-align:center;">高P/T型</td><td>蓝闪石+榴辉岩，缺角闪岩相，俯冲/深俯冲产物</td></tr>
+          <tr><td style="padding:3px;font-weight:700;background:#fef3e0;border-radius:4px;text-align:center;">中P/T型</td><td>蓝晶石→矽线石（蓝晶石型），完整序列含EA→A→G，造山带主体</td></tr>
+          <tr><td style="padding:3px;font-weight:700;background:#e8f8ee;border-radius:4px;text-align:center;">低P/T型</td><td>红柱石→矽线石（红柱石型），跳过EA相，弧后/裂谷环境</td></tr>
+          <tr><td style="padding:3px;font-weight:700;background:#f3e8fd;border-radius:4px;text-align:center;">极低P/T型</td><td>仅接触变质带，以角岩相系列为特征</td></tr>
+        </table>
+      </div>
+
+      <!-- 与双变质带的关系 -->
+      <div class="key-point" style="margin-top:12px;">
+        <strong>与双变质带的对应关系：</strong>高P/T型 + 低P/T型的空间共存 = 双变质带！<br>
+        • 外带（靠海沟）：高P/T型（蓝片岩相±榴辉岩相）— 代表俯冲洋壳<br>
+        • 内带（靠大陆弧）：低P/T型或极低P/T型（角岩相/麻粒岩相）— 代表岩浆弧下方<br>
+        经典实例：日本西南三波川带（高压外带）+ 领家带（低压内带）
+      </div>
+
+      <!-- 原有的简化表格保留作为快速参考 -->
+      <div style="margin:14px 0 6px;font-weight:700;color:#555;font-size:.9rem;">📋 快速参考表（简化版）</div>
       <div class="compare-wrap">
         <table class="compare">
           <tr>
@@ -1891,7 +2257,25 @@
     </div>
 
   </div>
-</div><!-- /chapter8 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>什么是变质相系？Miyashiro提出的四种变质相系各自的P/T特征、指示矿物和构造背景是什么？</li>
+        <li>高P/T相系与低P/T相系如何构成双变质带？请以日本西南弧为例说明。</li>
+        <li>比较绿片岩、蓝片岩、角闪岩和麻粒岩的矿物组合、变质相和原岩特征。</li>
+        <li>正变质岩与副变质岩如何区分？列举主要判别依据。</li>
+        <li>地质温压计的基本原理是什么？石榴子石-黑云母温度计和GASP压力计如何应用？</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>变质相系</strong>是Miyashiro（1961）提出的概念，指一个变质地区内，随温度升高而依次出现的变质相序列，反映该地区特有的地热梯度（P/T比）。四种类型：<strong>①高P/T型（蓝闪石型）：</strong>T/D&lt;20°C/km，沸石相→蓝片岩相→榴辉岩相，指示矿物蓝闪石+硬柱石，俯冲带；<strong>②中P/T型（巴罗型）：</strong>T/D 20~40°C/km，沸石相→绿片岩相→角闪岩相→麻粒岩相，指示矿物石榴子石+蓝晶石+夕线石，大陆碰撞造山带；<strong>③低P/T型（巴肯型）：</strong>T/D 40~80°C/km，沸石相→绿片岩相→角闪岩相→麻粒岩相，指示矿物红柱石+夕线石，弧后/裂谷；<strong>④极低P/T型（接触型）：</strong>T/D&gt;80°C/km，钠长石-绿帘石角岩相→角闪石角岩相→辉石角岩相，指示矿物红柱石+堇青石，侵入体接触带。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>双变质带</strong>（Miyashiro, 1961）：在大洋俯冲带两侧同时发育两条平行变质带。<strong>高P/T带（外带）：</strong>靠海沟一侧，蓝片岩相→榴辉岩相，冷俯冲洋壳快速下沉，低温高压。<strong>低P/T带（内带）：</strong>靠大陆弧一侧，高温低压（角岩相→麻粒岩相），岩浆弧下方热流高。<strong>日本西南弧实例：</strong>三波川带（外带，蓝片岩相，高P/T）+领家带（内带，红柱石-夕线石带，低P/T），两者平行延伸约1000 km。双变质带是板块俯冲的直接证据。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>绿片岩：</strong>绿泥石+绿帘石+阳起石+钠长石，绿片岩相（300~500°C，0.3~0.6 GPa），原岩为基性火成岩。<strong>蓝片岩：</strong>蓝闪石+绿泥石±硬柱石，蓝片岩相（200~400°C，0.5~1.0 GPa），高P低T，原岩为基性岩+沉积岩。<strong>角闪岩：</strong>角闪石+斜长石，角闪岩相（500~700°C，0.4~0.8 GPa），中P中T，原岩为基性-中性火成岩。<strong>麻粒岩：</strong>紫苏辉石+单斜辉石+斜长石，无含水矿物，麻粒岩相（&gt;700°C，0.6~1.2 GPa），高温脱水，原岩为各种岩石。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text">主要判别依据：<strong>①残留结构：</strong>正变质岩可见变余斑状、变余辉长结构；副变质岩可见变余层理、变余砂状结构。<strong>②矿物组合：</strong>副变质岩常含石墨（有机碳标志）、大理岩夹层；正变质岩常见角闪石+斜长石组合。<strong>③地球化学：</strong>正变质岩Rb/Sr低、Zr高；副变质岩Rb/Sr高、含有机碳。<strong>④副矿物：</strong>正变质岩常见锆石、磷灰石继承自岩浆岩；副变质岩可含沉积型副矿物。<strong>⑤产状：</strong>副变质岩常与大理岩、石英岩共生；正变质岩与变质基性岩体共生。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text"><strong>基本原理：</strong>利用共生矿物间元素的分配系数与温度/压力的热力学平衡关系。当两个矿物达到化学平衡时，某元素在两矿物间的分配系数K_D只与T和P有关，通过实验标定K_D-T-P关系即可反演变质条件。<strong>Gt-Bi温度计：</strong>基于石榴子石-黑云母间Fe-Mg交换分配，K_D=(Fe/Mg)_Gt/(Fe/Mg)_Bi，适用于角闪岩相，精度约±50°C。<strong>GASP压力计：</strong>石榴子石+Al₂SiO₅+石英+斜长石平衡反应3An↔Grs+2Ky+Qtz，利用石榴子石钙铝榴石组分和斜长石钙长石组分计算压力，适用于中-高压变质岩，精度约±0.1 GPa。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter8 -->
 
 <!-- ════════════════ CHAPTER 9 ════════════════ -->
 <div class="chapter ch9" id="ch9">
@@ -2036,7 +2420,25 @@
     </div>
 
   </div>
-</div><!-- /chapter9 -->
+
+    <div class=review-questions>
+      <div class=rq-title>📝 思考题</div>
+      <ol class=rq-list>
+        <li>板块俯冲带和大陆碰撞造山带分别形成什么类型的变质岩？为什么？</li>
+        <li>什么是双变质带？其形成机制与板块构造有何关系？</li>
+        <li>超高压变质带中柯石英和微粒金刚石的发现有何重大地质意义？</li>
+        <li>变质岩的P-T-t轨迹如何反映造山旋回的进变质→峰期→退变质过程？</li>
+        <li>试归纳不同板块构造背景下变质类型的空间分布规律，并说明各变质类型与构造背景的内在联系。</li>
+      </ol>
+    <div class="rq-answers"><details><summary>&#x1F4D6; 点击展开思考题解析</summary>
+<div class="rq-ans-item"><div class="q-ref">第1题</div><div class="a-text"><strong>俯冲带：</strong>形成蓝片岩（蓝片岩相，高P低T）和榴辉岩（榴辉岩相，更高P更高T），因为冷洋壳快速俯冲至深部，温度升高远滞后于压力升高（低地热梯度&lt;10°C/km）。<strong>大陆碰撞造山带：</strong>形成区域变质岩序列（绿片岩→片岩→片麻岩→麻粒岩），Barrovian型，因为构造加厚使中地壳温压同时升高（中等地热梯度15~25°C/km），加上定向应力形成片理/片麻理。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第2题</div><div class="a-text"><strong>双变质带：</strong>俯冲带两侧平行的两条变质带。形成机制：俯冲洋壳将冷物质带入深部→海沟侧高P/T变质（蓝片岩相/榴辉岩相）；同时俯冲板片脱水释放流体→上方地幔楔部分熔融→岩浆上侵→弧侧低P/T变质（角岩相→麻粒岩相）+火山弧。两条带的空间并列直接证明了板块俯冲模式：一侧冷俯冲，一侧热岩浆弧，地热梯度截然不同。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第3题</div><div class="a-text"><strong>重大地质意义：</strong>①柯石英（SiO₂高压相）稳定压力&gt;2.5 GPa（&gt;80 km深度），微粒金刚石稳定压力&gt;4.0 GPa（&gt;120 km深度），证明大陆地壳岩石曾被俯冲至地幔深度（&gt;100 km），即<strong>大陆深俯冲</strong>；②这颠覆了传统认识——此前认为轻的大陆地壳不可能俯冲到如此深度；③超高压变质岩的折返机制（浮力驱动+通道流）是当前地球科学前沿问题；④大别山-苏鲁带是全球最经典的UHPM带之一，柯石英和金刚石的发现改写了大陆俯冲理论。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第4题</div><div class="a-text">P-T-t轨迹完整记录造山旋回：<strong>①进变质阶段：</strong>俯冲埋深，温压同步升高（沿地温线），形成蓝闪石、绿辉石等高压矿物；<strong>②峰期阶段：</strong>达到最大深度/温压极值，形成峰期矿物组合（柯石英、镁铝榴石+绿辉石）；<strong>③退变质阶段：</strong>折返隆升，压力先降（近等温减压ITD路径），高压矿物退变为低压矿物（柯石英→石英假晶，绿辉石→角闪石+斜长石）；<strong>④出露地表：</strong>剥蚀至常温常压。顺时针P-T-t轨迹的"ITD"段（等温减压）是碰撞造山带的典型指纹。</div></div>
+<div class="rq-ans-item"><div class="q-ref">第5题</div><div class="a-text">空间分布规律：<strong>①俯冲带</strong>→高P/T蓝片岩相/榴辉岩相（冷俯冲，地热梯度极低）；<strong>②大陆碰撞造山带核部</strong>→中P/T巴罗型区域变质（绿片岩→角闪岩→麻粒岩序列）；<strong>③弧后盆地/裂谷</strong>→低P/T巴肯型变质+接触变质（高地热梯度）；<strong>④洋中脊</strong>→海底变质（沸石相→绿片岩相，热液驱动）；<strong>⑤大陆弧</strong>→接触变质+气液交代（岩浆侵入）；<strong>⑥断裂带</strong>→动力变质（糜棱岩/碎裂岩）；<strong>⑦深部地壳核部</strong>→混合岩化（超高T+部分熔融）。内在联系：每种变质类型的温压条件由其构造背景决定——地热梯度→P/T比→变质相系→矿物组合，形成一条从构造到岩石的因果链。</div></div>
+</details></div>
+    </div>
+  </div><!-- /chapter9 -->
 
 <!-- ════════════════ CROSS-CHAPTER COMPARISON ════════════════ -->
 <div class="chapter" id="cross" style="border-left-color: #555;">
