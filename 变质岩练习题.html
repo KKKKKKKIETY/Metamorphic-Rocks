@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>变质岩学 · 练习题集（原题复刻 + 3套模拟）</title>
+<style>
+  :root{
+    --bg:#f5f3ef;--surface:#fff;--border:#ddd8cc;
+    --accent1:#2c5f8a;--accent2:#8a2c4a;--accent3:#2a7a5a;--accent4:#7a3a1a;
+    --text:#1e1e1e;--muted:#666;--correct-bg:#e8ffe0;--wrong-bg:#ffe8e8;--nav-w:56px;
+    --q-correct:#2a7a5a;--q-wrong:#c0392b;--q-neutral:#555;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans SC','PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;display:flex;min-height:100vh;}
+
+  /* ── 左侧导航栏 ── */
+  .side-nav{
+    width:var(--nav-w);background:linear-gradient(180deg,#1a3a5c,#2c5f8a);
+    position:fixed;top:0;left:0;height:100vh;z-index:200;
+    display:flex;flex-direction:column;align-items:center;padding-top:12px;
+    overflow-y:auto;color:#fff;font-size:.72rem;
+  }
+  .side-nav::-webkit-scrollbar{width:3px;}
+  .side-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:3px;}
+  .side-nav .nav-title{font-size:.75rem;font-weight:700;text-align:center;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.25);margin-bottom:8px;line-height:1.3;}
+  .nav-item{
+    width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;margin-bottom:4px;font-weight:700;font-size:.78rem;transition:all .2s;
+    border:2px solid transparent;position:relative;
+  }
+  .nav-item:hover{transform:scale(1.12);background:rgba(255,255,255,.18);}
+  .nav-item.active{border-color:#ffd700;background:rgba(255,215,0,.22);}
+  .nav-item.judge{background:rgba(106,153,255,.35)}
+  .nav-item.fill{background:rgba(46,204,113,.35)}
+  .nav-item.single{background:rgba(241,196,15,.35)}
+  .nav-item.multi{background:rgba(155,89,182,.35)}
+
+  .section-label{
+    font-size:.65rem;opacity:.65;width:100%;text-align:center;padding:10px 0 4px;
+    border-top:1px solid rgba(255,255,255,.18);margin-top:6px;font-weight:700;letter-spacing:.08em;
+  }
+
+  /* ── 主内容区 ── */
+  .main-content{margin-left:var(--nav-w);flex:1;padding:28px 40px 60px;max-width:1100px;}
+
+  header.top-bar{
+    background:linear-gradient(135deg,#1a3a5c,#2c5f8a,#3a7aaa);color:#fff;
+    padding:20px 32px;border-radius:12px;margin-bottom:28px;
+    box-shadow:0 3px 14px rgba(0,0,0,.15);
+  }
+  header.top-bar h1{font-size:1.45rem;font-weight:700;letter-spacing:.05em;}
+  header.top-bar p{font-size:.85rem;opacity:.85;margin-top:4px;}
+
+  /* ── 套题标签页 ── */
+  .tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+  .tab-btn{
+    padding:9px 20px;border-radius:20px;border:2px solid var(--accent1);background:var(--surface);
+    color:var(--accent1);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s;
+  }
+  .tab-btn:hover{background:var(--accent1);color:#fff;}
+  .tab-btn.active{background:var(--accent1);color:#fff;box-shadow:0 2px 8px rgba(44,95,138,.3);}
+
+  .set-panel{display:none;}
+  .set-panel.active{display:block;}
+
+  /* ── 题目卡片 ── */
+  .q-card{
+    background:var(--surface);border-radius:10px;border-left:5px solid #999;
+    box-shadow:0 1px 6px rgba(0,0,0,.07);margin-bottom:16px;overflow:hidden;
+  }
+  .q-card.judge-type{border-left-color:#6a9ff5}
+  .q-card.fill-type{border-left-color:#2ecc71}
+  .q-card.single-type{border-left-color:#f39c12}
+  .q-card.multi-type{border-left-color:#9b59b6}
+
+  .q-header{
+    padding:11px 18px;background:#f8f6f2;display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid #eee;
+  }
+  .q-num{font-weight:700;font-size:.92rem;color:var(--muted);}
+  .q-tag{
+    font-size:.73rem;padding:2px 10px;border-radius:10px;font-weight:700;
+    color:#fff;
+  }
+  .tag-judge{background:#6a9ff5}.tag-fill{background:#2ecc71}.tag-single{background:#f39c12}.tag-multi{background:#9b59b6}
+  .q-body{padding:16px 18px 14px;}
+  .q-text{font-size:.94rem;line-height:1.8;}
+  .q-options{margin:10px 0 0;padding:0 0 0 8px;}
+  .q-option{
+    display:flex;align-items:center;gap:8px;padding:6px 0;font-size:.88rem;
+    cursor:default;
+  }
+  .opt-letter{
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:.78rem;font-weight:700;border:2px solid #ccc;flex-shrink:0;
+  }
+  .opt-letter.correct-opt{background:var(--q-correct);border-color:var(--q-correct);color:#fff;}
+  .opt-letter.wrong-opt{background:var(--q-wrong);border-color:var(--q-wrong);color:#fff;}
+
+  /* ── 答案解析区 ── */
+  .answer-box{
+    background:linear-gradient(135deg,#f0f7f0,#eaf4ea);border:1px solid #b8d8b8;
+    border-radius:8px;padding:12px 16px;margin-top:12px;font-size:.84rem;
+  }
+  .answer-box .ans-label{font-weight:700;color:var(--accent3);}
+  .answer-box .score-info{font-size:.76rem;color:var(--muted);margin-top:3px;}
+  .analysis{margin-top:8px;padding:8px 12px;background:#fff;border-radius:6px;border-left:3px solid var(--accent1);line-height:1.7;font-size:.83rem;color:#333;}
+
+  /* ── 填空题特殊样式 ── */
+  .blank-slot{
+    display:inline-block;min-width:80px;border-bottom:2px solid var(--accent1);
+    text-align:center;padding:0 6px;font-weight:700;color:var(--accent1);
+  }
+  .fill-blank-answer{color:var(--accent3);font-weight:600;}
+
+  /* ── 判断题样式 ── */
+  .judge-icon{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;margin-right:8px;}
+  .judge-true{background:#d4edda;color:#155724;border:2px solid #c3e6cb;}
+  .judge-false{background:#f8d7da;color:#721c24;border:2px solid:#f5c6cb;}
+
+  /* ── 滚动锚点偏移 ── */
+  .q-card{scroll-margin-top:70px;}
+
+  @media(max-width:720px){
+    .side-nav{width:42px;}.main-content{margin-left:42px;padding:16px 14px 40px;}
+    .nav-item{width:30px;height:30px;font-size:.68rem;}.tabs{gap:4px;}
+    .tab-btn{padding:7px 13px;font-size:.77rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════ 左侧导航 ════════════════ -->
+<nav class="side-nav" id="sideNav">
+  <div class="nav-title">题号导航</div>
+  <!-- 动态生成 -->
+</nav>
+
+<!-- ════════════════ 主内容 ════════════════ -->
+<div class="main-content">
+
+<header class="top-bar">
+  <h1>变质岩学 · 练习题集</h1>
+  <p>原题复刻 + 三套模拟练习 | 共四套 | 参考马昌前《岩石学》第三版第九章及各章内容</p>
+</header>
+
+<div class="tabs" id="tabBar">
+  <button class="tab-btn active" onclick="switchSet(0)">📋 原题复刻</button>
+  <button class="tab-btn" onclick="switchSet(1)">📝 模拟卷一</button>
+  <button class="tab-btn" onclick="switchSet(2)">📝 模拟卷二</button>
+  <button class="tab-btn" onclick="switchSet(3)">📝 模拟卷三</button>
+</div>
+
+<!-- ================================================================ -->
+<!--                    SET 0：原 题 复 刻                              -->
+<!-- ================================================================ -->
+<div class="set-panel active" id="set0">
+
+  <!-- ═══ 判断题部分 ═══ -->
+  <div style="margin:20px 0 12px;">
+    <span style="background:#6a9ff5;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">判断题</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">共8题，每题1分</span>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card judge-type" id="s0-q1">
+    <div class="q-header"><span class="q-num">第 1 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">变质作用只能是通过固固反应发生的。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>错误</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>变质作用不仅包括固-固反应，还包括脱水反应、脱碳酸盐反应、交代反应、多形转变、熔融反应等多种类型。只要在固态条件下发生矿物成分或结构构造改变即可，流体参与的反应也是重要类型。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card judge-type" id="s0-q2">
+    <div class="q-header"><span class="q-num">第 2 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">等物理系列很大程度上与变质相可以类比。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>正确</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>等物理系列（Isophysical Series）是同一原岩在不同P-T条件下形成的变质岩系列，与变质相的概念有相似之处——都反映特定P-T条件下的矿物共生组合。但等物理系列强调同一原岩的演化序列，而变质相强调不同原岩在同一P-T条件下的矿物组合。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 (判断) -->
+  <div class="q-card judge-type" id="s0-q3">
+    <div class="q-header"><span class="q-num">第 3 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">接触变质晕的地表出露宽度与岩体的成分、挥发份含量、围岩类型都有关系。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>正确</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>接触变质晕的宽度受多种因素控制：(1)侵入体规模和热含量；(2)岩体挥发份含量影响热传导效率；(3)围岩的热导率和渗透性；(4)侵位深度。这些因素共同决定了热扩散范围。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 (判断) -->
+  <div class="q-card judge-type" id="s0-q4">
+    <div class="q-header"><span class="q-num">第 4 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">脆性变形形成的岩石主要是糜棱岩。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>错误</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>糜棱岩是<strong>韧性变形</strong>的产物（中深层、较高温度），特征为S-C组构、动态重结晶、亚颗粒等。脆性变形形成的是<strong>构造角砾岩</strong>和<strong>碎裂岩</strong>。两者形成条件截然不同——脆性=浅层低温高应变速率；韧性=较深部较低温低应变速率。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 (判断) -->
+  <div class="q-card judge-type" id="s0-q5">
+    <div class="q-header"><span class="q-num">第 5 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">连续反应在特定情况下（全部是端元组分）时会成为不连续反应。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>正确</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>连续反应是指反应过程中有固溶体矿物参与（如斜长石），其成分随T-P连续变化。当所有参与矿物都是端元组分（无固溶体）时，反应就变成了不连续反应——即在某一固定T-P条件下突然完成转变。例如纯钠长石→硬玉+石英就是不连续反应。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 (判断) -->
+  <div class="q-card judge-type" id="s0-q6">
+    <div class="q-header"><span class="q-num">第 6 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">出现柯石英指示岩石发生了超高温变质作用。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>错误</div>
+        <div class="score-info">得分：0分</div>
+        <div class="analysis"><strong>解析：</strong>这是易错点！柯石英（Coesite）是SiO₂的高压同质多象变体，<strong>指示超高压（UHP > 2.5~3.0 GPa），而非超高温</strong>。柯石英的形成需要极高的静岩压力（对应深度 > ~90 km）。超高温变质作用的标志是紫苏辉石+夕线石等麻粒岩相矿物组合。注意区分：<strong>高压≠高温</strong>！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 (判断) -->
+  <div class="q-card judge-type" id="s0-q7">
+    <div class="q-header"><span class="q-num">第 7 题</span><span class="q-tag tag-judge">判断题 · 1分</span></div>
+    <div class="q-body">
+      <div class="q-text">变质温度不会超过900°C。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>错误</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>麻粒岩相的温度范围可达700～1000°C甚至更高（局部可超1100°C）。超变质/混合岩化温度也常超过900°C。因此"不超过900°C"的说法不正确。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 填空题部分 ═══ -->
+  <div style="margin:28px 0 12px;">
+    <span style="background:#2ecc71;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">填空题</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">共5题，每题4分</span>
+  </div>
+
+  <!-- Fill Q1 -->
+  <div class="q-card fill-type" id="s0-q8">
+    <div class="q-header"><span class="q-num">第 8 题</span><span class="q-tag tag-fill">填空题 · 4分</span></div>
+    <div class="q-body">
+      <div class="q-text">按照矿物之间的关系可以将变晶结构划分为 <span class="blank-slot">包含变晶结构 / 嵌状变晶结构</span>、<span class="blank-slot">筛状变晶结构</span>、<span class="blank-slot">残缝变晶结构</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span></div>
+        <div>填空1：包含变晶结构（嵌状变晶结构）</div>
+        <div>填空2：筛状变晶结构</div>
+        <div>填空3：残缝结构</div>
+        <div class="score-info">得分：0分</div>
+        <div class="analysis"><strong>解析：</strong>按矿物间相互关系划分的三种变晶结构：
+          <br>• <strong>包含（嵌状）变晶</strong>：大晶体包裹小晶体（如石榴子石包裹石英）
+          <br>• <strong>筛状变晶</strong>：主晶内含大量细小包裹物呈筛网状
+          <br>• <strong>残缝（残缟）变晶</strong>：矿物间呈不规则缝合线接触
+          <br>注意：这三种分类依据的是矿物间的空间关系而非粒度大小。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fill Q2 -->
+  <div class="q-card fill-type" id="s0-q9">
+    <div class="q-header"><span class="q-num">第 9 题</span><span class="q-tag tag-fill">填空题 · 4分</span></div>
+    <div class="q-body">
+      <div class="q-text">变晶结构按照绝对粒度大小可以划分为 <span class="blank-slot">粗粒变晶结构</span>、<span class="blank-slot">中粒变晶结构</span>、<span class="blank-slot">细粒变晶结构</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span></div>
+        <div>填空1：粗粒变晶结构</div>
+        <div>填空2：中粒变晶结构</div>
+        <div>填空3：细粒变晶结构</div>
+        <div class="score-info">得分：0分</div>
+        <div class="analysis"><strong>解析：</strong>按绝对粒度划分（一般标准）：
+          <br>• <strong>粗粒</strong>：粒径 > 3mm
+          <br>• <strong>中粒</strong>：1～3mm
+          <br>• <strong>细粒</strong>：0.1～1mm
+          <br>• <strong>微粒</strong>：< 0.1mm
+          <br>粒度通常反映变质温度高低——温度越高重结晶颗粒越粗。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fill Q3 -->
+  <div class="q-card fill-type" id="s0-q10">
+    <div class="q-header"><span class="q-num">第 10 题</span><span class="q-tag tag-fill">填空题 · 4分</span></div>
+    <div class="q-body">
+      <div class="q-text">岩石中的矿物共生组合为石榴子石+紫苏辉石+单斜辉石+斜长石+石英，变质相为 <span class="blank-slot fill-blank-answer">麻粒岩相</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>麻粒岩相</div>
+        <div class="score-info">得分：4分</div>
+        <div class="analysis"><strong>解析：</strong>该组合的关键标志是<strong>紫苏辉石（斜方辉石）</strong>的存在。麻粒岩相以出现辉石类（特别是紫苏辉石）且角闪石不稳定为特征，代表高级区域变质（T≥700°C）。紫苏辉石+单斜辉石的共存是麻粒岩相的典型矿物组合。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fill Q4 (混合岩) -->
+  <div class="q-card fill-type" id="s0-q11">
+    <div class="q-header"><span class="q-num">第 11 题</span><span class="q-tag tag-fill">填空题 · 4分</span></div>
+    <div class="q-body">
+      <div class="q-text">混合岩由哪两部分组成？<span class="blank-slot fill-blank-answer">基体（暗色体）</span>、<span class="blank-slot fill-blank-answer">脉体（浅色体）</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span></div>
+        <div>填空1：基体 / 暗色体（古成体 Paleosome）</div>
+        <div>填空2：脉体 / 浅色体（新成体 Neosome）</div>
+        <div class="score-info">得分：4分</div>
+        <div class="analysis"><strong>解析：</strong>混合岩的两个基本组成：
+          <br>• <strong>基体/古成体</strong>：暗色难熔残留基质，富Fe-Mg（黑云母、角闪石等）
+          <br>• <strong>脉体/新成体</strong>：浅色新生长英质部分，富Si-Al-K（长石、石英）
+          <br>脉体又可分为浅色体（Leucosome）和暗色体（Melanosome）。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 单选题部分 ═══ -->
+  <div style="margin:28px 0 12px;">
+    <span style="background:#f39c12;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">单选题</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">共5题，每题2分</span>
+  </div>
+
+  <!-- Single Q1 (命名) -->
+  <div class="q-card single-type" id="s0-q12">
+    <div class="q-header"><span class="q-num">第 12 题</span><span class="q-tag tag-single">单选题 · 2分</span></div>
+    <div class="q-body">
+      <div class="q-text">岩石具定向构造，特征变质矿物为石榴子石（10%）、蓝晶石（4%），主要矿物为黑云母（30%）、白云母（20%）、石英（20%）、斜长石（10%），鳞片状的云母定向排列，应该命名为：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 含蓝晶石榴二云母片岩</div>
+        <div class="q-option"><span class="opt-letter">B</span> 蓝晶石榴黑云母片岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 含蓝晶二云母石榴片岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 石榴蓝晶二云母片麻岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A</div>
+        <div class="score-info">得分：2分</div>
+        <div class="analysis"><strong>解析：</strong>变质岩命名规则：
+          <br>① 基本名称由<strong>构造+主要矿物</strong>决定 → 片状构造+云母为主 → "<strong>片岩</strong>"
+          <br>② 特征矿物前加"<strong>含</strong>"字表示含量<5%，不加则表示>5%
+          <br>③ 蓝晶石4%（<5%）→"<strong>含蓝晶</strong>"；石榴子石10%（≥5%）→直接用"石榴"
+          <br>④ 黑云母30% + 白云母20% → 二者均为主要矿物 → "<strong>二云母</strong>"
+          <br>D选项"片麻岩"错误：因为长英质矿物未达>50%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Q2 (变质相判断) -->
+  <div class="q-card single-type" id="s0-q13">
+    <div class="q-header"><span class="q-num">第 13 题</span><span class="q-tag tag-single">单选题 · 2分</span></div>
+    <div class="q-body">
+      <div class="q-text">矿物组合为蓝晶石+石榴子石+黑云母+白云母+石英+斜长石，岩石最可能为以下哪种变质相？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 榴辉岩相</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 角闪岩相</div>
+        <div class="q-option"><span class="opt-letter">C</span> 麻粒岩相</div>
+        <div class="q-option"><span class="opt-letter">D</span> 绿片岩相</div>
+        <div class="q-option"><span class="opt-letter wrong-opt">E</span> 蓝片岩相</div>
+        <div class="q-option"><span class="opt-letter">F</span> 辉石角岩相</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>B 角闪岩相</div>
+        <div class="score-info">得分：0分</div>
+        <div class="analysis"><strong>解析：</strong>该组合分析：
+          <br>• 有<strong>蓝晶石</strong>（高P指标矿物）→ 排除绿片岩相(D)、角岩相(F)
+          <br>• 有<strong>石榴子石+黑云母+白云母</strong>（含水矿物稳定）→ 排除麻粒岩相(C)，因麻粒岩相含水矿物已分解
+          <br>• 有<strong>斜长石</strong>→ 排除榴辉岩相(A)，榴辉岩相只有Grt+Omph
+          <br>• 蓝片岩相(E)的特征是蓝闪石，不是蓝晶石
+          <br>• <strong>结论</strong>：蓝晶石+Grt+Bt+Ms+Qz+Pl = 典型<strong>角闪岩相</strong>泥质岩矿物组合</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Q3 (最低温度) -->
+  <div class="q-card single-type" id="s0-q14">
+    <div class="q-header"><span class="q-num">第 14 题</span><span class="q-tag tag-single">单选题 · 2分</span></div>
+    <div class="q-body">
+      <div class="q-text">下面哪种岩石的变质温度最低？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 板岩</div>
+        <div class="q-option"><span class="opt-letter">B</span> 辉石角岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 麻粒岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 角闪岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A 板岩</div>
+        <div class="score-info">得分：2分</div>
+        <div class="analysis"><strong>解析：</strong>变质级从低到高排序：
+          <br><strong>板岩</strong>（极低级，T<300°C）< 千枚岩（低级）< 片岩（低-中级）< 角闪岩（中级，450~700°C）< <strong>麻粒岩</strong>（高级，700~1000°C）
+          <br>辉石角岩属于高温接触变质产物。板岩是最接近原岩的低级变质岩。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Q4 (最高压力) -->
+  <div class="q-card single-type" id="s0-q15">
+    <div class="q-header"><span class="q-num">第 15 题</span><span class="q-tag tag-single">单选题 · 2分</span></div>
+    <div class="q-body">
+      <div class="q-text">下面哪种岩石的变质压力最高？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 板岩</div>
+        <div class="q-option"><span class="opt-letter">B</span> 角岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 榴辉岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 千枚岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>C 榴辉岩</div>
+        <div class="score-info">得分：—</div>
+        <div class="analysis"><strong>解析：</strong>压力等级排序：
+          <br>板岩/千枚岩（极低压~0.2 GPa）< 角岩（低压<0.4 GPa）< ... < <strong>榴辉岩（高压-超高压 >1.5 GPa）</strong>
+          <br>榴辉岩形成于俯冲带或大陆碰撞带的极深处（>50 km），其密度高达3.3~3.5 g/cm³，是地球上压力最高的变质岩之一。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single Q5 (命名-块状) -->
+  <div class="q-card single-type" id="s0-q16">
+    <div class="q-header"><span class="q-num">第 16 题</span><span class="q-tag tag-single">单选题 · 2分</span></div>
+    <div class="q-body">
+      <div class="q-text">岩石为块状构造，主要由石榴子石（12%）、角闪石（50%）、斜长石（20%）、单斜辉石（10%）、石英（5%）组成，可以命名为：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 含石榴角闪麻粒岩</div>
+        <div class="q-option"><span class="opt-letter">B</span> 石榴角闪斜长辉石岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 石榴单辉斜长角闪岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 辉石石榴角闪麻粒岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>C 石榴单辉斜长角闪岩</div>
+        <div class="score-info">得分：2分</div>
+        <div class="analysis"><strong>解析：</strong>变质岩命名要点：
+          <br>① 基本名：<strong>角闪石最多（50%）→ "角闪岩"</strong>
+          <br>② 前缀顺序：特征矿物 → 次要矿物（按含量递减）
+          <br>• 石榴子石12%（≥5%）→ "石榴"
+          <br>• 单斜辉石10%（≥5%）→ "单辉"
+          <br>• 斜长石20%（≥5%）→ "斜长"
+          <br>③ 完整名称："石榴-单辉-斜长-角闪岩"
+          <br>④ D选项称"麻粒岩"错误：角闪石大量存在说明未达麻粒岩相</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 多选题部分 ═══ -->
+  <div style="margin:28px 0 12px;">
+    <span style="background:#9b59b6;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">多选题</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">共13题，每题5分</span>
+  </div>
+
+  <!-- Multi Q1 (巴肯型不会出现的) -->
+  <div class="q-card multi-type" id="s0-q17">
+    <div class="q-header"><span class="q-num">第 17 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些矿物不会出现在巴肯型递增变质带？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 金刚石</div>
+        <div class="q-option"><span class="opt-letter">B</span> 黑云母</div>
+        <div class="q-option"><span class="opt-letter">C</span> 堇青石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 绿辉石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">E</span> 蓝晶石</div>
+        <div class="q-option"><span class="opt-letter">F</span> 夕线石</div>
+        <div class="q-option"><span class="opt-letter">G</span> 红柱石</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, D, E</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>巴肯型（低P/T型）变质带的特征：
+          <br><strong>会出现的矿物：</strong>红柱石(G)✓、堇青石(C)✓、夕线石(F)✓、黑云母(B)✓ — 这些都是低压/中压高温矿物
+          <br><strong>不会出现的矿物：</strong>
+          <br>• A 金刚石 — 需要>4GPa超高压
+          <br>• D 绿辉石 — 高压榴辉岩相矿物
+          <br>• E 蓝晶石 — <strong>高压指标矿物</strong>(P>0.38GPa)，巴肯型是低压型！
+          <br><em>核心记忆：巴肯型缺蓝晶石+十字石，有红柱石+堇青石</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q2 (巴罗型会出现) -->
+  <div class="q-card multi-type" id="s0-q18">
+    <div class="q-header"><span class="q-num">第 18 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些变质矿物会出现在巴罗型递增变质带？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 蓝晶石</div>
+        <div class="q-option"><span class="opt-letter">B</span> 红柱石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 夕线石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 十字石</div>
+        <div class="q-option"><span class="opt-letter wrong-opt">E</span> 堇青石</div>
+        <div class="q-option"><span class="opt-letter">F</span> 蓝闪石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">G</span> 石榴子石</div>
+        <div class="q-option"><span class="opt-letter">H</span> 透长石</div>
+        <div class="q-option"><span class="opt-letter">I</span> 绿辉石</div>
+        <div class="q-option"><span class="opt-letter">J</span> 硬玉</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, C, D, G</div>
+        <div class="score-info">得分：0分</div>
+        <div class="analysis"><strong>解析：</strong>巴罗型（中P/T型）指数矿物序列：
+          <br>✓ A 蓝晶石 — 巴罗型特有（高压路径）
+          <br>✓ C 夕线石 — 最高温带
+          <br>✓ D 十字石 — 中级带特有
+          <br>✓ G 石榴子石 — 中级开始出现
+          <br>✗ B 红柱石 — 低压型（巴肯）
+          <br>✗ E 堇青石 — 低压型（巴肯）
+          <br>✗ F 蓝闪石 — 高压低温（俯冲带）
+          <br>✗ H 透长石 — 火山岩/高温喷出
+          <br>✗ I 绿辉石 / J 硬玉 — 榴辉岩相（超高压）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q3 (陨击) -->
+  <div class="q-card multi-type" id="s0-q19">
+    <div class="q-header"><span class="q-num">第 19 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些特征不是陨击动力变质作用具备的？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 常见于地壳深部</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 低压</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 低温</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 持续时间长</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, B, C, D（全选）</div>
+        <div class="score-info">得分：1分</div>
+        <div class="analysis"><strong>解析：</strong>陨击（冲击）变质的真实特征：
+          <br>• 发生在地表（陨石坑），<strong>非地壳深部(A错)</strong>
+          <br>• 产生<strong>极高瞬时压力</strong>（>10 GPa），<strong>非低压(B错)</strong>
+          <br>• 产生<strong>极高瞬时温度</strong>（可>1500°C），<strong>非低温(C错)</strong>
+          <br>• 作用时间极短（毫秒级），<strong>非持续长时间(D错)</strong>
+          <br>• 产生柯石英、斯石英、玻陨石等冲击矿物</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q4 (定向性) -->
+  <div class="q-card multi-type" id="s0-q20">
+    <div class="q-header"><span class="q-num">第 20 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些岩石一般具有明显定向性？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 片岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 糜棱岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 千枚岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 片麻岩</div>
+        <div class="q-option"><span class="opt-letter">E</span> 角岩</div>
+        <div class="q-option"><span class="opt-letter">F</span> 矽卡岩</div>
+        <div class="q-option"><span class="opt-letter">G</span> 麻粒岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">H</span> 板岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, B, C, D, H</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>定向性来源于定向应力作用下的矿物定向排列：
+          <br>✓ A 片岩 — 片状构造（云母定向排列）
+          <br>✓ B 糜棱岩 — S-C面理（剪切带定向）
+          <br>✓ C 千枚岩 — 千枚状构造（绢云母定向）
+          <br>✓ D 片麻岩 — 片麻状构造（条带定向）
+          <br>✓ H 板岩 — 板状构造（劈理面）
+          <br>✗ E 角岩 — 块状，接触热变质无定向
+          <br>✗ F 矽卡岩 — 块状，交代产物
+          <br>✗ G 麻粒岩 — 通常块状-片麻状，不一定有明显定向</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q5 (正变质岩) -->
+  <div class="q-card multi-type" id="s0-q21">
+    <div class="q-header"><span class="q-num">第 21 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些岩石是正变质岩？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 变质辉绿岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 变质流纹岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 绿泥石化云母片岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 变质砂岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, B</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>正变质岩 = 火成岩（岩浆岩）经变质而来。
+          <br>✓ A 辉绿岩是基性浅成岩浆岩 → 变质后仍为正变质
+          <br>✓ B 流纹岩是酸性喷出岩浆岩 → 正变质
+          <br>✗ C 云母片岩的原岩通常是泥质沉积岩 → 副变质
+          <br>✗ D 砂岩是沉积岩 → 变质后为副变质</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q6 (糜棱岩鉴定) -->
+  <div class="q-card multi-type" id="s0-q22">
+    <div class="q-header"><span class="q-num">第 22 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">下列特征哪些可用以鉴定糜棱岩？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 变形纹</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 波状消光</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 动态重结晶</div>
+        <div class="q-option"><span class="opt-letter">D</span> 脆性破裂</div>
+        <div class="q-option"><span class="opt-letter correct-opt">E</span> 亚颗粒</div>
+        <div class="q-option"><span class="opt-letter correct-opt">F</span> 云母鱼</div>
+        <div class="q-option"><span class="opt-letter correct-opt">G</span> 变形双晶</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, B, C, E, F, G</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>糜棱岩的韧性变形显微构造特征：
+          <br>✓ A 变形纹（Deformation lamellae）— 石英内部平行条带
+          <br>✓ B 波状消光（Undulatory extinction）— 晶格扭曲导致
+          <br>✓ C 动态重结晶（Dynamic recrystallization）— 核幔结构
+          <br>✓ E 亚颗粒（Subgrain）— 位错重组的小角度边界
+          <br>✓ F 云母鱼（Mica fish）— 不对称旋转碎斑
+          <br>✓ G 变形双晶（Deformation twin）— 斜长石机械双晶
+          <br>✗ D 脆性破裂 — 这是碎裂岩的特征，不是糜棱岩！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q7 (岛弧环境) -->
+  <div class="q-card multi-type" id="s0-q23">
+    <div class="q-header"><span class="q-num">第 23 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些岩石可能出现在岛弧环境下？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 麻粒岩</div>
+        <div class="q-option"><span class="opt-letter wrong-opt">B</span> 蓝片岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 钠长绿帘角岩</div>
+        <div class="q-option"><span class="opt-letter wrong-opt">D</span> 榴辉岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, C</div>
+        <div class="score-info">得分：0分</div>
+        <div class="analysis"><strong>解析：</strong>岛弧环境变质特点：
+          <br>✓ A 麻粒岩 — 岛弧根部高温变质（低P/T型）
+          <br>✓ C 钠长绿帘角岩 — 岛弧弧前/接触变质带
+          <br>✗ B 蓝片岩 — 主要出现在<strong>俯冲带</strong>（海沟侧），不是岛弧本身
+          <br>✗ D 榴辉岩 — 形成于<strong>俯冲带深部</strong>或碰撞带超高压环境
+          <br>注意区分：岛弧（低压/中压高温） vs 俯冲带（高压低温）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q8 (长英质系列) -->
+  <div class="q-card multi-type" id="s0-q24">
+    <div class="q-header"><span class="q-num">第 24 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">下列岩石哪些属于长英质系列？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 蓝片岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 浅粒岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 榴辉岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 二长片麻岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>B, D</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>长英质系列指SiO₂含量高、富含长英质矿物的变质岩（原岩为花岗质/砂泥质）：
+          <br>✓ B 浅粒岩 — 细粒长英质变质岩
+          <br>✓ D 二长片麻岩 — 富钾长石+斜长石的片麻岩
+          <br>✗ A 蓝片岩 — 基性原岩（玄武岩）→ 镁铁质系列
+          <br>✗ C 榴辉岩 — 基性原岩 → 镁铁质系列</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q9 (化学式相同) -->
+  <div class="q-card multi-type" id="s0-q25">
+    <div class="q-header"><span class="q-num">第 25 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">以下化学式相同的矿物为：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 刚玉</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 红柱石</div>
+        <div class="q-option"><span class="opt-letter">C</span> 蓝闪石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 夕线石</div>
+        <div class="q-option"><span class="opt-letter">E</span> 石榴子石</div>
+        <div class="q-option"><span class="opt-letter">F</span> 十字石</div>
+        <div class="q-option"><span class="opt-letter">G</span> 绿辉石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">H</span> 蓝晶石</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>B, D, H</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>B红柱石、D夕线石、H蓝晶石的化学式均为 <strong>Al₂SiO₅</strong>，它们是Al₂SiO₅的三种同质多象变体（多形体）。
+          <br>三者区别在于晶体结构和稳定P-T范围不同——这是变质岩学的核心考点之一！
+          <br>其他选项：刚玉 Al₂O₃、蓝闪石Na₂(Mg,Fe)₃Al₂Si₈O₂₂(OH)₂、石榴子石X₃Y₂Si₃O₁₂、十字石Fe₂Al₉Si₄O₂₃(OH)、绿辉石(Ca,Na)(Mg,Fe²⁺,Al)Si₂O₆</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q10 (钙质系列) -->
+  <div class="q-card multi-type" id="s0-q26">
+    <div class="q-header"><span class="q-num">第 26 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪些岩石属于钙质系列？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 石英岩</div>
+        <div class="q-option"><span class="opt-letter">B</span> 钾长片麻岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 大理岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 变质灰岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>C, D</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>钙质系列的原岩是碳酸盐岩（石灰岩/白云岩）：
+          <br>✓ C 大理岩 — 方解石/白云石重结晶
+          <br>✓ D 变质灰岩 — 低级碳酸盐变质岩
+          <br>✗ A 石英岩 — 硅质原岩（石英砂岩）→ 硅质系列
+          <br>✗ B 钾长片麻岩 — 长英质原岩</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q11 (泥质系列) -->
+  <div class="q-card multi-type" id="s0-q27">
+    <div class="q-header"><span class="q-num">第 27 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">下列岩石哪些属于泥质系列？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 斜长角闪岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 石榴二云母片岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 蓝晶石榴黑云母片岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 暗色麻粒岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>B, C</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>泥质系列的原岩为富铝沉积岩（泥岩/页岩）：
+          <br>✓ B 石榴二云母片岩 — 含云母（泥质特征矿物）
+          <br>✓ C 蓝晶石榴黑云母片岩 — 泥质岩中级变质
+          <br>✗ A 斜长角闪岩 — 基性原岩 → 镁铁质
+          <br>✗ D 暗色麻粒岩 — 基性原岩 → 镁铁质
+          <br>记忆口诀：泥质看云母/铝硅酸盐；基性看角闪石/辉石；钙质看方解石/钙铝酸盐</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q12 (镁铁质/基性系列) -->
+  <div class="q-card multi-type" id="s0-q28">
+    <div class="q-header"><span class="q-num">第 28 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪些岩石属于镁铁质/基性系列？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 斜长角闪岩</div>
+        <div class="q-option"><span class="opt-letter">B</span> 白云母片岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 石榴辉石麻粒岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 普通角闪石角岩</div>
+        <div class="q-option"><span class="opt-letter">E</span> 花岗片麻岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">F</span> 榴辉岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, C, D, F</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>镁铁质/基性系列原岩为基性火成岩（玄武岩/辉长岩）：
+          <br>✓ A 斜长角闪岩 — Pl+Hbl，典型基性变质岩
+          <br>✓ C 石榴辉石麻粒岩 — 基性麻粒岩
+          <br>✓ D 普通角闪石角岩 — 基性角岩
+          <br>✓ F 榴辉岩 — 基性原岩（玄武岩/辉长岩）→ Grt+Omph
+          <br>✗ B 白云母片岩 — 泥质
+          <br>✗ E 花岗片麻岩 — 长英质</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi Q13 (超镁铁质/镁质) -->
+  <div class="q-card multi-type" id="s0-q29">
+    <div class="q-header"><span class="q-num">第 29 题</span><span class="q-tag tag-multi">多选题 · 5分</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪些岩石属于超镁铁质/镁质系列？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 蛇纹岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 变质白云岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 角闪岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 透辉石大理岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 正确答案：</span>A, B</div>
+        <div class="score-info">得分：5分</div>
+        <div class="analysis"><strong>解析：</strong>超镁铁质/镁质系列原岩为超基性岩（橄榄岩/纯橄岩）或富Mg碳酸盐岩：
+          <br>✓ A 蛇纹岩 — 超基性岩（橄榄岩等）蚀变/变质产物
+          <br>✓ B 变质白云岩 — 白云岩（MgCO₃为主）→ 镁质碳酸盐变质
+          <br>✗ C 角闪岩 — 基性（不是超基性/镁质）
+          <br>✗ D 透辉石大理岩 — 属钙质系列（Ca-Mg碳酸盐变质）
+          <br><em>注意：镁质系列 ≠ 镁铁质系列！前者更富Mg贫Fe/Ca。</em></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /set0 -->
+
+
+<!-- ================================================================ -->
+<!--                    SET 1：模 拟 卷 一                              -->
+<!-- ================================================================ -->
+<div class="set-panel" id="set1">
+
+  <div style="margin:20px 0 12px;">
+    <span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">模拟卷一 · 综合测试</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">参考第九章·大地构造背景 + 各章综合</span>
+  </div>
+
+  <div class="q-card judge-type" id="s1-q1">
+    <div class="q-header"><span class="q-num">M1-1</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">双变质带是指同一造山带内同时发育的蓝片岩相带（高压外带）和角闪岩相/麻粒岩相带（低压内带）。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>Miyashiro（1961）提出双变质带概念：在大洋板块向大陆俯冲时，海沟一侧发育高P/T型的蓝片岩相-榴辉岩相带（外带），而大陆弧一侧受岩浆加热影响发育低P/T型的角闪岩相-麻粒岩相带（内带）。经典案例为日本西南三波川带（高压）+领家带（低压）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card judge-type" id="s1-q2">
+    <div class="q-header"><span class="q-num">M1-2</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">矽卡岩既可以由接触交代作用形成，也可以由气液交代作用形成，两者本质上相同。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>矽卡岩的本质就是钙硅酸盐矿物集合体。无论称为"接触交代矽卡岩"还是"气液交代矽卡岩"，其成因均为：富Ca-Si热液与碳酸盐围岩发生物质交换（交代），生成钙铝/钙铁榴石、透辉石、硅灰石等钙硅酸盐矿物。"接触交代"强调空间位置（侵入体接触带），"气液交代"强调作用方式（热液活动），本质一致。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card judge-type" id="s1-q3">
+    <div class="q-header"><span class="q-num">M1-3</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">混合花岗岩是混合岩化最终阶段的产物，此时古成体几乎完全消失。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>随着混合岩化程度增加，新成体（长英质熔体/脉体）比例逐渐增大。当新成体占绝对主导、古成体仅呈残余暗色包体或完全消失时，岩石整体呈现岩浆岩特征，即混合花岗岩（又称"超变质花岗岩"）。它是连接变质岩与岩浆岩的过渡产物。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card fill-type" id="s1-q4">
+    <div class="q-header"><span class="q-num">M1-4</span><span class="q-tag tag-fill">填空题</span></div>
+    <div class="q-body">
+      <div class="q-text">Miyashiro（1961）将变质相系分为三种基本类型：<span class="blank-slot">低P/T型（红柱石-矽线石型）</span>、<span class="blank-slot">中P/T型（蓝晶石-矽线石型/巴罗型）</span>、<span class="blank-slot">高P/T型（蓝闪石型）</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span></div>
+        <div>① 低P/T型（红柱石-矽线石型）/ 巴肯型</div>
+        <div>② 中P/T型（蓝晶石-矽线石型）/ 巴罗型</div>
+        <div>③ 高P/T型（蓝闪石型）/ 俯冲带型</div>
+        <div class="analysis"><strong>解析：</strong>变质相系的核心分类依据是地温梯度（T/D值，°C/km）：低P/T型>30°C/km（裂谷/弧后/岩浆弧）；中P/T型15~30°C/km（经典造山带）；高P/T型<10°C/km（俯冲带）。此外还有极低P/T型（>80°C/km，接触型）作为补充。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card fill-type" id="s1-q5">
+    <div class="q-header"><span class="q-num">M1-5</span><span class="q-tag tag-fill">填空题</span></div>
+    <div class="q-body">
+      <div class="q-text">斑岩铜矿典型的蚀变分带模式（Lowell-Guilbert模式）由内向外依次为：<span class="blank-slot">钾化带</span>→<span class="blank-slot">绢英岩化带</span>→<span class="blank-slot">泥化带</span>→<span class="blank-slot">青磐岩化带</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>钾化带 → 绢英岩化带 → 泥化带 → 青磐岩化带</div>
+        <div class="analysis"><strong>解析：</strong>这是经典的斑岩铜矿蚀变模型。矿化主要集中在钾化带（核部，钾长石+黑云母）和绢英岩化带（过渡带，绢云母+石英+黄铁矿）之间。青磐岩化带（外围，绿帘石+绿泥石+方解石）一般矿化较弱。此模式是勘查隐伏斑岩铜矿的重要指导。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s1-q6">
+    <div class="q-header"><span class="q-num">M1-6</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪种变质反应类型不需要流体参与？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 脱水反应</div>
+        <div class="q-option"><span class="opt-letter">B</span> 脱碳酸盐反应</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 固相反应</div>
+        <div class="q-option"><span class="opt-letter">D</span> 交代反应</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>C 固相反应</div>
+        <div class="analysis"><strong>解析：</strong>固相反应的定义就是矿物之间直接进行物质交换，没有流体相参与。例如：钠长石→硬玉+石英（Jd+Qz=Ab反应）。脱水反应放出H₂O，脱碳酸盐反应放出CO₂，交代反应必须有流体携带组分进出——这三者都需要流体参与（至少作为产物或介质）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s1-q7">
+    <div class="q-header"><span class="q-num">M1-7</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪组矿物组合指示了最高的变质温度？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 绿泥石+绢云母+石英</div>
+        <div class="q-option"><span class="opt-letter">B</span> 黑云母+石榴子石+石英</div>
+        <div class="q-option"><span class="opt-letter">C</span> 紫苏辉石+斜长石+石英</div>
+        <div class="q-option"><span class="opt-letter">D</span> 蓝闪石+绿帘石+钠长石</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>C 紫苏辉石+斜长石+石英</div>
+        <div class="analysis"><strong>解析：</strong>温度从低到高的矿物演变：绿泥石/绢云母(低级)<黑云母/石榴子石(中级)<紫苏辉石(高级)。紫苏辉石（斜方辉石）的出现标志着进入了麻粒岩相（T>700°C），是最高温的标志矿物。D选项蓝闪石虽形成于高压但温度很低（200~500°C）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s1-q8">
+    <div class="q-header"><span class="q-num">M1-8</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">S-C组构中的"C面理"指的是什么？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 矿物拉伸线理方向</div>
+        <div class="q-option"><span class="opt-letter">B</span> 糜棱岩叶理面（S面）</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 剪切带的主位移面</div>
+        <div class="q-option"><span class="opt-letter">D</span> 旋转碎斑的长轴方向</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>C 剪切带的主位移面</div>
+        <div class="analysis"><strong>解析：</strong>S-C组构是糜棱岩的重要运动学标志：S面理（Schistosity）是矿物定向排列形成的叶理面，C面理（Cisaillement/C shear band）是实际的剪切位移面。两者之间的夹角和S面的弯曲方向可用于判断剪切指向。C面理大致平行于剪切带边界，代表了最大应变方向。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s1-q9">
+    <div class="q-header"><span class="q-num">M1-9</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">关于P-T-t轨迹，下列说法正确的有：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 顺时针轨迹常见于大陆碰撞造山带</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 逆时针轨迹常见于大陆弧底部或岩浆加热环境</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 近等温降压(ITD)反映快速隆升剥蚀</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 只有峰期共生组合才能准确确定峰期温压条件</div>
+        <div class="q-option"><span class="opt-letter">E</span> 退变质矿物也可用于确定峰期温压</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, C, D</div>
+        <div class="analysis"><strong>解析：</strong>P-T-t轨迹记录了岩石经历的完整温压历史。E错误：退变质矿物只反映降温降压过程，不能用于确定峰期条件。只有峰期共生组合（peak assemblage）才能通过地质温压计获得准确的峰期P-T值。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s1-q10">
+    <div class="q-header"><span class="q-num">M1-10</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">以下哪些属于典型的超高压(UHP)变质矿物？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 柯石英</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 微粒金刚石</div>
+        <div class="q-option"><span class="opt-letter">C</span> 蓝晶石</div>
+        <div class="q-option"><span class="opt-letter">D</span> 紫苏辉石</div>
+        <div class="q-option"><span class="opt-letter correct-opt">E</span> 斯石英</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, E</div>
+        <div class="analysis"><strong>解析：</strong>超高压（UHP）变质矿物是指仅在>2.5 GPa条件下稳定的矿物：
+          <br>✓ A 柯石英(Coesite) — SiO₂高压相，>2.5~3.0 GPa
+          <br>✓ B 微粒金刚石 — >4 GPa（地幔条件）
+          <br>✓ E 斯石英(Stishovite) — SiO₂更高压相，>9 GPa（极少见）
+          <br>✗ C 蓝晶石 — 中高压（0.38~1.5 GPa）但不属UHP范畴
+          <br>✗ D 紫苏辉石 — 高温标志，不一定高压</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /set1 -->
+
+
+<!-- ================================================================ -->
+<!--                    SET 2：模 拟 卷 二                              -->
+<!-- ================================================================ -->
+<div class="set-panel" id="set2">
+
+  <div style="margin:20px 0 12px;">
+    <span style="background:#27ae60;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">模拟卷二 · 重点强化</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">侧重：变质级·变质相·巴罗/巴肯带·岩石命名</span>
+  </div>
+
+  <div class="q-card judge-type" id="s2-q1">
+    <div class="q-header"><span class="q-num">M2-1</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">变质级越高，变质岩的矿物粒度和结晶程度越大。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>变质级（metamorphic grade）是变质强度的定性度量。一般来说，温度越高（变质级越高），重结晶越充分，矿物颗粒越粗大。板岩（极低级）→细粒隐晶；千枚岩（低级）→微晶；片岩（低-中级）→肉眼可见鳞片；片麻岩/麻粒岩（中-高级）→粗粒变晶结构。但也有例外（如应力影响粒度）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card judge-type" id="s2-q2">
+    <div class="q-header"><span class="q-num">M2-2</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">等变质线(isograd)是地图上连接同一指数矿物首次出现位置的线。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>等变质线（Isograd）由George Barrow创立，定义即为地图上连接某一指数矿物首次出现位置的一条线。它实质上是一个等温等压面的地表出露线。多条等变质线构成了变质带的分界。注意与"等变线"(Isopleth)的区别——后者连接某矿物含量相等的点。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card fill-type" id="s2-q3">
+    <div class="q-header"><span class="q-num">M2-3</span><span class="q-tag tag-fill">填空题</span></div>
+    <div class="q-body">
+      <div class="q-text">巴罗型递增变质带的完整指数矿物序列为：<span class="blank-slot">绿泥石</span>→<span class="blank-slot">黑云母</span>→<span class="blank-slot">铁铝榴石(石榴子石)</span>→<span class="blank-slot">十字石</span>→<span class="blank-slot">蓝晶石</span>→<span class="blank-slot">夕线石</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>绿泥石 → 黑云母 → 铁铝榴石(石榴子石) → 十字石 → 蓝晶石 → 夕线石</div>
+        <div class="analysis"><strong>解析：</strong>巴罗带6个变质带是考试必背内容。记忆技巧：从低T到高T，"绿-黑-石-十-蓝-夕"。关键区分点是十字石（中P中T）和蓝晶石（高P中T）——这两个矿物是巴罗型的标志性矿物，巴肯型中没有。两带共享起点（绿泥石）和终点（夕线石）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card fill-type" id="s2-q4">
+    <div class="q-header"><span class="q-num">M2-4</span><span class="q-tag tag-fill">填空题</span></div>
+    <div class="q-body">
+      <div class="q-text">变质级通常划分为三个等级：<span class="blank-slot">低级变质</span>（<span class="blank-slot">板岩·千枚岩·绿片岩</span>）、<span class="blank-slot">中级变质</span>（<span class="blank-slot">片岩·角闪岩</span>）、<span class="blank-slot">高级变质</span>（<span class="blank-slot">片麻岩·麻粒岩·榴辉岩</span>）。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span></div>
+        <div>低级变质：板岩·千枚岩·绿片岩</div>
+        <div>中级变质：片岩·角闪岩</div>
+        <div>高级变质：片麻岩·麻粒岩·榴辉岩</div>
+        <div class="analysis"><strong>解析：</strong>三级变质级的划分基于总体温压条件。注意：榴辉岩虽然"高级"但以高压为特征，不代表最高温。这个三分法是最常用的简化方案。有些教材还加入"极低级"（沸石相等）作为第四级。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s2-q5">
+    <div class="q-header"><span class="q-num">M2-5</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">某变质岩具块状构造，主要由方解石（85%）、白云石（10%）、金云母（5%）组成，最可能的定名为：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 透闪石大理岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 金云母大理岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 钙质片岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 镁质矽卡岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>B 金云母大理岩</div>
+        <div class="analysis"><strong>解析：</strong>原岩为石灰岩/白云岩（碳酸盐）→ 变质后为<strong>大理岩</strong>（基本名）。次要矿物金云母5%→ 前缀"金云母"。A不对：无透闪石。C不对：无片状构造（题目说块状）。D不对：无矽卡岩特征矿物（石榴子石、辉石等）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s2-q6">
+    <div class="q-header"><span class="q-num">M2-6</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">Al₂SiO₅三相点的近似条件为：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> T≈400°C, P≈0.2 GPa</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> T≈500°C, P≈0.38 GPa</div>
+        <div class="q-option"><span class="opt-letter">C</span> T≈600°C, P≈0.6 GPa</div>
+        <div class="q-option"><span class="opt-letter">D</span> T≈800°C, P≈1.0 GPa</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>B T≈500°C, P≈0.38 GPa</div>
+        <div class="analysis"><strong>解析：</strong>Al₂SiO₅三相点是变质岩学的核心参考点。在此点上红柱石、蓝晶石、夕线石三相平衡共存。<P<0.38GPa：红柱石稳定；P>0.38GPa：蓝晶石稳定；T>约600°C：无论P如何夕线石都成为稳定相。这个数据必须记住！</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s2-q7">
+    <div class="q-header"><span class="q-num">M2-7</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪种岩石属于埋藏变质作用的产物？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 沸石相岩石</div>
+        <div class="q-option"><span class="opt-letter">B</span> 榴辉岩</div>
+        <div class="q-option"><span class="opt-letter">C</span> 角岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 糜棱岩</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A 沸石相岩石</div>
+        <div class="analysis"><strong>解析：</strong>埋藏变质（Burial metamorphism）发生在沉积盆地深部，特点是低温低压（<250°C, <0.3 GPa），以沸石相和葡萄石-绿纤石相为代表。B是俯冲/碰撞带产物，C是接触变质产物，D是动力变质产物。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s2-q8">
+    <div class="q-header"><span class="q-num">M2-8</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪些特征可以帮助区分正片麻岩和副片麻岩？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 正片麻岩可能有变余辉长结构</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 副片麻岩可能含有石墨</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 正片麻岩Rb/Sr比值偏低</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 副片麻岩可能有韵律层理残余</div>
+        <div class="q-option"><span class="opt-letter">E</span> 两者的矿物成分一定不同</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, C, D</div>
+        <div class="analysis"><strong>解析：</strong>E错误——正副片麻岩在高度变质后矿物成分可能趋近。判别方法：
+          <br>✓ A 正变质保留原岩火成岩结构的残余
+          <br>✓ B 石墨来自有机碳（沉积岩特有）
+          <br>✓ C 火成岩Rb/Sr低（Rb不相容但在岩浆分异中行为不同于沉积过程）
+          <br>✓ D 沉积岩层理可在变质中保留
+          <br>最可靠的综合判别是结合多种证据。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s2-q9">
+    <div class="q-header"><span class="q-num">M2-9</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">关于接触变质晕的分带（泥质围岩），下列描述正确的有：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 内带（紧邻岩体）温度最高</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 由内向外可能出现：堇青石角岩→红柱石角岩→斑点板岩</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 外带逐渐过渡到未变质围岩</div>
+        <div class="q-option"><span class="opt-letter">D</span> 接触变质晕总是对称的同心圆状</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, C</div>
+        <div class="analysis"><strong>解析：</strong>D错误——接触变质晕常不对称，受岩体形态、围岩产状、断裂等多因素影响。A-C均正确：接触变质的基本规律是以侵入体为中心温度向外递减。泥质围岩的典型接触变质序列：内带高T（堇青石/红柱石）→ 中带（斑点板岩/角岩化）→ 外带（未变质）。</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /set2 -->
+
+
+<!-- ================================================================ -->
+<!--                    SET 3：模 拟 卷 三                              -->
+<!-- ================================================================ -->
+<div class="set-panel" id="set3">
+
+  <div style="margin:20px 0 12px;">
+    <span style="background:#8e44ad;color:#fff;padding:4px 14px;border-radius:6px;font-weight:700;font-size:.88rem;">模拟卷三 · 冲刺提高</span>
+    <span style="color:var(--muted);font-size:.78rem;margin-left:8px;">侧重：综合应用·易错辨析·大地构造关联</span>
+  </div>
+
+  <div class="q-card judge-type" id="s3-q1">
+    <div class="q-header"><span class="q-num">M3-1</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">大别-苏鲁超高压变质带的折返机制目前主流观点是通道流(channel flow)+浮力驱动联合作用。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>超高压变质岩形成于>100km深处（大陆深俯冲），如何返回地表一直是研究热点。目前被广泛接受的折返机制包括：(1)浮力驱动——榴辉岩密度大于地幔产生负浮力促使回返；(2)通道流(Channel Flow)——韧性剪切带中的物质挤出；(3)楔形挤出——构造挤出作用。大别-苏鲁带的综合模型倾向于多种机制的叠加。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card judge-type" id="s3-q2">
+    <div class="q-header"><span class="q-num">M3-2</span><span class="q-tag tag-judge">判断题</span></div>
+    <div class="q-body">
+      <div class="q-text">假玄武玻璃(pseudotachylyte)是由断层快速滑动摩擦生热导致局部熔融然后快速冷却形成的。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>正确</div>
+        <div class="analysis"><strong>解析：</strong>假玄武玻璃是一种特殊的动力变质岩，形成于地震断层面上的超高速摩擦（应变速率极高）。摩擦产生的热量使岩石瞬间熔融形成玻璃质熔体，随后快速冷却淬火形成玻璃基质。它与火山玻璃外观类似但成因完全不同——是地震活动的直接产物。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card fill-type" id="s3-q3">
+    <div class="q-header"><span class="q-num">M3-3</span><span class="q-tag tag-fill">填空题</span></div>
+    <div class="q-body">
+      <div class="q-text">高P/T型相系的典型相序列（从低温到高温）为：<span class="blank-slot">浊沸石相(Z)</span>→<span class="blank-slot">(硬柱石-钠长石-绿泥石相)(LA)</span>→<span class="blank-slot">蓝片岩相(BS)</span>→<span class="blank-slot">榴辉岩相(E)</span>。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>浊沸石相(Z) → 硬柱石-钠长石-绿泥石相(LA) → 蓝片岩相(BS) → 榴辉岩相(E)</div>
+        <div class="analysis"><strong>解析：</strong>高P/T型（蓝闪石型）相系的特征是跳过角闪岩相，直接从蓝片岩相进入榴辉岩相。这是因为低地温梯度下，岩石在达到角闪岩相所需的温度之前就已经进入高压领域。LA相（Lawsonite-Albite-Chlorite facies）有时也被归入蓝片岩相范畴。典型地区：加州Franciscan、日本三波川、我国大别-苏鲁带的外围。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card fill-type" id="s3-q4">
+    <div class="q-header"><span class="q-num">M3-4</span><span class="q-tag tag-fill">填空题</span></div>
+    <div class="q-body">
+      <div class="q-text">Korzhinskii的交代作用组分理论将组分分为<span class="blank-slot">惰性组分</span>和<span class="blank-slot">活动性组分</span>两类；交代锋面从流体通道向<span class="blank-slot">外侧（围岩方向）</span>推进，形成交代分带。</div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>惰性组分（inert components）| 活动性组分（mobile components）| 外侧（围岩方向）</div>
+        <div class="analysis"><strong>解析：</strong>Korzhinskii理论是理解交代分带的基础。惰性组分（如Al、Ti、Fe³⁺）在流体中溶解度极低，基本保持原地不变，可作为体积守恒的参考；活动性组分（如K、Na、Ca、Mg、Si、CO₂、H₂O等）可被流体迁移带入或带出。交代锋面向外推进的速度取决于流体渗流速率和反应速率的耦合。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s3-q5">
+    <div class="q-header"><span class="q-num">M3-5</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">某地区同时发现含红柱石角岩和含蓝晶石片岩，这说明该地区：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 经历了单一的巴罗型变质</div>
+        <div class="q-option"><span class="opt-letter">B</span> 经历了单一的巴肯型变质</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 可能存在不同类型的变质作用叠加</div>
+        <div class="q-option"><span class="opt-letter">D</span> 这两种矿物不可能共存</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>C 可能存在不同类型的变质作用叠加</div>
+        <div class="analysis"><strong>解析：</strong>红柱石（低压矿物）和蓝晶石（高压矿物）在自然界确实很少直接共存于同一岩石中（除非处于三相点附近），但如果在同一地区的<strong>不同位置</strong>分别发现两者，说明该地区经历了复杂的变质演化：可能存在接触变质（低压，红柱石）叠加在区域变质（高压，蓝晶石）之上，或者不同构造部位经历了不同的P-T轨迹。这正是多期变质叠加的典型表现。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card single-type" id="s3-q6">
+    <div class="q-header"><span class="q-num">M3-6</span><span class="q-tag tag-single">单选题</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪种情况最容易产生混合岩？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter">A</span> 浅层脆性断层带</div>
+        <div class="q-option"><span class="opt-letter">B</span> 侵入体接触带</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 区域变质带的深部高温核</div>
+        <div class="q-option"><span class="opt-letter">D</span> 俯冲增生楔</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>C 区域变质带的深部高温核</div>
+        <div class="analysis"><strong>解析：</strong>混合岩化需要两个关键条件：(1)高温（≥650℃，接近或超过固相线）；(2)流体存在促进熔融。区域变质带的深部高温核恰好满足这两个条件。A是动力变质环境；B是接触变质环境（温度可能够高但规模有限）；D是高压低温环境。三者都不具备混合岩化的充分条件。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s3-q7">
+    <div class="q-header"><span class="q-num">M3-7</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">关于变质相与变质级的关系，下列说法正确的有：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 变质相是基于P-T条件的矿物组合分类体系</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 变质级是对变质强度的定性描述</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 一个变质相通常包含一个或几个相邻的变质级</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 同一变质级的不同岩石可能属于不同的变质相</div>
+        <div class="q-option"><span class="opt-letter">E</span> 变质相和变质级是一一对应的</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, C, D</div>
+        <div class="analysis"><strong>解析：</strong>E错误——变质相和变质级不是一一对应的。变质相强调特定的P-T条件（精确的矿物组合），变质级则是粗略的强度分级（低/中/高级）。例如"中级变质"可以涵盖绿片岩相到角闪岩相的一部分。同样，一个变质相（如角闪岩相）在不同地区可能被视为"中级"或"中-高级"。二者是从不同维度对变质作用的描述。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s3-q8">
+    <div class="q-header"><span class="q-num">M3-8</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">下列哪些是识别韧性剪切带的可靠标志？</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> S-C面理组构</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> σ型和δ型旋转碎斑</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 石英拉伸线理</div>
+        <div class="q-option"><span class="opt-letter correct-opt">D</span> 云母鱼构造</div>
+        <div class="q-option"><span class="opt-letter">E</span> 角砾状构造</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, C, D</div>
+        <div class="analysis"><strong>解析：</strong>E是脆性破裂标志。A-D均为韧性剪切带的典型构造标志：
+          <br>• S-C面理 — 最直接的宏观标志
+          <br>• σ/δ碎斑 — 指示剪切方向的不对称旋转构造
+          <br>• 拉伸线理 — 反映剪切方向
+          <br>• 云母鱼 — 不对称云母碎斑
+          <br>这些构造共同构成了一套完整的韧性剪切带识别体系。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card multi-type" id="s3-q9">
+    <div class="q-header"><span class="q-num">M3-9</span><span class="q-tag tag-multi">多选题</span></div>
+    <div class="q-body">
+      <div class="q-text">洋底变质（海底变质）的主要特点包括：</div>
+      <div class="q-options">
+        <div class="q-option"><span class="opt-letter correct-opt">A</span> 以沸石相和绿片岩相为主</div>
+        <div class="q-option"><span class="opt-letter correct-opt">B</span> 广泛的海水-岩石相互作用</div>
+        <div class="q-option"><span class="opt-letter correct-opt">C</span> 温度受洋中脊热液系统控制</div>
+        <div class="q-option"><span class="opt-letter">D</span> 形成高压榴辉岩相</div>
+      </div>
+      <div class="answer-box">
+        <div><span class="ans-label">✅ 参考答案：</span>A, B, C</div>
+        <div class="analysis"><strong>解析：</strong>洋底变质发生在洋壳与海水相互作用的开放体系中，温度受洋中脊热梯度控制（很高但压力低）。由于海水的大量参与，交代作用显著，形成蛇纹岩、绿片岩、沸石相岩石等。D不对：洋底变质不会形成高压榴辉岩相——那需要俯冲到很深的条件。</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /set3 -->
+
+</div><!-- /main-content -->
+
+<script>
+// ── 导航栏动态生成 ──
+function buildNav(){
+  const nav=document.getElementById('sideNav');
+  window._navSets=[
+    {id:'set0',label:'原题复刻',
+     qs:[
+       {n:'1',t:'judge'},{n:'2',t:'judge'},{n:'3',t:'judge'},{n:'4',t:'judge'},
+       {n:'5',t:'judge'},{n:'6',t:'judge'},{n:'7',t:'judge'},
+       {n:'8',t:'fill'},{n:'9',t:'fill'},{n:'10',t:'fill'},{n:'11',t:'fill'},
+       {n:'12',t:'single'},{n:'13',t:'single'},{n:'14',t:'single'},{n:'15',t:'single'},{n:'16',t:'single'},
+       {n:'17',t:'multi'},{n:'18',t:'multi'},{n:'19',t:'multi'},{n:'20',t:'multi'},{n:'21',t:'multi'},{n:'22',t:'multi'},{n:'23',t:'multi'},
+       {n:'24',t:'multi'},{n:'25',t:'multi'},{n:'26',t:'multi'},{n:'27',t:'multi'},{n:'28',t:'multi'},{n:'29',t:'multi'}
+     ]},
+    {id:'set1',label:'模拟一',
+     qs:[{n:'1',t:'judge'},{n:'2',t:'judge'},{n:'3',t:'judge'},{n:'4',t:'fill'},{n:'5',t:'fill'},
+         {n:'6',t:'single'},{n:'7',t:'single'},{n:'8',t:'single'},{n:'9',t:'multi'},{n:'10',t:'multi'}]},
+    {id:'set2',label:'模拟二',
+     qs:[{n:'1',t:'judge'},{n:'2',t:'judge'},{n:'3',t:'fill'},{n:'4',t:'fill'},{n:'5',t:'single'},
+         {n:'6',t:'single'},{n:'7',t:'single'},{n:'8',t:'multi'},{n:'9',t:'multi'}]},
+    {id:'set3',label:'模拟三',
+     qs:[{n:'1',t:'judge'},{n:'2',t:'judge'},{n:'3',t:'fill'},{n:'4',t:'fill'},{n:'5',t:'single'},
+         {n:'6',t:'single'},{n:'7',t:'multi'},{n:'8',t:'multi'},{n:'9',t:'multi'}]}
+  ];
+  renderNav(0);
+}
+function renderNav(setIdx){
+  const nav=document.getElementById('sideNav');
+  const si=window._navSets[setIdx];
+  let html='<div class="nav-title">'+si.label+'<br>题号</div>';
+  // 分组标签
+  let lastType='';
+  const typeLabel={judge:'判断',fill:'填空',single:'单选',multi:'多选'};
+  si.qs.forEach(qi=>{
+    if(qi.t!==lastType){
+      html+='<div class="section-label">'+typeLabel[qi.t]+'</div>';
+      lastType=qi.t;
+    }
+    const cls='nav-item '+qi.t;
+    html+='<div class="'+cls+'" onclick="jumpTo(\''+si.id+'-q'+qi.n+'\')" title="'+si.label+' 第'+qi.n+'题">'+qi.n+'</div>';
+  });
+  nav.innerHTML=html;
+  // 激活第一个
+  const first=nav.querySelector('.nav-item');
+  if(first) first.classList.add('active');
+}
+function jumpTo(id){
+  // id格式: set{X}-q{N} → 实际元素id: s{X}-q{N}
+  const realId = id.replace(/^set/,'s');
+  const el=document.getElementById(realId);
+  if(!el) return;
+  // 确保目标所在的panel是可见的
+  const panel = el.closest('.set-panel');
+  if(panel && !panel.classList.contains('active')){
+    // 找到对应的tab索引并切换
+    const panels = document.querySelectorAll('.set-panel');
+    const idx = Array.from(panels).indexOf(panel);
+    if(idx>=0) switchSet(idx);
+  }
+  // 稍等面板显示后再滚动
+  setTimeout(()=>{ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 80);
+}
+function switchSet(idx){
+  document.querySelectorAll('.set-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+  renderNav(idx);
+}
+buildNav();
+// 点击导航项时更新active状态
+document.getElementById('sideNav').addEventListener('click',e=>{
+  const item=e.target.closest('.nav-item');
+  if(item){
+    document.querySelectorAll('#sideNav .nav-item').forEach(n=>n.classList.remove('active'));
+    item.classList.add('active');
+  }
+});
+</script>
+</body>
+</html>
